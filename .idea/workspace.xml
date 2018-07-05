@@ -102,9 +102,9 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="722" />
+    <option name="x" value="321" />
     <option name="y" value="23" />
-    <option name="width" value="718" />
+    <option name="width" value="1075" />
     <option name="height" value="824" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -268,17 +268,24 @@
       <option name="project" value="LOCAL" />
       <updated>1530774199164</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="a">
+      <created>1530780479843</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1530780479843</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="722" y="23" width="718" height="824" extended-state="0" />
+    <frame x="321" y="23" width="1075" height="824" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49661016" visible="true" weight="0.20229556" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49661016" visible="true" weight="0.1337761" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.2969871" side_tool="true" weight="0.32969698" />
-      <window_info active="true" anchor="bottom" id="Version Control" order="7" sideWeight="0.7030129" visible="true" weight="0.3741403" />
+      <window_info active="true" anchor="bottom" id="Event Log" order="7" sideWeight="0.5654649" side_tool="true" visible="true" weight="0.3741403" />
+      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.43453512" visible="true" weight="0.3741403" />
       <window_info anchor="bottom" id="Python Console" order="7" weight="0.32599118" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.79196554" weight="0.19272727" />
       <window_info id="Structure" order="1" sideWeight="0.50338984" side_tool="true" weight="0.22812052" />
