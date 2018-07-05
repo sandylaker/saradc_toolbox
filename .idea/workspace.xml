@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c35dd06f-8c6b-4ceb-819a-886c0415d814" name="Default" comment="">
+    <list default="true" id="c35dd06f-8c6b-4ceb-819a-886c0415d814" name="Default" comment="test">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assistantModule.py" beforeDir="false" afterPath="$PROJECT_DIR$/assistantModule.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -13,11 +14,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="saradc.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="saradc.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/saradc.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="118">
-              <caret line="33" selection-start-line="33" selection-end-line="33" />
+            <state relative-caret-position="2941">
+              <caret line="173" column="18" lean-forward="true" selection-start-line="173" selection-start-column="18" selection-end-line="173" selection-end-column="18" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -28,8 +29,11 @@
       <file leaf-file-name="saradc_cm.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/saradc_cm.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="3" selection-end-line="99" />
+            <state relative-caret-position="68">
+              <caret line="4" column="7" selection-start-line="4" selection-start-column="7" selection-end-line="4" selection-end-column="7" />
+              <folding>
+                <element signature="e#0#18#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -37,8 +41,8 @@
       <file leaf-file-name="caogao.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/caogao.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="9" column="22" selection-end-line="43" />
+            <state relative-caret-position="214">
+              <caret line="32" column="26" selection-start-line="32" selection-start-column="26" selection-end-line="32" selection-end-column="26" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -49,17 +53,17 @@
       <file leaf-file-name="saradc_dm.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/saradc_dm.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="493">
+            <state relative-caret-position="117">
               <caret line="31" selection-start-line="31" selection-end-line="31" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="assistantModule.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="assistantModule.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/assistantModule.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="4" column="14" selection-start-line="4" selection-start-column="14" selection-end-line="4" selection-end-column="14" />
+            <state relative-caret-position="119">
+              <caret line="7" column="50" selection-start-line="7" selection-start-column="50" selection-end-line="7" selection-end-column="50" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -82,6 +86,11 @@
     </findStrings>
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="Yawei Li" />
+      </list>
+    </option>
     <option name="ROOT_SYNC" value="DONT_SYNC" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="PUSH_TAGS">
@@ -96,16 +105,16 @@
         <option value="$PROJECT_DIR$/saradc_dm.py" />
         <option value="$PROJECT_DIR$/saradc_cm.py" />
         <option value="$PROJECT_DIR$/saradc.py" />
-        <option value="$PROJECT_DIR$/assistantModule.py" />
         <option value="$PROJECT_DIR$/caogao.py" />
+        <option value="$PROJECT_DIR$/assistantModule.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="321" />
+    <option name="x" value="369" />
     <option name="y" value="23" />
     <option name="width" value="1075" />
-    <option name="height" value="824" />
+    <option name="height" value="823" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -275,17 +284,31 @@
       <option name="project" value="LOCAL" />
       <updated>1530780479843</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="a">
+      <created>1530780878701</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1530780878701</updated>
+    </task>
+    <task id="LOCAL-00004" summary="test">
+      <created>1530781646990</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1530781646990</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="321" y="23" width="1075" height="824" extended-state="0" />
+    <frame x="369" y="23" width="1075" height="823" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49661016" visible="true" weight="0.1337761" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info active="true" anchor="bottom" id="Event Log" order="7" sideWeight="0.5654649" side_tool="true" visible="true" weight="0.3741403" />
-      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.43453512" visible="true" weight="0.3741403" />
+      <window_info active="true" anchor="bottom" id="Event Log" order="7" sideWeight="0.5654649" side_tool="true" visible="true" weight="0.37465563" />
+      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.43453512" visible="true" weight="0.37465563" />
       <window_info anchor="bottom" id="Python Console" order="7" weight="0.32599118" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.79196554" weight="0.19272727" />
       <window_info id="Structure" order="1" sideWeight="0.50338984" side_tool="true" weight="0.22812052" />
@@ -306,7 +329,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="a" />
-    <option name="LAST_COMMIT_MESSAGE" value="a" />
+    <MESSAGE value="test" />
+    <option name="LAST_COMMIT_MESSAGE" value="test" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -694,29 +718,32 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assistantModule.py">
+    <entry file="file://$PROJECT_DIR$/.gitattributes" />
+    <entry file="file://$PROJECT_DIR$/README.md" />
+    <entry file="file://$PROJECT_DIR$/saradc.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="4" column="14" selection-start-line="4" selection-start-column="14" selection-end-line="4" selection-end-column="14" />
+        <state relative-caret-position="2941">
+          <caret line="173" column="18" lean-forward="true" selection-start-line="173" selection-start-column="18" selection-end-line="173" selection-end-column="18" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitattributes" />
-    <entry file="file://$PROJECT_DIR$/README.md" />
     <entry file="file://$PROJECT_DIR$/saradc_cm.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="3" selection-end-line="99" />
+        <state relative-caret-position="68">
+          <caret line="4" column="7" selection-start-line="4" selection-start-column="7" selection-end-line="4" selection-end-column="7" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/caogao.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="9" column="22" selection-end-line="43" />
+        <state relative-caret-position="214">
+          <caret line="32" column="26" selection-start-line="32" selection-start-column="26" selection-end-line="32" selection-end-column="26" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
@@ -725,15 +752,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/saradc_dm.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
+        <state relative-caret-position="117">
           <caret line="31" selection-start-line="31" selection-end-line="31" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/saradc.py">
+    <entry file="file://$PROJECT_DIR$/assistantModule.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="118">
-          <caret line="33" selection-start-line="33" selection-end-line="33" />
+        <state relative-caret-position="119">
+          <caret line="7" column="50" selection-start-line="7" selection-start-column="50" selection-end-line="7" selection-end-column="50" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
