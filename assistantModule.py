@@ -17,8 +17,39 @@ def de2biRange(high,n,low=0):
     biCodes = [[int(i) for i in biCodes[j]] for j in range(len(biCodes))]
     return biCodes
 
-# start_time = time.time()
-# bc = de2biDict(4096,12)
-# print(bc)
-# print(len(bc))
-# print('elapsed time: %s seconds'%(time.time()-start_time))
+def getDecisionLvls(weights,n,vref):
+    '''
+    computes all the decision levels
+    :param weights: binary weights
+    :param n: number of bits
+    :param vref: reference voltage
+    :return: a array of decision levels
+    '''
+    biCodes = de2biRange(2**n,n)
+    decisionLvls = np.inner(biCodes, weights) * vref
+    return decisionLvls
+
+def fastConversion(analogSamples,weights,n,vref):
+    '''
+    uses the fast conversion algorithm to convert an array of analogSamples into
+    decimal digital values.
+    :param analogSamples: a array with one dimension
+    :param weights: binary weights of adc
+    :param n: number of bits
+    :param vref: reference voltage of adc
+    :return: a array of decimal integers,whose number of dimension is 1 and length
+            equal to the length of analogSamples
+    '''
+    # convert analog input to array and add one dimension
+    # use asarray method to handle the case that analogSamples is a single value.
+    analogSamples = np.asarray(analogSamples)[:,np.newaxis]    # shape(M,1)
+    decLvls = getDecisionLvls(weights,n,vref)[np.newaxis,:]    # shape(1,N)
+    # use numpy broadcasting to compare two matrix elementwise
+    relationMatrix = np.asarray(np.greater_equal(analogSamples,decLvls),dtype=np.int64)
+    # sum each row and minus 1 getting a array with shape(M,)
+    conversionResult = np.sum(relationMatrix,axis=-1) -1
+    return conversionResult
+
+# weights = np.array([0.5**i for i in range(1,13)])
+# decLvls =getDecisionLvls(weights,12,1.2)
+# print(len(decLvls))

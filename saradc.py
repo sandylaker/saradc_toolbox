@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from sympy import randprime
+from assistantModule import de2biRange, getDecisionLvls, fastConversion
 import timeit
 
 class SarAdc:
@@ -184,7 +185,15 @@ class SarAdc:
         ax2.set_ylabel('INL (LSB)')
         plt.tight_layout()
 
-
+    def fastAnalogDecimal(self,analogSamples):
+        '''
+        use fast conversion algorithm to convert an array of analog values
+        into decimal digital values
+        :param analogSamples: an array of analog values
+        :return: an array of decimal values
+        '''
+        decimalOutput = fastConversion(analogSamples,self.weights,self.n,self.vref)
+        return decimalOutput
 
 
 
