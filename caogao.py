@@ -27,8 +27,8 @@ print('biArray: ',biArray)
 analogValue = np.inner(biArray,weights)* adc.vref
 print('analogValue: ',analogValue)
 transLvls = np.inner(de2biRange(4096,12),weights)* adc.vref
-compareResult = np.array(np.greater(analogValue,transLvls),dtype=np.int64)
-decimalOutput = np.sum(compareResult)
+compareResult = np.array(np.greater_equal(analogValue,transLvls),dtype=np.int64)
+decimalOutput = np.sum(compareResult)-1
 print('decimalOutput: ',decimalOutput)
 rightOutput = np.inner(biArray,np.array([2**(11-i) for i in range(12)]))
 print('Right decimal Output:',rightOutput)
