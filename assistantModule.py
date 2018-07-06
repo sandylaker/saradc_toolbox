@@ -2,30 +2,48 @@ import numpy as np
 import matplotlib.pyplot as plt
 import time
 
-def de2biRange(high,n,low=0):
-    '''
-    convert an range of decimal integers elementwise to a list of binary codes.
-    the returned list has a dimension of two. e.g [[0,0,1],[0,1,1]]
-    :param high: the high boundary (exclusive)
-    :param n: number of bits for binary conversion
-    :param low: the low boundary(inclusive)
-    :return: a list of binary codes, each binary code is also a list of integers,
-             which has a length of n.
-    '''
-    deRange = np.arange(low,high)
-    biCodes = [np.binary_repr(x,n) for x in deRange]
-    biCodes = [[int(i) for i in biCodes[j]] for j in range(len(biCodes))]
-    return biCodes
+def bin_array(arr, m):
+    """
+    Arguments:
+    arr: Numpy array of positive integers
+    m: Number of bits of each integer to retain
+
+    Returns a copy of arr with every element replaced with a bit vector.
+    Bits encoded as int64's.
+    """
+    to_str_func = np.vectorize(lambda x: np.binary_repr(x).zfill(m))
+    strs = to_str_func(arr)
+    ret = np.zeros(list(arr.shape) + [m], dtype=np.int64)
+    for bit_ix in range(0, m):
+        fetch_bit_func = np.vectorize(lambda x: x[bit_ix] == '1')
+        ret[...,bit_ix] = fetch_bit_func(strs).astype("int64")
+
+    return ret
+
+# def de2biRange(high,n,low=0):
+#     '''
+#     convert an range of decimal integers elementwise to a list of binary codes.
+#     the returned list has a dimension of two. e.g [[0,0,1],[0,1,1]]
+#     :param high: the high boundary (exclusive)
+#     :param n: number of bits for binary conversion
+#     :param low: the low boundary(inclusive)
+#     :return: a list of binary codes, each binary code is also a list of integers,
+#              which has a length of n.
+#     '''
+#     deRange = np.arange(low,high)
+#     biCodes = [np.binary_repr(x,n) for x in deRange]
+#     biCodes = [[int(i) for i in biCodes[j]] for j in range(len(biCodes))]
+#     return biCodes
 
 def getDecisionLvls(weights,n,vref):
     '''
-    computes all the decision levels
+    computes all the decision levels(also called transition points)
     :param weights: binary weights
     :param n: number of bits
     :param vref: reference voltage
     :return: a array of decision levels
     '''
-    biCodes = de2biRange(2**n,n)
+    biCodes = bin_array(np.arange(2**n),n)
     decisionLvls = np.inner(biCodes, weights) * vref
     return decisionLvls
 

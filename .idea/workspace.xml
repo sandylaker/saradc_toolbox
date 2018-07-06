@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c35dd06f-8c6b-4ceb-819a-886c0415d814" name="Default" comment="">
+    <list default="true" id="c35dd06f-8c6b-4ceb-819a-886c0415d814" name="Default" comment="correction of sum algorithm">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assistantModule.py" beforeDir="false" afterPath="$PROJECT_DIR$/assistantModule.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/caogao.py" beforeDir="false" afterPath="$PROJECT_DIR$/caogao.py" afterDir="false" />
@@ -16,11 +16,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="saradc.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="saradc.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/saradc.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="415">
-              <caret line="191" column="32" selection-start-line="191" selection-start-column="32" selection-end-line="191" selection-end-column="32" />
+            <state relative-caret-position="205">
+              <caret line="148" column="58" selection-start-line="148" selection-start-column="58" selection-end-line="148" selection-end-column="58" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -31,8 +31,8 @@
       <file leaf-file-name="caogao.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/caogao.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="629">
-              <caret line="37" column="21" selection-start-line="37" selection-start-column="21" selection-end-line="37" selection-end-column="21" />
+            <state relative-caret-position="211">
+              <caret line="33" column="32" selection-start-line="33" selection-start-column="32" selection-end-line="33" selection-end-column="32" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -40,11 +40,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="assistantModule.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="assistantModule.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assistantModule.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="9" column="50" lean-forward="true" selection-start-line="9" selection-start-column="50" selection-end-line="9" selection-end-column="50" />
+            <state relative-caret-position="765">
+              <caret line="45" column="39" selection-start-line="45" selection-start-column="39" selection-end-line="45" selection-end-column="39" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -64,6 +64,7 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>print</find>
+      <find>de2b</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -86,16 +87,18 @@
         <option value="$PROJECT_DIR$/SarAdcCM.py" />
         <option value="$PROJECT_DIR$/saradc_dm.py" />
         <option value="$PROJECT_DIR$/saradc_cm.py" />
+        <option value="$PROJECT_DIR$/my first note book.md" />
+        <option value="$PROJECT_DIR$/assistantModule.py" />
         <option value="$PROJECT_DIR$/caogao.py" />
         <option value="$PROJECT_DIR$/saradc.py" />
-        <option value="$PROJECT_DIR$/assistantModule.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" fullScreen="true">
-    <option name="x" value="722" />
-    <option name="width" value="718" />
-    <option name="height" value="900" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="127" />
+    <option name="y" value="23" />
+    <option name="width" value="1298" />
+    <option name="height" value="777" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -118,7 +121,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="settings.editor.selected.configurable" value="vcs.Git" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -293,7 +296,14 @@
       <option name="project" value="LOCAL" />
       <updated>1530784479336</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="correction of sum algorithm">
+      <created>1530804478481</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1530804478481</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TodoView">
@@ -306,46 +316,49 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="722" y="0" width="718" height="900" extended-state="0" />
-    <editor active="true" />
+    <frame x="127" y="23" width="1298" height="777" extended-state="0" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49562684" weight="0.30129126" />
+      <window_info anchor="right" id="GfmBrowser" order="3" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4935305" visible="true" weight="0.15684713" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49810246" weight="0.32872927" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5018975" side_tool="true" weight="0.32872927" />
-      <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.43453512" weight="0.3756906" />
       <window_info anchor="bottom" id="Python Console" order="7" sideWeight="0.49905124" weight="0.32596686" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.79196554" visible="true" weight="0.16848485" />
-      <window_info id="Structure" order="1" sideWeight="0.5043732" side_tool="true" weight="0.30129126" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.79196554" visible="true" weight="0.20441176" />
+      <window_info id="Structure" order="1" sideWeight="0.5064695" side_tool="true" visible="true" weight="0.15684713" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" />
     </layout>
     <layout-to-restore>
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.43453512" weight="0.3756906" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49562684" visible="true" weight="0.30129126" />
       <window_info id="Structure" order="1" sideWeight="0.5043732" side_tool="true" visible="true" weight="0.30129126" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49810246" weight="0.32872927" />
+      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.43453512" weight="0.3756906" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.79196554" visible="true" weight="0.16848485" />
-      <window_info anchor="bottom" id="Python Console" order="8" sideWeight="0.49905124" weight="0.32596686" />
       <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Python Console" order="8" sideWeight="0.49905124" weight="0.32596686" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Terminal" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5018975" side_tool="true" weight="0.32872927" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info id="Favorites" order="2" side_tool="true" />
     </layout-to-restore>
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.md" />
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
@@ -363,13 +376,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/saradc_cm.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1598">
-          <caret line="96" selection-start-line="96" selection-end-line="96" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/caogao.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
@@ -744,7 +750,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/.gitattributes" />
-    <entry file="file://$PROJECT_DIR$/README.md" />
     <entry file="file://$PROJECT_DIR$/saradc_dm.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="117">
@@ -752,30 +757,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/saradc_cm.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="7" selection-start-line="4" selection-start-column="7" selection-end-line="4" selection-end-column="7" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
+    <entry file="file://$PROJECT_DIR$/README.md" />
+    <entry file="file://$PROJECT_DIR$/my first note book.md">
+      <provider selected="true" editor-type-id="Gfm" />
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="-8710" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/caogao.py">
+    <entry file="file://$PROJECT_DIR$/saradc_cm.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="629">
-          <caret line="37" column="21" selection-start-line="37" selection-start-column="21" selection-end-line="37" selection-end-column="21" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="-1226">
+          <caret line="4" column="7" selection-start-line="4" selection-start-column="7" selection-end-line="4" selection-end-column="7" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/saradc.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="415">
-          <caret line="191" column="32" selection-start-line="191" selection-start-column="32" selection-end-line="191" selection-end-column="32" />
+        <state relative-caret-position="205">
+          <caret line="148" column="58" selection-start-line="148" selection-start-column="58" selection-end-line="148" selection-end-column="58" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
@@ -784,8 +783,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/assistantModule.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="50" lean-forward="true" selection-start-line="9" selection-start-column="50" selection-end-line="9" selection-end-column="50" />
+        <state relative-caret-position="765">
+          <caret line="45" column="39" selection-start-line="45" selection-start-column="39" selection-end-line="45" selection-end-column="39" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/caogao.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="211">
+          <caret line="33" column="32" selection-start-line="33" selection-start-column="32" selection-end-line="33" selection-end-column="32" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>

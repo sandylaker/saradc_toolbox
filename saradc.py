@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from sympy import randprime
-from assistantModule import de2biRange, getDecisionLvls, fastConversion
+from assistantModule import bin_array, getDecisionLvls, fastConversion
 import timeit
 
 class SarAdc:
@@ -136,15 +136,18 @@ class SarAdc:
     #     plt.xlabel('Digital Output Code')
     #     plt.ylabel('DNL (LSB)')
 
-    def calDnl(self,resolution =0.01):
+    def dnl(self,resolution =0.01):
         lsb_ideal = self.vref/(2**self.n)
         #print('lsb_ideal',lsb_ideal)
         step = lsb_ideal * resolution
         ramp = np.arange(0,self.vref,step)
 
-        dOutput = np.array([self.sar_adc(x)[-1] for x in ramp])
-        bi2deDict = self.getbi2deDict()
-        dOutput_decimal = np.array([bi2deDict[x] for x in dOutput])    # only dArray can use 'where' method
+        dOutput = np.asarray([self.sar_adc(x)[-1] for x in ramp])
+        # bi2deDict = self.getbi2deDict()
+        # dOutput_decimal = np.array([bi2deDict[x] for x in dOutput])    # only dArray can use 'where' method
+        dOutput = np.asarray([list(x) for x in dOutput],dtype= np.int64)
+        exp_array = np.asarray([2**(self.n-1-i) for i in range(self.n)])
+        dOutput_decimal = np.inner(exp_array,dOutput)
         #print('dOutput_decimal',dOutput_decimal,type(dOutput_decimal))
         transLvls = np.array([],dtype=np.int64)
         misscodeCount = 0
@@ -162,13 +165,13 @@ class SarAdc:
             dnl += [(transLvls[i+1] - transLvls[i])*resolution -1]
         return dnl
 
-    def calInl(self,dnl):
+    def inl(self,dnl):
         inl = np.cumsum(dnl)
         return inl
 
     def plotDnlInl(self,resolution=0.01):
-        dnl = self.calDnl(resolution)
-        inl = self.calInl(dnl)
+        dnl = self.dnl(resolution)
+        inl = self.inl(dnl)
 
         ax1= plt.subplot(211)
         ax1.plot(np.arange(len(dnl)),dnl,linewidth = 0.5)
@@ -195,6 +198,30 @@ class SarAdc:
         decimalOutput = fastConversion(analogSamples,self.weights,self.n,self.vref)
         return decimalOutput
 
+    def fastDnl(self):
+        decisionLvls = getDecisionLvls(self.weights,self.n,self.vref)
+        ideal_lsb = self.vref/(2**self.n)
+        dnl = np.diff(decisionLvls)/ideal_lsb -1
+        return dnl
+
+    def plotFastDnlInl(self):
+        dnl = self.fastDnl()
+        inl = self.inl(dnl)
+
+        ax1 = plt.subplot(211)
+        ax1.plot(np.arange(len(dnl)), dnl, linewidth=0.5)
+        ax1.grid()
+        ax1.set_title('DNL(mismatch: %5.3f)' % self.mismatch)
+        ax1.set_xlabel('Digital Output Code')
+        ax1.set_ylabel('DNL (LSB)')
+
+        ax2 = plt.subplot(212)
+        ax2.plot(np.arange(len(inl)), inl, linewidth=0.5)
+        ax2.grid()
+        ax2.set_title('INL(mismatch: %5.3f)' % self.mismatch)
+        ax2.set_xlabel('Digital Output Code')
+        ax2.set_ylabel('INL (LSB)')
+        plt.tight_layout()
 
 
 
