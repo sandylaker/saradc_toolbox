@@ -25,7 +25,7 @@ f2 = plt.figure(2)
 adc.plotFastDnlInl()
 print('elapsed time: %s seconds'%(time.time()-start_time_2))
 plt.show()
-print('succesfully connected to Github')
+print('succesfully connected to Github!!!')
 
 # weights = adc.weights
 # biArray = np.concatenate(([0]*4,[1],[0]*7))
