@@ -12,14 +12,6 @@ class SarAdc:
         self.vcm = vref/2       # common mode voltage
         self.mismatch = mismatch
         self.radix = radix
-        '''
-        self.capArray = np.multiply(1000,[2048.55480524356, 1026.35602156611,509.426016434429,
-                                          254.693367420063, 128.235024722168, 63.7380924592568,
-                                          31.9161800386331, 15.7006162247105,7.87203708528868 ,
-                                          3.95958184549688, 1.94867831950140, 0.956675748732019,
-                                          0.978907660977901])
-        self.weights = self.capArray[:-1]/sum(self.capArray)
-        '''
         self.capArray = []
         capExp = np.concatenate(([0],np.arange(self.n)),axis=0)     # exponential of capacitance array
         #print('capExponential',capExp)

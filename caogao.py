@@ -16,15 +16,16 @@ from assistantModule import bin_array, getDecisionLvls, fastConversion
 
 
 adc = SarAdc(mismatch=0.01)
-start_time_1 = time.time()
-f1 = plt.figure(1)
-adc.plotDnlInl()
-print('elapsed time: %s seconds'%(time.time()-start_time_1))
+# start_time_1 = time.time()
+# f1 = plt.figure(1)
+# adc.plotDnlInl()
+# print('elapsed time: %s seconds'%(time.time()-start_time_1))
 start_time_2 = time.time()
 f2 = plt.figure(2)
 adc.plotFastDnlInl()
 print('elapsed time: %s seconds'%(time.time()-start_time_2))
 plt.show()
+print('succesfully connected to Github')
 
 # weights = adc.weights
 # biArray = np.concatenate(([0]*4,[1],[0]*7))
