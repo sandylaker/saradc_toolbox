@@ -4,22 +4,23 @@ from sympy import randprime
 from assistantModule import bin_array, getDecisionLvls, fastConversion,getbi2deDict,capArraygenerator
 import timeit
 
-class SarAdc:
+class SarAdcDifferential:
 
-    def __init__(self,vref=1.2,n=12,radix=2,mismatch=0.001):
-        self.vref = vref    # reference voltage
-        self.n = n      # resolution of ADC
-        self.vcm = vref/2       # common mode voltage
-        self.mismatch = mismatch
+    def __init__(self,vref=1.2, n=12, radix=2, mismatch=0.001):
+        self.vref = vref
+        self.vcm = vref/2
+        self.n = n
         self.radix = radix
-        capArray,weights = capArraygenerator(self.n,self.radix,self.mismatch,structure='single_ended')
-        self.capArray = capArray
-        self.weights = weights
-        print('capArray',self.capArray)
-        print('weights',self.weights)
+        self.mismatch = mismatch
+        capArray,weights = capArraygenerator(self.n,self.radix,self.mismatch,structure='differential')
+        self.capArray_p,self.capArray_n = capArray
+        self.weights_p, self.weights_n = weights
+        print('capArray positive',self.capArray_p)
+        print('capArray negative',self.capArray_n)
+        print('weights positive',self.weights_p)
+        print('weights negative',self.weights_n)
 
-
-    def comparator(self,a,b):
+    def comparator(self, a, b):
         '''
         compute the difference of input and dac output
         :param a: the first input
@@ -29,46 +30,41 @@ class SarAdc:
         difference = a - b
         return difference
 
-    def dac(self,digits):
+    def dac(self, digits,weights):
         '''
         convert a list of digit bits into analog value.
         :param digits: a list of ints.
         :return: analog value
         '''
-        weights = self.weights
-        return np.inner(weights,np.array(digits)) * self.vref
+        return np.inner(weights, np.array(digits)) * self.vref
 
-    def sarLogic(self,diff):
-        '''
-        the logic to determine and update the digit in each dac clock.
-        the i-th switch of the circuit are initially set up to 1 in i-th dac clock,
-        if the difference <0 , switch are set to 0
-        if the difference >=0, switch doesn't switch
-        :param diff: difference return from the method comparator
-        :param i: i-th clock
-        :return: single digit value
-        '''
-        if diff < 0:
-            return 0
-        else:
+    def sarLogic(self, diff):
+
+        if diff <=0:
             return 1
+        else:
+            return 0
 
     def sar_adc(self,vin):
         '''
-        the main function of SAR ADC
-        :param vin: input analog voltage
-        :return: a list, in which each element is a list of string which represents
-                 the digital output of each dac clock. e.g. ['100','010','011']
+        convert an analog value to digital value, the digital value of each successive approximation
+        step is restored in a list ,which is the returned output of this function
+        :param vin: single analog input value
+        :return: a list of strings, which represents the digital output of each step.
         '''
-        weights = self.weights
+        v_ip= vin
+        v_in = self.vref - vin
+        weights_p = self.weights_p
+        weights_n = self.weights_n
         dOutputList = []
         dOutput = np.zeros(self.n,dtype= int)
         for i in range(self.n):
             dOutput[i] = 1
-            vdac = self.dac(dOutput)
-            diff = self.comparator(vin,vdac)
+            v_xp = self.dac(dOutput,weights_p)- v_ip
+            v_xn = self.vref- self.dac(dOutput,weights_n) - v_in  # because of complementary state of switches
+            diff = self.comparator(v_xp,v_xn)
             dOutput[i] = int(self.sarLogic(diff))
-            dOutputList += [''.join(map(str,dOutput))]
+            dOutputList += [''.join(map(str, dOutput))]
         return dOutputList
 
     def dnl(self,resolution =0.01,method='fast'):
@@ -109,9 +105,18 @@ class SarAdc:
                 dnl += [(transLvls[i+1] - transLvls[i])*resolution -1]
             return dnl
         elif method == 'fast':
-            decisionLvls = getDecisionLvls(self.weights, self.n, self.vref)
+            # calculate the dnl of the positive end
+            weights_p = self.weights_p
+            decisionLvls_p = getDecisionLvls(weights_p, self.n, self.vref)
             ideal_lsb = self.vref / (2 ** self.n)
-            dnl = np.diff(decisionLvls) / ideal_lsb - 1
+            dnl_p = np.diff(decisionLvls_p) / ideal_lsb - 1
+
+            # calculate the dnl of the negative end
+            weights_n = self.weights_n
+            decisionLvls_n = getDecisionLvls(weights_n, self.n, self.vref)
+            dnl_n = np.diff(decisionLvls_n) / ideal_lsb - 1
+            # the dnl of the adc is the average dnl of both ends
+            dnl = np.add(dnl_p,dnl_n)/2
             return dnl
 
         elif method =='code_density':
@@ -167,20 +172,6 @@ class SarAdc:
         ax2.set_xlabel('Digital Output Code')
         ax2.set_ylabel('INL (LSB)')
         plt.tight_layout()
-
-    def fastAnalogDecimal(self,analogSamples):
-        '''
-        use fast conversion algorithm to convert an array of analog values
-        into decimal digital values
-        :param analogSamples: an array of analog values
-        :return: an array of decimal values
-        '''
-        decimalOutput = fastConversion(analogSamples,self.weights,self.n,self.vref)
-        return decimalOutput
-
-
-
-
 
 
 

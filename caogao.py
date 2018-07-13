@@ -3,7 +3,8 @@ import matplotlib.pyplot as plt
 from saradc_cm import SarAdcCM
 from saradc import SarAdc
 import time
-from assistantModule import bin_array, getDecisionLvls, fastConversion
+from saradc_differential import SarAdcDifferential as SarAdcDiff
+from assistantModule import bin_array, getDecisionLvls, fastConversion, capArraygenerator
 
 
 # adc = SarAdcCM(mismatch=0.1)
@@ -14,18 +15,18 @@ from assistantModule import bin_array, getDecisionLvls, fastConversion
 # print('elapsed time: %s seconds'%(time.time()-start_time))
 # plt.show()
 
-
-adc = SarAdc(mismatch=0.01)
-# start_time_1 = time.time()
-# f1 = plt.figure(1)
-# adc.plotDnlInl()
-# print('elapsed time: %s seconds'%(time.time()-start_time_1))
-start_time_2 = time.time()
-f2 = plt.figure(2)
-adc.plotFastDnlInl()
-print('elapsed time: %s seconds'%(time.time()-start_time_2))
-plt.show()
-print('succesfully connected to Github!!!')
+# # check the dnl plot function in single ended sar adc.
+# adc = SarAdc(mismatch=0.01)
+# # start_time_1 = time.time()
+# # f1 = plt.figure(1)
+# # adc.plotDnlInl()
+# # print('elapsed time: %s seconds'%(time.time()-start_time_1))
+# start_time_2 = time.time()
+# f2 = plt.figure(2)
+# adc.plotDnlInl(resolution=0.01,method='fast')
+# print('elapsed time: %s seconds'%(time.time()-start_time_2))
+# plt.show()
+# print('succesfully connected to Github!!!')
 
 # weights = adc.weights
 # biArray = np.concatenate(([0]*4,[1],[0]*7))
@@ -52,6 +53,23 @@ print('succesfully connected to Github!!!')
 #
 # print('elapsed time: %s seconds'%(time.time()-start_time))
 
+'''compare the time comsumption and results of sar_adc function of single ended
+and differential SAR ADC.
+'''
+saradc_se = SarAdc(vref=1.2,n=12,mismatch=0)    # se stands for  single-ended
+saradc_df = SarAdcDiff(vref=1.2,n=12,mismatch=0)    # df stands for differential
+analog = np.random.uniform(0,1.2,100)
+d_se = []
+d_df = []
+start_time1 = time.time()
+for a in analog:
+    d_se += [saradc_se.sar_adc(a)[-1]]
+print('transfer time of single ended ADC: %f seconds'%(time.time() - start_time1))
+start_time2 = time.time()
+for a in analog:
+    d_df += [saradc_df.sar_adc(a)[-1]]
+print('transfer time of differential ended ADC: %f seconds'%(time.time() - start_time2))
+print(np.array_equal(d_se,d_df))
 
 
 

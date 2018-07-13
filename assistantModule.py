@@ -2,6 +2,41 @@ import numpy as np
 import matplotlib.pyplot as plt
 import time
 
+def capArraygenerator(n=12,radix=2,mismatch=0.01,structure='single_ended'):
+    if structure == 'single_ended':
+        capExp = np.concatenate(([0], np.arange(n)), axis=0)  # exponential of capacitance array
+        capArray =[]
+        # print('capExponential',capExp)
+        for i in capExp:
+            cap_i = np.random.normal(radix ** i, mismatch * np.sqrt(radix ** i))  # good case
+            capArray += [cap_i]
+        capSum = np.sum(capArray)
+        #  reserve the capArray and abandon the last element
+        weights = (np.flip(capArray, -1)[:-1]) / capSum  # binary weights
+        return capArray,weights
+    elif structure == 'differential':
+        capExp = np.concatenate(([0], np.arange(n)), axis=0)  # exponential of capacitance array
+        capArray = np.array([[],[]])
+        for i in capExp:
+            cap_i = np.random.normal(radix ** i, mismatch * np.sqrt(radix ** i),size=(2,1)) # good case
+            capArray = np.hstack((capArray,cap_i))    # get an (2,n) array
+        capSum = np.sum(capArray,axis=-1)[:,np.newaxis] # in order to use broadcasting, get an (2,1) array
+        weights = (np.flip(capArray,-1)[:,:-1]) / capSum  # get an (2,n) array
+        return capArray,weights
+
+
+def getbi2deDict(n):
+    '''
+    get the binary representation of a n-bit range to decimal number dictionary. e.g {'001':1,'010':2,...}
+    :return: a dictionary
+    '''
+    bi2deDict = {}
+    decimal = np.arange(2 ** n)
+    for x in decimal:
+        binary = np.binary_repr(x, n)
+        bi2deDict.update({binary: x})
+    return bi2deDict
+
 def bin_array(arr, m):
     """
     Arguments:
