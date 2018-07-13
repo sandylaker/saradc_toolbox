@@ -4,9 +4,12 @@ from saradc_differential import SarAdcDifferential as SarAdcDiff
 import time
 
 class SarAdcDiffCM(SarAdcDiff):
+    '''
+    the continuous mode of the differential sar adc, which contains the method to computing SNR,ENOB and plot FFT
+    diagramms.
+    '''
 
-
-    def __init__(self,fftLength=4096,fs=50e6,primeNumber=413,window = None,**kwargs):
+    def __init__(self,fftLength=4096,fs=50e6,primeNumber=1193,window = None,**kwargs):
         super().__init__(**kwargs)
         self.fftLength = fftLength  # length of FFT
         self.fs = fs    # sampling frequency
@@ -44,7 +47,7 @@ class SarAdcDiffCM(SarAdcDiff):
 
     def getAnalogOutput(self):
         '''
-        this is a copy of the DAC block in SarAdc Class,in order to convert a list of digital values(data type String)
+        this is ideal DAC block,in order to convert a list of digital values(data type String)
         into analog values
         :return: a list of analog values
         '''

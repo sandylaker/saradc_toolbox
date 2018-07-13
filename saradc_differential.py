@@ -5,6 +5,9 @@ from assistantModule import bin_array, getDecisionLvls, fastConversion,getbi2deD
 import timeit
 
 class SarAdcDifferential:
+    '''
+    the sar adc with differential structure
+    '''
 
     def __init__(self,vref=1.2, n=12, radix=2, mismatch=0.001):
         self.vref = vref

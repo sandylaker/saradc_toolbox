@@ -4,13 +4,12 @@ from saradc_cm import SarAdcCM
 from saradc import SarAdc
 import time
 from saradc_differential import SarAdcDifferential as SarAdcDiff
+from saradc_diff_cm import SarAdcDiffCM
 from assistantModule import bin_array, getDecisionLvls, fastConversion, capArraygenerator
 
-
-# adc = SarAdcCM(mismatch=0.1)
+# adc = SarAdcDiffCM(mismatch=0.01)
+# #adc = SarAdcCM(mismatch=0.01,structure='split')
 # start_time = time.time()
-# vin_sampled = adc.sampling()
-# dacOut = adc.getAnalogOutput()
 # adc.fftPlot()
 # print('elapsed time: %s seconds'%(time.time()-start_time))
 # plt.show()
@@ -56,22 +55,39 @@ from assistantModule import bin_array, getDecisionLvls, fastConversion, capArray
 '''compare the time comsumption and results of sar_adc function of single ended
 and differential SAR ADC.
 '''
-saradc_se = SarAdc(vref=1.2,n=12,mismatch=0)    # se stands for  single-ended
-saradc_df = SarAdcDiff(vref=1.2,n=12,mismatch=0)    # df stands for differential
-analog = np.random.uniform(0,1.2,100)
-d_se = []
-d_df = []
-start_time1 = time.time()
-for a in analog:
-    d_se += [saradc_se.sar_adc(a)[-1]]
-print('transfer time of single ended ADC: %f seconds'%(time.time() - start_time1))
-start_time2 = time.time()
-for a in analog:
-    d_df += [saradc_df.sar_adc(a)[-1]]
-print('transfer time of differential ended ADC: %f seconds'%(time.time() - start_time2))
-print(np.array_equal(d_se,d_df))
+# saradc_se = SarAdc(vref=1.2,n=12,mismatch=0)    # se stands for  single-ended
+# saradc_df = SarAdcDiff(vref=1.2,n=12,mismatch=0)    # df stands for differential
+# analog = np.random.uniform(0,1.2,100)
+# d_se = []
+# d_df = []
+# start_time1 = time.time()
+# for a in analog:
+#     d_se += [saradc_se.sar_adc(a)[-1]]
+# print('transfer time of single ended ADC: %f seconds'%(time.time() - start_time1))
+# start_time2 = time.time()
+# for a in analog:
+#     d_df += [saradc_df.sar_adc(a)[-1]]
+# print('transfer time of differential ended ADC: %f seconds'%(time.time() - start_time2))
+# print(np.array_equal(d_se,d_df))
 
 
 
 
+
+adc1 = SarAdcCM(mismatch=0.01,structure='conventional')
+f1 = plt.figure(1)
+adc1.plotDnlInl()
+
+f2 = plt.figure(2)
+adc1.fftPlot()
+
+adc2 = SarAdcDiffCM(mismatch=0.01)
+f3 = plt.figure(3)
+adc2.plotDnlInl()
+
+f4 = plt.figure(4)
+adc2.fftPlot()
+
+
+plt.show()
 

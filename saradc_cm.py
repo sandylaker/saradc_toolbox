@@ -8,7 +8,7 @@ class SarAdcCM(SarAdc):
     and plot the FFT.
     '''
 
-    def __init__(self,fftLength=4096,fs=50e6,primeNumber=413,window = None,**kwargs):
+    def __init__(self,fftLength=4096,fs=50e6,primeNumber=1193,window = None,**kwargs):
         super().__init__(**kwargs)
         self.fftLength = fftLength  # length of FFT
         self.fs = fs    # sampling frequency
@@ -73,8 +73,12 @@ class SarAdcCM(SarAdc):
         s_dbfs = 20 * np.log10(magnitude/ref)
 
         freq = np.arange((self.fftLength/2)+1) / (float(self.fftLength)/self.fs)
+        freq = freq/1e6     # in MHz
         plt.plot(freq[1:],s_dbfs[1:])
         plt.grid()
+        plt.xlabel('frequency MHz')
+        plt.ylabel('dBFS')
+        plt.title('FFT Plot with mismatch %.4f'%self.mismatch)
         plt.text(2,-20,'SNR:%5.3f'%(snr),fontsize = 'small')
         plt.text(2,-25,'ENOB:%5.3f'%(enob),fontsize='small')
         plt.text(2,-30,'fin:%2.3EHz'%(self.fin),fontsize= 'small')

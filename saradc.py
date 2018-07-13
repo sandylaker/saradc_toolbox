@@ -6,13 +6,17 @@ import timeit
 
 class SarAdc:
 
-    def __init__(self,vref=1.2,n=12,radix=2,mismatch=0.001):
+    def __init__(self,vref=1.2,n=12,radix=2,mismatch=0.001,structure='conventional'):
         self.vref = vref    # reference voltage
         self.n = n      # resolution of ADC
         self.vcm = vref/2       # common mode voltage
         self.mismatch = mismatch
         self.radix = radix
-        capArray,weights = capArraygenerator(self.n,self.radix,self.mismatch,structure='single_ended')
+        # attention: if structure == 'split array', the capacitor array is LSB-Array + attenuator + MSB-Array,
+        # in which the position of MSB and LSB are exchanged if comparing with other structures.
+        # However in the weights array, the first element corresponds to the MSB and the last element corresponds
+        # to the LSB, which accords with the other structures.
+        capArray,weights = capArraygenerator(self.n,self.radix,self.mismatch,structure= structure)
         self.capArray = capArray
         self.weights = weights
         print('capArray',self.capArray)

@@ -2,8 +2,28 @@ import numpy as np
 import matplotlib.pyplot as plt
 import time
 
-def capArraygenerator(n=12,radix=2,mismatch=0.01,structure='single_ended'):
-    if structure == 'single_ended':
+def capArraygenerator(n=12,radix=2,mismatch=0.01,structure='conventional'):
+    '''
+    generates an array of capacitors and computes the binary weights in the dac. there are three
+    different structures from which to choose. pay attention that in the returned tuple of capacitor array
+    and weights array. the shape of the arrays can be two dimensional or one dimensional according to the structures.
+    :param n: number of bits
+    :param radix: the radix
+    :param mismatch: mismatch of the capacitors
+    :param structure: 'conventional': the conventional structure of capacitor divider. the amplifier is single ended.
+                      'differential': two capacitor dividers are connected to the positive and negative input of op amp.
+                                      The amplifier is single ended. The states of the switches in positive array is
+                                      complementary to that in negative array.
+                      'split': an attenuator capacitor is placed between the LSB and MSB capacitor array.
+    :return: a tuple of capacitor array and weights array.
+                    if 'conventional': shape of capacitor array:(n,) , MSB to LSB,
+                                       shape of weights array: (n,) ,  MSB to LSB.
+                    if 'differential': shape of capacitor array:(2,n+1), MSB to LSB,
+                                       shape of weights array: (2,n) , MSB to LSB
+                    if 'split':        shape of capacitor array: (n+2,) , LSB to MSB
+                                       shape of weights array: (n,) , MSB to LSB
+    '''
+    if structure == 'conventional':
         capExp = np.concatenate(([0], np.arange(n)), axis=0)  # exponential of capacitance array
         capArray =[]
         # print('capExponential',capExp)
@@ -19,9 +39,42 @@ def capArraygenerator(n=12,radix=2,mismatch=0.01,structure='single_ended'):
         capArray = np.array([[],[]])
         for i in capExp:
             cap_i = np.random.normal(radix ** i, mismatch * np.sqrt(radix ** i),size=(2,1)) # good case
-            capArray = np.hstack((capArray,cap_i))    # get an (2,n) array
+            capArray = np.hstack((capArray,cap_i))    # get an (2,n+1) array
         capSum = np.sum(capArray,axis=-1)[:,np.newaxis] # in order to use broadcasting, get an (2,1) array
         weights = (np.flip(capArray,-1)[:,:-1]) / capSum  # get an (2,n) array
+        return capArray,weights     # capArray shape(2,n+1); weights shape (2,n)
+    elif structure =='split':
+        if(n%2==1):
+            n = n+1
+            print('Warning: split capacitor structure only support even number of bits,'
+                  ,'n is automatically set to n+1')
+        capExp = np.concatenate(([0],np.arange(n/2)),axis=0)
+        capArray = np.array([[],[]])
+        for i in capExp:
+            cap_i = np.random.normal(radix ** i, mismatch * np.sqrt(radix ** i),size=(2,1)) # good case
+            capArray = np.hstack((capArray,cap_i))   # get an (2,n/2) array
+        capArray_lsb = capArray[0][:]
+        capArray_msb = capArray[1][1:]  # MSB array has no dummy capacitor , shape(n/2,)
+        capSum_lsb = np.sum(capArray_lsb)
+        capSum_msb = np.sum(capArray_msb)
+        cap_attenuator = 1  # ideally it should be capSum_lsb/capSum_msb, but here we set it to 1 directly
+
+        # the series of attenuator capacitor and entire MSB array
+        capSum_MA = cap_attenuator * capSum_msb/(cap_attenuator+ capSum_msb)
+        # the series of attenuator capacitor and entire LSB array
+        capSum_LA = cap_attenuator * capSum_lsb/(cap_attenuator + capSum_lsb)
+
+        # attention: the location of positive input of the amplifier is between attenuator capacitor and MSB array
+        # so here we need to multiply with an extra term 'cap_attenuator/(cap_attenuator+capSum_msb)'
+        weights_lsb = (np.flip(capArray_lsb,-1)[:-1])/(capSum_lsb + capSum_MA) * (cap_attenuator/(cap_attenuator+capSum_msb))
+        weights_msb = (np.flip(capArray_msb,-1))/(capSum_msb + capSum_LA)
+        weights = np.concatenate((weights_msb,weights_lsb))
+
+        # attention: in the following step, the concatenated array is LSB-Array + attenuator + MSB-Array,
+        # in which the position of MSB and LSB are exchanged if comparing with other structures.
+        # However in the weights array, the first element corresponds to the MSB and the last element corresponds
+        # to the LSB, which accords with the other structures.
+        capArray = np.concatenate((capArray_lsb,[cap_attenuator],capArray_msb))
         return capArray,weights
 
 
