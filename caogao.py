@@ -1,10 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from saradc_cm import SarAdcCM
 from saradc import SarAdc
 import time
 from saradc_differential import SarAdcDifferential as SarAdcDiff
-from saradc_diff_cm import SarAdcDiffCM
 from assistantModule import bin_array, getDecisionLvls, fastConversion, capArraygenerator
 
 # adc = SarAdcDiffCM(mismatch=0.01)
@@ -74,20 +72,5 @@ and differential SAR ADC.
 
 
 
-adc1 = SarAdcCM(mismatch=0.01,structure='conventional')
-f1 = plt.figure(1)
-adc1.plotDnlInl()
 
-f2 = plt.figure(2)
-adc1.fftPlot()
-
-adc2 = SarAdcDiffCM(mismatch=0.01)
-f3 = plt.figure(3)
-adc2.plotDnlInl()
-
-f4 = plt.figure(4)
-adc2.fftPlot()
-
-
-plt.show()
 

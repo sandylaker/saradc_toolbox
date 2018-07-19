@@ -2,11 +2,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sympy import randprime
 from assistantModule import bin_array, getDecisionLvls, fastConversion,getbi2deDict,capArraygenerator
-import timeit
+import functions4ContinuousMode as cm
+import time
 
 class SarAdc:
 
-    def __init__(self,vref=1.2,n=12,radix=2,mismatch=0.001,structure='conventional'):
+    def __init__(self,vref=1.2,n=12,radix=2,mismatch=0.001,structure='conventional',
+                 fftLength=4096, fs=50e6, primeNumber=1193, window=None,):
         self.vref = vref    # reference voltage
         self.n = n      # resolution of ADC
         self.vcm = vref/2       # common mode voltage
@@ -21,6 +23,17 @@ class SarAdc:
         self.weights = weights
         print('capArray',self.capArray)
         print('weights',self.weights)
+
+        self.fftLength = fftLength  # length of FFT
+        self.fs = fs  # sampling frequency
+        self.primeNumber = primeNumber  # the number to determine the input frequency by coherent sampling
+        self.fin = fs * primeNumber / fftLength  # input frequency by coherent sampling
+        if not window:  # add no window
+            self.window_boolean = False
+            self.window = np.ones(self.fftLength)
+        else:
+            self.window_boolean = True
+            self.window = np.hanning(self.fftLength)
 
 
     def comparator(self,a,b):
@@ -181,6 +194,25 @@ class SarAdc:
         '''
         decimalOutput = fastConversion(analogSamples,self.weights,self.n,self.vref)
         return decimalOutput
+
+    def sampling(self):
+        return cm.sampling(self)
+
+    def getDigitalOutput(self):
+        return cm.getDigitalOutput(self)
+
+    def getAnalogOutput(self):
+        return cm.getAnalogOutput(self)
+
+    def getfftOutput(self):
+        return cm.getfftOutput(self)
+
+    def plotfft(self):
+        cm.plotfft(self)
+
+    def snr(self):
+        return cm.snr(self,self.getfftOutput())
+
 
 
 
