@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from sympy import randprime
-from assistantModule import bin_array, getDecisionLvls, fastConversion,getbi2deDict,capArraygenerator
+from assistantModule import *
 import functions4ContinuousMode as cm
 import time
 
@@ -208,7 +208,8 @@ class SarAdcDifferential:
     def snr(self):
         return cm.snr(self,self.getfftOutput())
 
-
+    def plotEnergy(self):
+        plotEnergy(self.n)
 
 
 

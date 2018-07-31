@@ -98,8 +98,13 @@ def bin_array(arr, m):
 
     Returns a copy of arr with every element replaced with a bit vector.
     Bits encoded as int64's.
+    if arr is a single integer, the shape of returned array would be (1,m) (2-dimensional array)
+    if arr is a ndarray-like sequence with shape(n,), the shape of returned array would be (n,m) (2-dimensional array)
     """
     to_str_func = np.vectorize(lambda x: np.binary_repr(x).zfill(m))
+    arr = np.asarray(arr)
+    if arr.shape ==():
+        arr = np.asarray([arr])
     strs = to_str_func(arr)
     ret = np.zeros(list(arr.shape) + [m], dtype=np.int64)
     for bit_ix in range(0, m):
@@ -156,6 +161,84 @@ def fastConversion(analogSamples,weights,n,vref):
     conversionResult = np.sum(relationMatrix,axis=-1) -1
     return conversionResult
 
-# weights = np.array([0.5**i for i in range(1,13)])
-# decLvls =getDecisionLvls(weights,12,1.2)
-# print(len(decLvls))
+
+def getDecisionPath(n):
+    '''
+    get a array of decision path of the full decision tree.
+    :param n: depth of the decision tree, it is equivalent to the resolution of
+    the DAC.
+    :return: A two-dimensional array,each row of which represents the decision path
+    of a possible decision level ( a odd decimal integer).
+    '''
+    # n = self.n # depth of the decision tree
+    # possible decision level before the last comparision
+    code_decimal = np.arange(1,2**n,2)
+    code_binary = bin_array(code_decimal,n) # binary digits, shape (len(code_decimal),n)
+    #store the decision thresholds generated in each conversion
+    decisionPath = np.zeros((len(code_decimal),n))
+    for i in range(len(code_decimal)):
+        code_i = code_decimal[i]
+        delta = np.array([2**i for i in range(n-1)])
+        D = code_binary[i]
+        decisionPath[i,-1] = code_i
+        decisionPath[i,0] = 2**(n-1)
+        for j in range(n-2,0,-1):
+            decisionPath[i,j] = decisionPath[i,j+1] + (-1)**(2-D[j])*delta[n-2-j]
+    return decisionPath
+
+def getEnergy(n):
+    # possible decision level before the last comparision
+    code_decimal = np.arange(1, 2 ** n, 2)
+    #weight of each decision threshold layer
+    weights_ideal = [0.5**(i+1) for i in range(n)]
+    decisionPath  = getDecisionPath(n)  # two-dimensional
+    # store the switching energy of each code
+    sw_energy_sum = np.zeros(len(code_decimal))
+    for i in range(len(code_decimal)):
+        #print(code_decimal[i],'=>',decisionPath[i])
+        sw_energy = np.zeros(n)
+        sw_energy[0] = 0.5 * decisionPath[i,0]
+
+        # calculate the energy for up-switching steps
+        sw_up_pos = np.where(decisionPath[i,1:]>decisionPath[i,0:-1])[0]+1 # 1 is the index offset
+        #print(code_decimal[i],' sw_up_pos: ',sw_up_pos)
+        if not sw_up_pos.size == 0:
+            #sw_energy[sw_up_pos] = decisionPath[i,sw_up_pos]*(-1)*(weights_ideal[sw_up_pos])+ 2**(n-1-sw_up_pos)
+            for k in sw_up_pos:
+                # print('decPath[%d,%d]: ' % (i, k), decisionPath[i, k])
+                # print('weights[%d]: ' % (k), weights_ideal[k])
+                sw_energy[k] = decisionPath[i,k]*(-1)*(weights_ideal[k])+2**(n-1-k)  # \delta V_x is positive,so *(-1)
+
+        sw_dn_pos = np.where(decisionPath[i,1:]< decisionPath[i,0:-1])[0]+1
+        #print(code_decimal[i],' sw_dn_pos: ',sw_dn_pos)
+        if not sw_dn_pos.size == 0:
+            #sw_energy[sw_dn_pos] = decisionPath[i,sw_dn_pos]*(-1)*(weights_ideal[sw_dn_pos]) + 2**(n-1-sw_dn_pos)
+            for k in sw_dn_pos:
+                # print('decPath[%d,%d]: '%(i,k),decisionPath[i,k])
+                # print('weights[%d]: '%(k),weights_ideal[k])
+                sw_energy[k] = decisionPath[i,k]*(weights_ideal[k]) + 2**(n-1-k)
+        #print(code_decimal[i],': ',sw_energy)
+        sw_energy_sum[i] = np.sum(sw_energy)
+    return sw_energy_sum
+
+def plotEnergy(n):
+    '''
+    plot the energy consumption of all possible decision level before the last comparision.
+    :param n: number of bits
+    :return: a plot of energy comsumption
+    '''
+    # possible decision level before the last comparision
+    code_decimal = np.arange(1, 2 ** n, 2)
+    sw_energy_sum = getEnergy(n)
+    ax1 = plt.subplot(111)
+    ax1.plot(code_decimal,sw_energy_sum,marker='v',label='one step',markevery=0.05)
+    ax1.grid()
+    ax1.set_xlabel('Output Code')
+    ax1.set_ylabel(r'Switching energy ($C_0V_{ref}^2$)')
+    ax1.set_title('Switching Energy Consumption')
+
+f1 = plt.figure(1)
+plotEnergy(12)
+f2 = plt.figure(2)
+plotEnergy(4)
+plt.show()

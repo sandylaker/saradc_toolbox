@@ -83,10 +83,10 @@ def plotfft(adc):
 
 def snr(adc,fftOutput):
     '''
-    calculate
-    :param adc:
-    :param fftOutput:
-    :return:
+    calculate the SNR
+    :param adc: an instance of SAR ADC Class
+    :param fftOutput: Output of FFT
+    :return: SNR
     '''
     if not adc.window_boolean:
         signalBins = [adc.primeNumber]

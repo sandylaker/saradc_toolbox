@@ -2,24 +2,24 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c35dd06f-8c6b-4ceb-819a-886c0415d814" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/functions4ContinuousMode.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/caogao.py" beforeDir="false" afterPath="$PROJECT_DIR$/caogao.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assistantModule.py" beforeDir="false" afterPath="$PROJECT_DIR$/assistantModule.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/functions4ContinuousMode.py" beforeDir="false" afterPath="$PROJECT_DIR$/functions4ContinuousMode.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/saradc.py" beforeDir="false" afterPath="$PROJECT_DIR$/saradc.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/saradc_differential.py" beforeDir="false" afterPath="$PROJECT_DIR$/saradc_differential.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
-    <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/saradc$caogao.coverage" NAME="caogao Coverage Results" MODIFIED="1532701140139" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/saradc$assistantModule.coverage" NAME="assistantModule Coverage Results" MODIFIED="1533022803934" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/saradc$saradc.coverage" NAME="saradc Coverage Results" MODIFIED="1531994380345" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/saradc$test.coverage" NAME="test Coverage Results" MODIFIED="1531133681201" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/saradc$saradc_differential.coverage" NAME="saradc_differential Coverage Results" MODIFIED="1531994628757" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/saradc$saradc.coverage" NAME="saradc Coverage Results" MODIFIED="1531994380345" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/saradc$caogao.coverage" NAME="caogao Coverage Results" MODIFIED="1531507332782" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/saradc$saradc_diff_cm.coverage" NAME="saradc_diff_cm Coverage Results" MODIFIED="1531469053598" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="DatabaseView">
@@ -36,13 +36,47 @@
     <expand />
     <select />
   </component>
+  <component name="FUSProjectUsageTrigger">
+    <session id="-324580034">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="2" />
+          <entry key="project.open.time.7" value="1" />
+          <entry key="project.open.time.8" value="1" />
+          <entry key="project.open.time.9" value="1" />
+          <entry key="project.opened" value="3" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="py" value="2" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="Python" value="2" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="Python Console" value="149" />
+          <entry key="py" value="2963" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="Python" value="3112" />
+        </counts>
+      </usages-collector>
+    </session>
+  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="saradc.py" pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/saradc.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="284">
-              <caret line="216" selection-start-line="216" selection-end-line="216" />
+            <state relative-caret-position="294">
+              <caret line="216" column="25" lean-forward="true" selection-start-line="216" selection-start-column="25" selection-end-line="216" selection-end-column="25" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -50,11 +84,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="functions4ContinuousMode.py" pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/caogao.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1058">
+              <caret line="74" selection-start-line="74" selection-end-line="74" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/functions4ContinuousMode.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" column="66" selection-start-line="5" selection-start-column="66" selection-end-line="5" selection-end-column="66" />
+            <state relative-caret-position="260">
+              <caret line="88" column="16" selection-start-line="88" selection-start-column="16" selection-end-line="88" selection-end-column="16" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -62,11 +105,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="saradc_differential.py" pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/saradc_differential.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3587">
-              <caret line="211" lean-forward="true" selection-start-line="211" selection-end-line="211" />
+            <state relative-caret-position="396">
+              <caret line="210" column="25" lean-forward="true" selection-start-line="210" selection-start-column="25" selection-end-line="210" selection-end-column="25" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -74,13 +117,15 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="assistantModule.py" pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/assistantModule.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="21" column="8" lean-forward="true" selection-start-line="21" selection-start-column="8" selection-end-line="21" selection-end-column="8" />
+            <state relative-caret-position="481">
+              <caret line="240" column="14" lean-forward="true" selection-start-line="240" selection-start-column="14" selection-end-line="240" selection-end-column="14" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
+                <marker date="1533024617248" expanded="true" signature="9616:9621" ph="..." />
+                <marker date="1533024617248" expanded="true" signature="11375:11376" ph="..." />
               </folding>
             </state>
           </provider>
@@ -126,13 +171,13 @@
         <option value="$PROJECT_DIR$/my first note book.md" />
         <option value="$PROJECT_DIR$/continuousMode.py" />
         <option value="$PROJECT_DIR$/test.py" />
-        <option value="$PROJECT_DIR$/assistantModule.py" />
         <option value="$PROJECT_DIR$/saradc_cm.py" />
-        <option value="$PROJECT_DIR$/saradc.py" />
         <option value="$PROJECT_DIR$/saradc_diff_cm.py" />
-        <option value="$PROJECT_DIR$/saradc_differential.py" />
         <option value="$PROJECT_DIR$/caogao.py" />
+        <option value="$PROJECT_DIR$/saradc.py" />
+        <option value="$PROJECT_DIR$/assistantModule.py" />
         <option value="$PROJECT_DIR$/functions4ContinuousMode.py" />
+        <option value="$PROJECT_DIR$/saradc_differential.py" />
       </list>
     </option>
   </component>
@@ -142,14 +187,11 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="NodePackageJsonFileManager">
-    <packageJsonPaths />
-  </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="93" />
+    <option name="x" value="49" />
     <option name="y" value="23" />
     <option name="width" value="1298" />
-    <option name="height" value="822" />
+    <option name="height" value="817" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -188,7 +230,29 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.saradc_differential">
+  <component name="RunManager" selected="Python.assistantModule">
+    <configuration name="assistantModule" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="saradc" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/assistantModule.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="caogao" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="saradc" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -207,6 +271,9 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
     </configuration>
     <configuration name="saradc" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="saradc" />
@@ -226,6 +293,9 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
     </configuration>
     <configuration name="saradc_diff_cm" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="saradc" />
@@ -245,6 +315,9 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
     </configuration>
     <configuration name="saradc_differential" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="saradc" />
@@ -264,40 +337,24 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
-    </configuration>
-    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="saradc" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
     </configuration>
     <list>
       <item itemvalue="Python.caogao" />
-      <item itemvalue="Python.test" />
       <item itemvalue="Python.saradc_differential" />
       <item itemvalue="Python.saradc_diff_cm" />
       <item itemvalue="Python.saradc" />
+      <item itemvalue="Python.assistantModule" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.assistantModule" />
+        <item itemvalue="Python.caogao" />
         <item itemvalue="Python.saradc_differential" />
         <item itemvalue="Python.saradc" />
-        <item itemvalue="Python.caogao" />
         <item itemvalue="Python.saradc_diff_cm" />
-        <item itemvalue="Python.test" />
       </list>
     </recent_temporary>
   </component>
@@ -389,7 +446,14 @@
       <option name="project" value="LOCAL" />
       <updated>1531507418432</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="write the functions in saradc_cm and saradc_diff_cm into an assistant module. And implement the functions for continuous mode in SarAdc and SarAdcDifferential with the help of this assistant module.">
+      <created>1531995029042</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1531995029042</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TodoView">
@@ -402,57 +466,57 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="93" y="23" width="1298" height="822" extended-state="0" />
+    <frame x="49" y="23" width="1298" height="817" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49810246" weight="0.32872927" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5018975" side_tool="true" weight="0.32872927" />
-      <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.43453512" weight="0.3756906" />
-      <window_info anchor="bottom" id="Python Console" order="7" sideWeight="0.49905124" weight="0.32352942" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.79196554" visible="true" weight="0.1875862" />
-      <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.47034484" visible="true" weight="0.17515923" />
-      <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
-      <window_info anchor="right" id="Database" order="4" weight="0.32961783" />
-      <window_info anchor="right" id="SciView" order="4" weight="0.32961783" />
-      <window_info id="Structure" order="1" sideWeight="0.52965516" side_tool="true" weight="0.17515923" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.46603477" visible="true" weight="0.0" />
+      <window_info id="Structure" order="1" sideWeight="0.53396523" side_tool="true" visible="true" weight="0.0" />
       <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32941177" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.79196554" visible="true" weight="0.12689655" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49810246" weight="0.32739726" />
+      <window_info anchor="bottom" id="Terminal" order="7" />
+      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.5018975" side_tool="true" weight="0.32872927" />
+      <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.43453512" weight="0.3756906" />
+      <window_info anchor="bottom" id="Python Console" order="10" sideWeight="0.49905124" weight="0.32328767" />
+      <window_info anchor="bottom" id="Docker" order="11" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" order="12" show_stripe_button="false" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="GfmBrowser" order="3" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32941177" />
-      <window_info anchor="right" id="Coverage" order="3" side_tool="true" />
+      <window_info anchor="right" id="Coverage" order="4" side_tool="true" />
+      <window_info anchor="right" id="SciView" order="5" weight="0.32961783" />
+      <window_info anchor="right" id="Database" order="6" weight="0.32961783" />
     </layout>
     <layout-to-restore>
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.47034484" visible="true" weight="0.17515923" />
-      <window_info anchor="bottom" id="Docker" order="11" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.43453512" weight="0.3756906" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" id="SciView" order="5" weight="0.32961783" />
       <window_info active="true" id="Structure" order="1" sideWeight="0.52965516" side_tool="true" visible="true" weight="0.17515923" />
-      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49810246" weight="0.32872927" />
-      <window_info anchor="bottom" id="Database Changes" order="12" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.79196554" weight="0.1882353" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32941177" />
-      <window_info anchor="bottom" id="Python Console" order="8" sideWeight="0.49905124" weight="0.32352942" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.79196554" weight="0.1882353" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="right" id="GfmBrowser" order="3" />
-      <window_info anchor="right" id="Database" order="6" weight="0.32961783" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49810246" weight="0.32872927" />
+      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.43453512" weight="0.3756906" />
+      <window_info anchor="bottom" id="Python Console" order="8" sideWeight="0.49905124" weight="0.32352942" />
       <window_info anchor="bottom" id="Terminal" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5018975" side_tool="true" weight="0.32872927" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Docker" order="11" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" order="12" show_stripe_button="false" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="GfmBrowser" order="3" />
       <window_info anchor="right" id="Coverage" order="4" side_tool="true" />
-      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="right" id="SciView" order="5" weight="0.32961783" />
+      <window_info anchor="right" id="Database" order="6" weight="0.32961783" />
     </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -472,333 +536,10 @@
     <MESSAGE value="1.add a method bin_array(arr,m)&#10;2.improve the method dnl(resolution) by a little bit.&#10;3.implement fast plot method for DNL and INL." />
     <MESSAGE value="implement the differential sar adc and its continuous mode" />
     <MESSAGE value="implements the split capacitor structure" />
-    <option name="LAST_COMMIT_MESSAGE" value="implements the split capacitor structure" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <option name="time" value="5" />
-    </breakpoint-manager>
+    <MESSAGE value="write the functions in saradc_cm and saradc_diff_cm into an assistant module. And implement the functions for continuous mode in SarAdc and SarAdcDifferential with the help of this assistant module." />
+    <option name="LAST_COMMIT_MESSAGE" value="write the functions in saradc_cm and saradc_diff_cm into an assistant module. And implement the functions for continuous mode in SarAdc and SarAdcDifferential with the help of this assistant module." />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/saradc_cm.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1530">
-          <caret line="92" column="18" selection-start-line="92" selection-start-column="18" selection-end-line="92" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/caogao.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="578">
-          <caret line="37" column="37" selection-start-line="37" selection-start-column="37" selection-end-line="37" selection-end-column="37" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/saradc_dm.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="867">
-          <caret line="53" selection-start-line="53" selection-end-line="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/saradc.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2380">
-          <caret line="142" column="3" selection-start-line="142" selection-start-column="3" selection-end-line="142" selection-end-column="3" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/saradc_cm.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1530">
-          <caret line="92" column="18" selection-start-line="92" selection-start-column="18" selection-end-line="92" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/caogao.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="578">
-          <caret line="37" column="37" selection-start-line="37" selection-start-column="37" selection-end-line="37" selection-end-column="37" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/saradc_dm.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="867">
-          <caret line="53" selection-start-line="53" selection-end-line="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/saradc.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2380">
-          <caret line="142" column="3" selection-start-line="142" selection-start-column="3" selection-end-line="142" selection-end-column="3" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/caogao.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="578">
-          <caret line="37" column="37" selection-start-line="37" selection-start-column="37" selection-end-line="37" selection-end-column="37" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/saradc_dm.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="867">
-          <caret line="53" selection-start-line="53" selection-end-line="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/saradc_cm.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1530">
-          <caret line="92" column="18" selection-start-line="92" selection-start-column="18" selection-end-line="92" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/saradc.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2363">
-          <caret line="139" column="24" selection-start-line="139" selection-start-column="24" selection-end-line="139" selection-end-column="24" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/saradc_cm.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1564">
-          <caret line="92" column="18" lean-forward="true" selection-start-line="92" selection-start-column="18" selection-end-line="92" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/caogao.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="629">
-          <caret line="37" column="37" selection-start-line="37" selection-start-column="37" selection-end-line="37" selection-end-column="37" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/saradc_dm.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="901">
-          <caret line="53" selection-start-line="53" selection-end-line="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/saradc.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1649">
-          <caret line="98" column="32" lean-forward="true" selection-start-line="98" selection-start-column="32" selection-end-line="98" selection-end-column="32" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/caogao.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="578">
-          <caret line="37" column="37" selection-start-line="37" selection-start-column="37" selection-end-line="37" selection-end-column="37" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/saradc_dm.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="867">
-          <caret line="53" selection-start-line="53" selection-end-line="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/saradc.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1853">
-          <caret line="110" column="11" selection-start-line="110" selection-start-column="11" selection-end-line="110" selection-end-column="11" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/saradc_cm.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="901">
-          <caret line="55" column="82" selection-start-line="55" selection-start-column="82" selection-end-line="55" selection-end-column="82" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/caogao.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="6" column="16" lean-forward="true" selection-start-line="6" selection-start-column="16" selection-end-line="6" selection-end-column="16" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/saradc_dm.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="867">
-          <caret line="53" selection-start-line="53" selection-end-line="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/saradc.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1462">
-          <caret line="87" selection-start-line="87" selection-end-line="87" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/saradc_cm.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="901">
-          <caret line="55" column="82" selection-start-line="55" selection-start-column="82" selection-end-line="55" selection-end-column="82" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/caogao.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="11" column="20" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="20" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/saradc.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="30" column="9" selection-start-line="30" selection-start-column="9" selection-end-line="30" selection-end-column="9" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/saradc_cm.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1496">
-          <caret line="90" column="9" selection-start-line="90" selection-start-column="9" selection-end-line="90" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/caogao.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="5" column="34" selection-start-line="5" selection-start-column="34" selection-end-line="5" selection-end-column="34" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/saradc.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="17" column="11" lean-forward="true" selection-start-line="17" selection-start-column="11" selection-end-line="17" selection-end-column="11" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/saradc_cm.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="6" column="36" selection-start-line="6" selection-start-column="36" selection-end-line="6" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/caogao.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="680">
-          <caret line="43" column="60" selection-start-line="43" selection-start-column="60" selection-end-line="43" selection-end-column="60" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/saradc.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="35" selection-start-line="5" selection-start-column="35" selection-end-line="5" selection-end-column="35" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/saradc_dm.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="969">
-          <caret line="57" column="3" lean-forward="true" selection-start-line="57" selection-start-column="3" selection-end-line="57" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/saradc_cm.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1581">
-          <caret line="93" column="10" lean-forward="true" selection-start-line="93" selection-start-column="10" selection-end-line="93" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/caogao.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/saradc.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="13" column="29" selection-start-line="13" selection-start-column="29" selection-end-line="13" selection-end-column="29" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/saradc_dm.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="935">
-          <caret line="57" column="3" selection-start-line="57" selection-start-column="3" selection-end-line="57" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/numpy/lib/function_base.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="12186">
@@ -807,13 +548,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/.gitattributes" />
-    <entry file="file://$PROJECT_DIR$/saradc_dm.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="117">
-          <caret line="31" selection-start-line="31" selection-end-line="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/README.md" />
     <entry file="file://$PROJECT_DIR$/my first note book.md">
       <provider editor-type-id="text-editor">
@@ -826,19 +560,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="233">
           <caret line="91" column="21" lean-forward="true" selection-start-line="91" selection-start-column="21" selection-end-line="91" selection-end-column="21" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/saradc.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="284">
-          <caret line="216" selection-start-line="216" selection-end-line="216" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -846,26 +567,27 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
           <caret line="22" column="52" lean-forward="true" selection-start-line="13" selection-start-column="8" selection-end-line="22" selection-end-column="52" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assistantModule.py">
+    <entry file="file://$PROJECT_DIR$/saradc_dm.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="8" lean-forward="true" selection-start-line="21" selection-start-column="8" selection-end-line="21" selection-end-column="8" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="493">
+          <caret line="31" selection-start-line="31" selection-end-line="31" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/caogao.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1258">
+        <state relative-caret-position="1058">
           <caret line="74" selection-start-line="74" selection-end-line="74" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/saradc.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="294">
+          <caret line="216" column="25" lean-forward="true" selection-start-line="216" selection-start-column="25" selection-end-line="216" selection-end-column="25" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
@@ -874,8 +596,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/functions4ContinuousMode.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="66" selection-start-line="5" selection-start-column="66" selection-end-line="5" selection-end-column="66" />
+        <state relative-caret-position="260">
+          <caret line="88" column="16" selection-start-line="88" selection-start-column="16" selection-end-line="88" selection-end-column="16" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
@@ -884,10 +606,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/saradc_differential.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3587">
-          <caret line="211" lean-forward="true" selection-start-line="211" selection-end-line="211" />
+        <state relative-caret-position="396">
+          <caret line="210" column="25" lean-forward="true" selection-start-line="210" selection-start-column="25" selection-end-line="210" selection-end-column="25" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assistantModule.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="481">
+          <caret line="240" column="14" lean-forward="true" selection-start-line="240" selection-start-column="14" selection-end-line="240" selection-end-column="14" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+            <marker date="1533024617248" expanded="true" signature="9616:9621" ph="..." />
+            <marker date="1533024617248" expanded="true" signature="11375:11376" ph="..." />
           </folding>
         </state>
       </provider>
