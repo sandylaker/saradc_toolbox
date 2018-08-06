@@ -237,8 +237,3 @@ def plotEnergy(n):
     ax1.set_ylabel(r'Switching energy ($C_0V_{ref}^2$)')
     ax1.set_title('Switching Energy Consumption')
 
-f1 = plt.figure(1)
-plotEnergy(12)
-f2 = plt.figure(2)
-plotEnergy(4)
-plt.show()

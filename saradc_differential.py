@@ -67,6 +67,7 @@ class SarAdcDifferential:
         step is restored in a list ,which is the returned output of this function
         :param vin: single analog input value
         :return: a list of strings, which represents the digital output of each step.
+                e.g ['100','110','101']
         '''
         v_ip= vin
         v_in = self.vref - vin
@@ -210,6 +211,83 @@ class SarAdcDifferential:
 
     def plotEnergy(self):
         plotEnergy(self.n)
+
+    def plotBurstMode(self,v_input,switch='mcs'):
+        '''
+        given an certain analog input value, plot the voltages of point X of both sides( the inverting and non-inverting
+        input of the op amp) in each conversion step. There are two switching methods for option.
+        :param v_input: an analog input value
+        :param switch: the method of switching.
+                    'mcs': monotonic capacitor switching:after the ADC turns off the bootstrapped switches,
+                        the comparator directly performs the first comparison without switching any capacitor.
+                        According to the comparator output, the largest capacitor on the higher voltage potential
+                        side is switched to ground and the other one (on the lower side) remains unchanged.
+                        The ADC repeats the procedure until the LSB is decided. For each bit cycle, there is only
+                        one capacitor switch.
+                     'conventional': the conventional switching method,which is the same as in the conventional
+                     structure( single ended).
+        :return: a step plot
+        '''
+        vxp_list = []
+        vxn_list = []
+        v_ip = v_input
+        v_in = self.vref - v_ip
+        dOutput = [int(x) for x in self.sar_adc(v_input)[-1]]
+        if switch == 'mcs':
+            vxp_list += [v_ip]
+            vxn_list += [v_in]
+            for i in range(self.n-1):
+                    v_xp = vxp_list[-1]- dOutput[i]*self.vref/(self.radix**(i+1))
+                    v_xn = vxn_list[-1]- (1-dOutput[i])* self.vref/(self.radix**(i+1))
+                    vxp_list += [v_xp]
+                    vxn_list += [v_xn]
+            # computing the v_ip and v_in after last comparision,note that the last capacitor to be switched
+            # is the dummy capacitor and the largest capacitor in the mcs method is 2^(n-2)*C_0
+            # so that the voltage change is 1/2^(n-1) * vref
+            v_xp = vxp_list[-1] - dOutput[-1]*self.vref / (self.radix ** (self.n-1))
+            v_xn = vxn_list[-1] - (1-dOutput[-1])* self.vref/(self.radix**(self.n-1))
+            vxp_list += [v_xp]
+            vxn_list += [v_xn]
+        if switch == 'conventional':
+            weights_ideal = [0.5**(i+1) for i in range(self.n)]
+            v_xp = self.vcm - v_ip + self.vref/2
+            v_xn = self.vref - v_xp
+            vxp_list += [v_xp]
+            vxn_list += [v_xn]
+            for i in range(1,self.n):
+                v_xp = self.vcm - v_ip + self.vref* np.inner(dOutput[:i+1],weights_ideal[:i+1])
+                v_xn = self.vref - v_xp
+                vxp_list += [v_xp]
+                vxn_list += [v_xn]
+            # computing the v_ip and v_in after last comparision,note that the last capacitor to be switched
+            # is the dummy capacitor
+            v_xp = vxn_list[-1] + dOutput[-1]*self.vref * weights_ideal[-1]
+            v_xn = self.vref - v_xp
+            vxp_list += [v_xp]
+            vxn_list += [v_xn]
+
+        # concatenate vip_list(or vin_list) and its last element,
+        # in order to show the voltage at point X after last comparision
+        plt.step(np.arange(self.n+2),np.concatenate((vxp_list,[vxp_list[-1]])),
+                 label=r'$V_{xp}$',color='b',linewidth=0.8,where='post')
+        plt.step(np.arange(self.n+2),np.concatenate((vxn_list,[vxn_list[-1]])),
+                 label=r'$V_{xn}$',color='r',linewidth=0.8,where='post')
+        plt.axhline(y=self.vcm,color='g',ls=':',linewidth=1,label=r'$V_{cm}$')
+        plt.grid(linestyle=':')
+        plt.xticks(np.arange(0,self.n+2),np.concatenate((['sample'],dOutput)))
+        plt.xlabel('Digital Output')
+        plt.ylabel(r'Voltage ($V$)')
+        plt.legend(fontsize='small')
+        plt.title(r'Voltage at point X with input: %.3f $V$'%v_input)
+
+
+# adc = SarAdcDifferential(vref=1.2,n=12,mismatch=0)
+# vin = np.arange(0,1.2,0.1)
+# for i in range(len(vin)):
+#     fig = plt.figure(i)
+#     adc.plotBurstMode(vin[i],switch='conventional')
+# plt.show()
+
 
 
 
