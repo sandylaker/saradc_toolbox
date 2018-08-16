@@ -244,7 +244,7 @@ def getEnergy(n,switch='conventional',structure='conventional'):
         return coefficient * sw_energy_sum
 
     elif switch == 'monotonic':
-        if structure=='conventional':
+        if structure =='conventional':
             print('conventional(single-ended) structure does not support monotonic switching')
         for i in range(len(code_decimal)):
             # the total capacitance of positive and negative sides
@@ -269,9 +269,7 @@ def getEnergy(n,switch='conventional',structure='conventional'):
                 c_tn = c_tn - 2**(n-1-k) * (1-sw_process[k])
                 sw_energy[k] = c_tp * (-1) * (- weights_ideal[k]) * sw_process[k] \
                                + c_tn * (-1) * (- weights_ideal[k]) * (1-sw_process[k])
-            # print('loop [%d],sw_energy'%(code_decimal[i]),sw_energy)
             sw_energy_sum[i] = np.sum(sw_energy)
-            # print('sw_energy_sum: %d :'%code_decimal[i],sw_energy_sum[i])
         return sw_energy_sum
 
 
