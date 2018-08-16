@@ -17,6 +17,7 @@ class SarAdcDifferential:
         self.n = n
         self.radix = radix
         self.mismatch = mismatch
+        self.structure = structure
         capArray,weights = capArraygenerator(self.n,self.radix,self.mismatch,structure='differential')
         self.capArray_p,self.capArray_n = capArray
         self.weights_p, self.weights_n = weights
@@ -210,15 +211,22 @@ class SarAdcDifferential:
         return cm.snr(self,self.getfftOutput())
 
     def plotEnergy(self):
-        plotEnergy(self.n)
+        '''
+        plot the energy consumption of the possible codes with different switching methods
+        '''
+        fig,ax = plt.subplots()
+        ax.grid()
+        plotEnergy(self.n,ax,switch= 'conventional',structure=self.structure)
+        plotEnergy(self.n,ax,switch='monotonic',structure=self.structure)
+        ax.legend()
 
-    def plotBurstMode(self,v_input,switch='mcs'):
+    def plotBurstMode(self,v_input,switch='monotonic'):
         '''
         given an certain analog input value, plot the voltages of point X of both sides( the inverting and non-inverting
         input of the op amp) in each conversion step. There are two switching methods for option.
         :param v_input: an analog input value
         :param switch: the method of switching.
-                    'mcs': monotonic capacitor switching:after the ADC turns off the bootstrapped switches,
+                    'monotonic': monotonic capacitor switching:after the ADC turns off the bootstrapped switches,
                         the comparator directly performs the first comparison without switching any capacitor.
                         According to the comparator output, the largest capacitor on the higher voltage potential
                         side is switched to ground and the other one (on the lower side) remains unchanged.
@@ -233,7 +241,7 @@ class SarAdcDifferential:
         v_ip = v_input
         v_in = self.vref - v_ip
         dOutput = [int(x) for x in self.sar_adc(v_input)[-1]]
-        if switch == 'mcs':
+        if switch == 'monotonic':
             vxp_list += [v_ip]
             vxn_list += [v_in]
             for i in range(self.n-1):
@@ -269,9 +277,9 @@ class SarAdcDifferential:
         # concatenate vip_list(or vin_list) and its last element,
         # in order to show the voltage at point X after last comparision
         plt.step(np.arange(self.n+2),np.concatenate((vxp_list,[vxp_list[-1]])),
-                 label=r'$V_{xp}$',color='b',linewidth=0.8,where='post')
+                 label=r'$V_{xp}$',color='b',linewidth=1.5,where='post')
         plt.step(np.arange(self.n+2),np.concatenate((vxn_list,[vxn_list[-1]])),
-                 label=r'$V_{xn}$',color='r',linewidth=0.8,where='post')
+                 label=r'$V_{xn}$',color='r',linewidth=1.5,where='post')
         plt.axhline(y=self.vcm,color='g',ls=':',linewidth=1,label=r'$V_{cm}$')
         plt.grid(linestyle=':')
         plt.xticks(np.arange(0,self.n+2),np.concatenate((['sample'],dOutput)))
@@ -281,14 +289,11 @@ class SarAdcDifferential:
         plt.title(r'Voltage at point X with input: %.3f $V$'%v_input)
 
 
-# adc = SarAdcDifferential(vref=1.2,n=12,mismatch=0)
-# vin = np.arange(0,1.2,0.1)
-# for i in range(len(vin)):
-#     fig = plt.figure(i)
-#     adc.plotBurstMode(vin[i],switch='conventional')
-# plt.show()
 
+adc = SarAdcDifferential(n=10,mismatch=0)
+adc.plotEnergy()
 
+plt.show()
 
 
 

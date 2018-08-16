@@ -186,54 +186,108 @@ def getDecisionPath(n):
             decisionPath[i,j] = decisionPath[i,j+1] + (-1)**(2-D[j])*delta[n-2-j]
     return decisionPath
 
-def getEnergy(n):
+def getEnergy(n,switch='conventional',structure='conventional'):
+    '''
+    get the energy consumption of every code, each code represents the possible decision level before the last
+    decision(a odd decimal integer).
+    :param n: resolution of DAC
+    :param switch: switching method: 'conventional': conventional one-step switching
+                                     'monotonic': monotonic capacitor switching, in each transition step, only one
+                                                  capacitor in one side is switched.
+    :param structure: structure of ADC: 'conventional': conventional single-ended structure
+                                        'differential': has two arrays of capacitors, the switch states of positive and
+                                                        negative side are complementary. The energy consumption is two
+                                                        times of that in the conventional structure, if conventional
+                                                        switching method is used.
+    :return: a ndarray, each element represents the energy consumption of each code.
+    '''
     # possible decision level before the last comparision
     code_decimal = np.arange(1, 2 ** n, 2)
-    #weight of each decision threshold layer
-    weights_ideal = [0.5**(i+1) for i in range(n)]
-    decisionPath  = getDecisionPath(n)  # two-dimensional
+    decisionPath = getDecisionPath(n)  # two-dimensional
     # store the switching energy of each code
     sw_energy_sum = np.zeros(len(code_decimal))
-    for i in range(len(code_decimal)):
-        #print(code_decimal[i],'=>',decisionPath[i])
-        sw_energy = np.zeros(n)
-        sw_energy[0] = 0.5 * decisionPath[i,0]
+    if switch == 'conventional':
+        coefficient= 1
+        if structure =='differential':
+            # the switching states of both sides are complementary, so that the energy consumption is two times of
+            # that in conventional(single-ended) structure.
+            coefficient = 2
+        for i in range(len(code_decimal)):
+            # weight of each decision threshold layer
+            weights_ideal = [0.5 ** (i + 1) for i in range(n)]
+            #print(code_decimal[i],'=>',decisionPath[i])
+            sw_energy = np.zeros(n)
+            sw_energy[0] = 0.5 * decisionPath[i,0]
 
-        # calculate the energy for up-switching steps
-        sw_up_pos = np.where(decisionPath[i,1:]>decisionPath[i,0:-1])[0]+1 # 1 is the index offset
-        #print(code_decimal[i],' sw_up_pos: ',sw_up_pos)
-        if not sw_up_pos.size == 0:
-            #sw_energy[sw_up_pos] = decisionPath[i,sw_up_pos]*(-1)*(weights_ideal[sw_up_pos])+ 2**(n-1-sw_up_pos)
-            for k in sw_up_pos:
-                # print('decPath[%d,%d]: ' % (i, k), decisionPath[i, k])
-                # print('weights[%d]: ' % (k), weights_ideal[k])
-                sw_energy[k] = decisionPath[i,k]*(-1)*(weights_ideal[k])+2**(n-1-k)  # \delta V_x is positive,so *(-1)
+            # calculate the energy for up-switching steps
+            sw_up_pos = np.where(decisionPath[i,1:]>decisionPath[i,0:-1])[0]+1 # 1 is the index offset
+            # print(code_decimal[i],' sw_up_pos: ',sw_up_pos)
+            if not sw_up_pos.size == 0:
+                # sw_energy[sw_up_pos] = decisionPath[i,sw_up_pos]*(-1)*(weights_ideal[sw_up_pos])+ 2**(n-1-sw_up_pos)
+                # 2**(n-1-sw_up_pos) is E_sw = C_up*V_ref^2
+                for k in sw_up_pos:
+                    # print('decPath[%d,%d]: ' % (i, k), decisionPath[i, k])
+                    # print('weights[%d]: ' % (k), weights_ideal[k])
+                    # \delta V_x is positive,so *(-1)
+                    sw_energy[k] =  decisionPath[i,k]*(-1)*(weights_ideal[k])+2**(n-1-k)
 
-        sw_dn_pos = np.where(decisionPath[i,1:]< decisionPath[i,0:-1])[0]+1
-        #print(code_decimal[i],' sw_dn_pos: ',sw_dn_pos)
-        if not sw_dn_pos.size == 0:
-            #sw_energy[sw_dn_pos] = decisionPath[i,sw_dn_pos]*(-1)*(weights_ideal[sw_dn_pos]) + 2**(n-1-sw_dn_pos)
-            for k in sw_dn_pos:
-                # print('decPath[%d,%d]: '%(i,k),decisionPath[i,k])
-                # print('weights[%d]: '%(k),weights_ideal[k])
-                sw_energy[k] = decisionPath[i,k]*(weights_ideal[k]) + 2**(n-1-k)
-        #print(code_decimal[i],': ',sw_energy)
-        sw_energy_sum[i] = np.sum(sw_energy)
-    return sw_energy_sum
+            sw_dn_pos = np.where(decisionPath[i,1:]< decisionPath[i,0:-1])[0]+1
+            # print(code_decimal[i],' sw_dn_pos: ',sw_dn_pos)
+            if not sw_dn_pos.size == 0:
+                # sw_energy[sw_dn_pos] = decisionPath[i,sw_dn_pos]*(-1)*(weights_ideal[sw_dn_pos]) + 2**(n-1-sw_dn_pos)
+                for k in sw_dn_pos:
+                    # print('decPath[%d,%d]: '%(i,k),decisionPath[i,k])
+                    # print('weights[%d]: '%(k),weights_ideal[k])
+                    sw_energy[k] =  decisionPath[i,k]*(weights_ideal[k]) + 2**(n-1-k)
+            # print(code_decimal[i],': ',sw_energy)
+            sw_energy_sum[i] = np.sum(sw_energy)
+        return coefficient * sw_energy_sum
 
-def plotEnergy(n):
+    elif switch == 'monotonic':
+        if structure=='conventional':
+            print('conventional(single-ended) structure does not support monotonic switching')
+        for i in range(len(code_decimal)):
+            # the total capacitance of positive and negative sides
+            c_tp = c_tn = 2 ** (n - 1)
+            weights_ideal = np.concatenate(([0],[0.5**(j) for j in range(1,n)]))   # vx unchanged in the first step
+            sw_energy = np.zeros(n)
+            sw_energy[0] = 0
+
+            # define an array to store the switching types(up or down) of each step.
+            sw_process = np.zeros(n)
+            # find the up-switching and down-switching steps
+            sw_up_pos = np.where(decisionPath[i, 1:] > decisionPath[i, 0:-1])[0] + 1  # 1 is the index offset
+            sw_dn_pos = np.where(decisionPath[i, 1:] < decisionPath[i, 0:-1])[0] + 1
+            sw_process[sw_up_pos],sw_process[sw_dn_pos] = 1, 0
+            for k in range(1,n):
+                # if up-switching occurs, a capacitor of the p-side will be connected to the ground while n-side remains
+                # unchanged; if down-switching occurs, a capacitor of n -side will be connected to the ground while
+                # p-side remains unchanged. Attention: here is the range(1,n), when k starts from 1, the first
+                # capacitor switched to the ground is 2**(n-2)*C0 ( the MSB capacitor differs from which in the
+                # conventional case.
+                c_tp = c_tp - 2**(n-1-k) * sw_process[k]
+                c_tn = c_tn - 2**(n-1-k) * (1-sw_process[k])
+                sw_energy[k] = c_tp * (-1) * (- weights_ideal[k]) * sw_process[k] \
+                               + c_tn * (-1) * (- weights_ideal[k]) * (1-sw_process[k])
+            # print('loop [%d],sw_energy'%(code_decimal[i]),sw_energy)
+            sw_energy_sum[i] = np.sum(sw_energy)
+            # print('sw_energy_sum: %d :'%code_decimal[i],sw_energy_sum[i])
+        return sw_energy_sum
+
+
+def plotEnergy(n,axis,switch = 'convenional',structure='conventional'):
     '''
     plot the energy consumption of all possible decision level before the last comparision.
     :param n: number of bits
+    :param switch: switching method, 'conventional' or 'monotonic'
     :return: a plot of energy comsumption
     '''
     # possible decision level before the last comparision
     code_decimal = np.arange(1, 2 ** n, 2)
-    sw_energy_sum = getEnergy(n)
-    ax1 = plt.subplot(111)
-    ax1.plot(code_decimal,sw_energy_sum,marker='v',label='one step',markevery=0.05)
-    ax1.grid()
-    ax1.set_xlabel('Output Code')
-    ax1.set_ylabel(r'Switching energy ($C_0V_{ref}^2$)')
-    ax1.set_title('Switching Energy Consumption')
+    sw_energy_sum = getEnergy(n,switch = switch,structure=structure)
+    axis.plot(code_decimal,sw_energy_sum,marker='v',label=switch,markevery=0.05)
+    axis.grid()
+    axis.set_xlabel('Output Code')
+    axis.set_ylabel(r'Switching energy ($C_0V_{ref}^2$)')
+    axis.set_title('Switching Energy Consumption')
 
