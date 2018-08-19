@@ -210,15 +210,16 @@ class SarAdcDifferential:
     def snr(self):
         return cm.snr(self,self.getfftOutput())
 
-    def plotEnergy(self):
+    def plot_energy(self):
         '''
         plot the energy consumption of the possible codes with different switching methods
         '''
         fig,ax = plt.subplots()
-        ax.grid()
-        plotEnergy(self.n,ax,switch= 'conventional',structure=self.structure)
-        plotEnergy(self.n,ax,switch='monotonic',structure=self.structure)
+        plot_energy(self.n,ax,switch='conventional',marker='v',structure=self.structure)
+        plot_energy(self.n,ax,switch='monotonic',marker='s',structure=self.structure)
+        plot_energy(self.n,ax,switch='mcs',marker='o',structure=self.structure)
         ax.legend()
+        ax.grid()
 
     def plotBurstMode(self,v_input,switch='monotonic'):
         '''
@@ -289,11 +290,9 @@ class SarAdcDifferential:
         plt.title(r'Voltage at point X with input: %.3f $V$'%v_input)
 
 
-
 adc = SarAdcDifferential(n=10,mismatch=0)
-adc.plotEnergy()
+adc.plot_energy()
 
 plt.show()
-
 
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c35dd06f-8c6b-4ceb-819a-886c0415d814" name="Default" comment="implement the burst mode for SAR ADC class with differential structure.&#10;the plotBurstMode method support two different switching methods:&#10;conventional and monotonic switching method.">
+    <list default="true" id="c35dd06f-8c6b-4ceb-819a-886c0415d814" name="Default" comment="add the 'monotonic' switching method to the function 'getEnergy'.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assistantModule.py" beforeDir="false" afterPath="$PROJECT_DIR$/assistantModule.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/saradc_differential.py" beforeDir="false" afterPath="$PROJECT_DIR$/saradc_differential.py" afterDir="false" />
@@ -18,7 +18,7 @@
     <SUITE FILE_PATH="coverage/saradc$saradc.coverage" NAME="saradc Coverage Results" MODIFIED="1531994380345" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/saradc$test.coverage" NAME="test Coverage Results" MODIFIED="1531133681201" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/saradc$saradc_diff_cm.coverage" NAME="saradc_diff_cm Coverage Results" MODIFIED="1531469053598" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/saradc$saradc_differential.coverage" NAME="saradc_differential Coverage Results" MODIFIED="1534424883080" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/saradc$saradc_differential.coverage" NAME="saradc_differential Coverage Results" MODIFIED="1534625969122" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="DatabaseView">
     <option name="SHOW_INTERMEDIATE" value="true" />
@@ -38,14 +38,14 @@
     <session id="-324580034">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="11" />
+          <entry key="project.closed" value="12" />
           <entry key="project.open.time.1" value="2" />
           <entry key="project.open.time.5" value="1" />
           <entry key="project.open.time.6" value="1" />
-          <entry key="project.open.time.7" value="3" />
+          <entry key="project.open.time.7" value="4" />
           <entry key="project.open.time.8" value="2" />
           <entry key="project.open.time.9" value="3" />
-          <entry key="project.opened" value="12" />
+          <entry key="project.opened" value="13" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -61,14 +61,14 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="Python Console" value="149" />
-          <entry key="py" value="10144" />
-          <entry key="txt" value="383" />
+          <entry key="py" value="13631" />
+          <entry key="txt" value="486" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PLAIN_TEXT" value="383" />
-          <entry key="Python" value="10293" />
+          <entry key="PLAIN_TEXT" value="486" />
+          <entry key="Python" value="13780" />
         </counts>
       </usages-collector>
     </session>
@@ -99,7 +99,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/functions4ContinuousMode.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="520">
+            <state relative-caret-position="1496">
               <caret line="88" column="16" selection-start-line="88" selection-start-column="16" selection-end-line="88" selection-end-column="16" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
@@ -111,8 +111,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/saradc_differential.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="403">
-              <caret line="214" column="90" selection-start-line="214" selection-start-column="90" selection-end-line="214" selection-end-column="90" />
+            <state relative-caret-position="767">
+              <caret line="289" column="33" selection-start-line="289" selection-start-column="33" selection-end-line="289" selection-end-column="33" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -123,11 +123,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/assistantModule.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2294">
-              <caret line="251" column="80" selection-start-line="251" selection-start-column="80" selection-end-line="251" selection-end-column="80" />
+            <state relative-caret-position="-1373">
+              <caret line="197" column="70" selection-start-line="197" selection-start-column="70" selection-end-line="197" selection-end-column="70" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
-                <marker date="1534442789351" expanded="true" signature="15136:15137" ph="..." />
+                <marker date="1534666061525" expanded="true" signature="17721:17722" ph="..." />
               </folding>
             </state>
           </provider>
@@ -467,7 +467,21 @@
       <option name="project" value="LOCAL" />
       <updated>1533571256521</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="implement the burst mode for SAR ADC class with differential structure.&#10;the plotBurstMode method support two different switching methods:&#10;conventional and monotonic switching method.">
+      <created>1534448826205</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1534448826206</updated>
+    </task>
+    <task id="LOCAL-00016" summary="add the 'monotonic' switching method to the function 'getEnergy'.">
+      <created>1534449018692</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1534449018692</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TodoView">
@@ -484,17 +498,17 @@
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4536424" weight="0.11802575" />
-      <window_info id="Structure" order="1" sideWeight="0.54635763" side_tool="true" visible="true" weight="0.11802575" />
+      <window_info id="Structure" order="1" sideWeight="0.54635763" side_tool="true" visible="true" weight="0.119456366" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32941177" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.79196554" visible="true" weight="0.27228916" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.6108727" visible="true" weight="0.24819277" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49810246" weight="0.32739726" />
       <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.5018975" side_tool="true" weight="0.32872927" />
+      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.3891273" side_tool="true" visible="true" weight="0.24819277" />
       <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.43453512" weight="0.3756906" />
       <window_info anchor="bottom" id="Python Console" order="10" sideWeight="0.49905124" weight="0.32328767" />
       <window_info anchor="bottom" id="Docker" order="11" show_stripe_button="false" />
@@ -553,7 +567,8 @@
     <MESSAGE value="write the functions in saradc_cm and saradc_diff_cm into an assistant module. And implement the functions for continuous mode in SarAdc and SarAdcDifferential with the help of this assistant module." />
     <MESSAGE value="implement the methods for computing and plotting the energy consumption of a SAR ADC, with the 'one step' switching method." />
     <MESSAGE value="implement the burst mode for SAR ADC class with differential structure.&#10;the plotBurstMode method support two different switching methods:&#10;conventional and monotonic switching method." />
-    <option name="LAST_COMMIT_MESSAGE" value="implement the burst mode for SAR ADC class with differential structure.&#10;the plotBurstMode method support two different switching methods:&#10;conventional and monotonic switching method." />
+    <MESSAGE value="add the 'monotonic' switching method to the function 'getEnergy'." />
+    <option name="LAST_COMMIT_MESSAGE" value="add the 'monotonic' switching method to the function 'getEnergy'." />
   </component>
   <component name="editorHistoryManager">
     <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/numpy/lib/function_base.py">
@@ -586,6 +601,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/caogao.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="520">
+          <caret line="74" selection-start-line="74" selection-end-line="74" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/saradc.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3587">
@@ -603,16 +625,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/caogao.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="520">
-          <caret line="74" selection-start-line="74" selection-end-line="74" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/functions4ContinuousMode.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="520">
+        <state relative-caret-position="1496">
           <caret line="88" column="16" selection-start-line="88" selection-start-column="16" selection-end-line="88" selection-end-column="16" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
@@ -622,8 +637,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/saradc_differential.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="403">
-          <caret line="214" column="90" selection-start-line="214" selection-start-column="90" selection-end-line="214" selection-end-column="90" />
+        <state relative-caret-position="767">
+          <caret line="289" column="33" selection-start-line="289" selection-start-column="33" selection-end-line="289" selection-end-column="33" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
@@ -632,11 +647,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/assistantModule.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2294">
-          <caret line="251" column="80" selection-start-line="251" selection-start-column="80" selection-end-line="251" selection-end-column="80" />
+        <state relative-caret-position="-1373">
+          <caret line="197" column="70" selection-start-line="197" selection-start-column="70" selection-end-line="197" selection-end-column="70" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
-            <marker date="1534442789351" expanded="true" signature="15136:15137" ph="..." />
+            <marker date="1534666061525" expanded="true" signature="17721:17722" ph="..." />
           </folding>
         </state>
       </provider>
