@@ -215,9 +215,10 @@ class SarAdcDifferential:
         plot the energy consumption of the possible codes with different switching methods
         '''
         fig,ax = plt.subplots()
-        plot_energy(self.n,ax,switch='conventional',marker='v',structure=self.structure)
-        plot_energy(self.n,ax,switch='monotonic',marker='s',structure=self.structure)
-        plot_energy(self.n,ax,switch='mcs',marker='o',structure=self.structure)
+        plot_energy(self.n, ax, switch='conventional', marker='v', structure=self.structure)
+        plot_energy(self.n, ax, switch='monotonic', marker='s', structure=self.structure)
+        plot_energy(self.n, ax, switch='mcs', marker='o', structure=self.structure)
+        plot_energy(self.n, ax, switch='split', marker='D',structure=self.structure)
         ax.legend()
         ax.grid()
 
@@ -246,8 +247,8 @@ class SarAdcDifferential:
             vxp_list += [v_ip]
             vxn_list += [v_in]
             for i in range(self.n-1):
-                    v_xp = vxp_list[-1]- dOutput[i]*self.vref/(self.radix**(i+1))
-                    v_xn = vxn_list[-1]- (1-dOutput[i])* self.vref/(self.radix**(i+1))
+                    v_xp = vxp_list[-1] - dOutput[i]*self.vref/(self.radix**(i+1))
+                    v_xn = vxn_list[-1] - (1-dOutput[i])* self.vref/(self.radix**(i+1))
                     vxp_list += [v_xp]
                     vxn_list += [v_xn]
             # computing the v_ip and v_in after last comparision,note that the last capacitor to be switched
@@ -277,22 +278,23 @@ class SarAdcDifferential:
 
         # concatenate vip_list(or vin_list) and its last element,
         # in order to show the voltage at point X after last comparision
-        plt.step(np.arange(self.n+2),np.concatenate((vxp_list,[vxp_list[-1]])),
-                 label=r'$V_{xp}$',color='b',linewidth=1.5,where='post')
-        plt.step(np.arange(self.n+2),np.concatenate((vxn_list,[vxn_list[-1]])),
-                 label=r'$V_{xn}$',color='r',linewidth=1.5,where='post')
-        plt.axhline(y=self.vcm,color='g',ls=':',linewidth=1,label=r'$V_{cm}$')
+        plt.step(np.arange(self.n+2), np.concatenate((vxp_list, [vxp_list[-1]])),
+                 label=r'$V_{xp}$', color='b',linewidth=1.5, where='post')
+        plt.step(np.arange(self.n+2), np.concatenate((vxn_list, [vxn_list[-1]])),
+                 label=r'$V_{xn}$', color='r',linewidth=1.5, where='post')
+        plt.axhline(y=self.vcm,color='g', ls=':', linewidth=1, label=r'$V_{cm}$')
         plt.grid(linestyle=':')
-        plt.xticks(np.arange(0,self.n+2),np.concatenate((['sample'],dOutput)))
+        plt.xticks(np.arange(0, self.n+2), np.concatenate((['sample'],dOutput)))
         plt.xlabel('Digital Output')
         plt.ylabel(r'Voltage ($V$)')
         plt.legend(fontsize='small')
         plt.title(r'Voltage at point X with input: %.3f $V$'%v_input)
 
 
+start = time.time()
 adc = SarAdcDifferential(n=10,mismatch=0)
 adc.plot_energy()
-
+print('elapsed time: %.5f seconds' % (time.time()-start))
 plt.show()
 
 
