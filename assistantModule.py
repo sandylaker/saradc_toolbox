@@ -2,7 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import time
 
-def capArraygenerator(n=12,radix=2,mismatch=0.01,structure='conventional'):
+
+def cap_array_generator(n=12,radix=2,mismatch=0.01,structure='conventional'):
     '''
     generates an array of capacitors and computes the binary weights in the dac. there are three
     different structures from which to choose. pay attention that in the returned tuple of capacitor array
@@ -24,58 +25,59 @@ def capArraygenerator(n=12,radix=2,mismatch=0.01,structure='conventional'):
                                        shape of weights array: (n,) , MSB to LSB
     '''
     if structure == 'conventional':
-        capExp = np.concatenate(([0], np.arange(n)), axis=0)  # exponential of capacitance array
-        capArray =[]
-        # print('capExponential',capExp)
-        for i in capExp:
+        cap_exp = np.concatenate(([0], np.arange(n)), axis=0)  # exponential of capacitance array
+        cap_array =[]
+        # print('cap_exponential',cap_exp)
+        for i in cap_exp:
             cap_i = np.random.normal(radix ** i, mismatch * np.sqrt(radix ** i))  # good case
-            capArray += [cap_i]
-        capSum = np.sum(capArray)
-        #  reserve the capArray and abandon the last element
-        weights = (np.flip(capArray, -1)[:-1]) / capSum  # binary weights
-        return capArray,weights
+            cap_array += [cap_i]
+        cap_sum = np.sum(cap_array)
+        #  reserve the cap_array and abandon the last element
+        weights = (np.flip(cap_array, -1)[:-1]) / cap_sum  # binary weights
+        return cap_array,weights
     elif structure == 'differential':
-        capExp = np.concatenate(([0], np.arange(n)), axis=0)  # exponential of capacitance array
-        capArray = np.array([[],[]])
-        for i in capExp:
+        cap_exp = np.concatenate(([0], np.arange(n)), axis=0)  # exponential of capacitance array
+        cap_array = np.array([[],[]])
+        for i in cap_exp:
             cap_i = np.random.normal(radix ** i, mismatch * np.sqrt(radix ** i),size=(2,1)) # good case
-            capArray = np.hstack((capArray,cap_i))    # get an (2,n+1) array
-        capSum = np.sum(capArray,axis=-1)[:,np.newaxis] # in order to use broadcasting, get an (2,1) array
-        weights = (np.flip(capArray,-1)[:,:-1]) / capSum  # get an (2,n) array
-        return capArray,weights     # capArray shape(2,n+1); weights shape (2,n)
+            cap_array = np.hstack((cap_array,cap_i))    # get an (2,n+1) array
+        cap_sum = np.sum(cap_array,axis=-1)[:,np.newaxis] # in order to use broadcasting, get an (2,1) array
+        weights = (np.flip(cap_array,-1)[:,:-1]) / cap_sum  # get an (2,n) array
+        return cap_array,weights     # cap_array shape(2,n+1); weights shape (2,n)
     elif structure =='split':
-        if(n%2==1):
+        if n%2==1:
             n = n+1
             print('Warning: split capacitor structure only support even number of bits,'
                   ,'n is automatically set to n+1')
-        capExp = np.concatenate(([0],np.arange(n/2)),axis=0)
-        capArray = np.array([[],[]])
-        for i in capExp:
+        cap_exp = np.concatenate(([0],np.arange(n/2)),axis=0)
+        cap_array = np.array([[],[]])
+        for i in cap_exp:
             cap_i = np.random.normal(radix ** i, mismatch * np.sqrt(radix ** i),size=(2,1)) # good case
-            capArray = np.hstack((capArray,cap_i))   # get an (2,n/2) array
-        capArray_lsb = capArray[0][:]
-        capArray_msb = capArray[1][1:]  # MSB array has no dummy capacitor , shape(n/2,)
-        capSum_lsb = np.sum(capArray_lsb)
-        capSum_msb = np.sum(capArray_msb)
-        cap_attenuator = 1  # ideally it should be capSum_lsb/capSum_msb, but here we set it to 1 directly
+            cap_array = np.hstack((cap_array,cap_i))   # get an (2,n/2) array
+        cap_array_lsb = cap_array[0][:]
+        cap_array_msb = cap_array[1][1:]  # MSB array has no dummy capacitor , shape(n/2,)
+        cap_sum_lsb = np.sum(cap_array_lsb)
+        cap_sum_msb = np.sum(cap_array_msb)
+        cap_attenuator = 1  # ideally it should be cap_sum_lsb/cap_sum_msb, but here we set it to 1 directly
 
         # the series of attenuator capacitor and entire MSB array
-        capSum_MA = cap_attenuator * capSum_msb/(cap_attenuator+ capSum_msb)
+        cap_sum_MA = cap_attenuator * cap_sum_msb/(cap_attenuator+ cap_sum_msb)
         # the series of attenuator capacitor and entire LSB array
-        capSum_LA = cap_attenuator * capSum_lsb/(cap_attenuator + capSum_lsb)
+        cap_sum_LA = cap_attenuator * cap_sum_lsb/(cap_attenuator + cap_sum_lsb)
 
         # attention: the location of positive input of the amplifier is between attenuator capacitor and MSB array
-        # so here we need to multiply with an extra term 'cap_attenuator/(cap_attenuator+capSum_msb)'
-        weights_lsb = (np.flip(capArray_lsb,-1)[:-1])/(capSum_lsb + capSum_MA) * (cap_attenuator/(cap_attenuator+capSum_msb))
-        weights_msb = (np.flip(capArray_msb,-1))/(capSum_msb + capSum_LA)
+        # so here we need to multiply with an extra term 'cap_attenuator/(cap_attenuator+cap_sum_msb)'
+        weights_lsb = (np.flip(cap_array_lsb,-1)[:-1])/(
+                cap_sum_lsb + cap_sum_MA) * (cap_attenuator/(cap_attenuator+cap_sum_msb))
+        weights_msb = (np.flip(cap_array_msb,-1))/(cap_sum_msb + cap_sum_LA)
         weights = np.concatenate((weights_msb,weights_lsb))
 
         # attention: in the following step, the concatenated array is LSB-Array + attenuator + MSB-Array,
         # in which the position of MSB and LSB are exchanged if comparing with other structures.
         # However in the weights array, the first element corresponds to the MSB and the last element corresponds
         # to the LSB, which accords with the other structures.
-        capArray = np.concatenate((capArray_lsb,[cap_attenuator],capArray_msb))
-        return capArray,weights
+        cap_array = np.concatenate((cap_array_lsb,[cap_attenuator],cap_array_msb))
+        return cap_array,weights
 
 
 def getbi2deDict(n):
@@ -89,6 +91,7 @@ def getbi2deDict(n):
         binary = np.binary_repr(x, n)
         bi2deDict.update({binary: x})
     return bi2deDict
+
 
 def bin_array(arr, m):
     """
@@ -109,7 +112,7 @@ def bin_array(arr, m):
     ret = np.zeros(list(arr.shape) + [m], dtype=np.int64)
     for bit_ix in range(0, m):
         fetch_bit_func = np.vectorize(lambda x: x[bit_ix] == '1')
-        ret[...,bit_ix] = fetch_bit_func(strs).astype("int64")
+        ret[..., bit_ix] = fetch_bit_func(strs).astype("int64")
 
     return ret
 
@@ -124,71 +127,73 @@ def bin_array(arr, m):
 #              which has a length of n.
 #     '''
 #     deRange = np.arange(low,high)
-#     biCodes = [np.binary_repr(x,n) for x in deRange]
-#     biCodes = [[int(i) for i in biCodes[j]] for j in range(len(biCodes))]
-#     return biCodes
+#     binary_codes = [np.binary_repr(x,n) for x in deRange]
+#     binary_codes = [[int(i) for i in binary_codes[j]] for j in range(len(binary_codes))]
+#     return binary_codes
 
-def getDecisionLvls(weights,n,vref):
-    '''
+
+def get_decision_lvls(weights,n,vref):
+    """
     computes all the decision levels(also called transition points)
     :param weights: binary weights
     :param n: number of bits
     :param vref: reference voltage
     :return: a array of decision levels
-    '''
-    biCodes = bin_array(np.arange(2**n),n)
-    decisionLvls = np.inner(biCodes, weights) * vref
-    return decisionLvls
+    """
+    binary_codes = bin_array(np.arange(2**n), n)
+    decision_lvls = np.inner(binary_codes, weights) * vref
+    return decision_lvls
 
-def fastConversion(analogSamples,weights,n,vref):
-    '''
-    uses the fast conversion algorithm to convert an array of analogSamples into
+
+def fast_conversion(analog_samples, weights, n, vref):
+    """
+    uses the fast conversion algorithm to convert an array of analog_samples into
     decimal digital values.
-    :param analogSamples: a array with one dimension
+    :param analog_samples: a array with one dimension
     :param weights: binary weights of adc
     :param n: number of bits
     :param vref: reference voltage of adc
     :return: a array of decimal integers,whose number of dimension is 1 and length
-            equal to the length of analogSamples
-    '''
+            equal to the length of analog_samples
+    """
     # convert analog input to array and add one dimension
-    # use asarray method to handle the case that analogSamples is a single value.
-    analogSamples = np.asarray(analogSamples)[:,np.newaxis]    # shape(M,1)
-    decLvls = getDecisionLvls(weights,n,vref)[np.newaxis,:]    # shape(1,N)
-    # use numpy broadcasting to compare two matrix elementwise
-    relationMatrix = np.asarray(np.greater_equal(analogSamples,decLvls),dtype=np.int64)
+    # use asarray method to handle the case that analog_samples is a single value.
+    analog_samples = np.asarray(analog_samples)[:, np.newaxis]    # shape(M,1)
+    decision_lvls = get_decision_lvls(weights, n, vref)[np.newaxis, :]    # shape(1,N)
+    # use numpy broadcasting to compare two matrix element wise
+    relation_matrix = np.asarray(np.greater_equal(analog_samples, decision_lvls), dtype=np.int64)
     # sum each row and minus 1 getting a array with shape(M,)
-    conversionResult = np.sum(relationMatrix,axis=-1) -1
-    return conversionResult
+    conversion_result = np.sum(relation_matrix, axis=-1) - 1
+    return conversion_result
 
 
-def getDecisionPath(n):
-    '''
+def get_decision_path(n):
+    """
     get a array of decision path of the full decision tree.
     :param n: depth of the decision tree, it is equivalent to the resolution of
     the DAC.
     :return: A two-dimensional array,each row of which represents the decision path
     of a possible decision level ( a odd decimal integer).
-    '''
+    """
     # n = self.n # depth of the decision tree
     # possible decision level before the last comparision
-    code_decimal = np.arange(1,2**n,2)
-    code_binary = bin_array(code_decimal,n) # binary digits, shape (len(code_decimal),n)
-    #store the decision thresholds generated in each conversion
-    decisionPath = np.zeros((len(code_decimal),n))
+    code_decimal = np.arange(1, 2**n, 2)
+    code_binary = bin_array(code_decimal, n)  # binary digits, shape (len(code_decimal),n)
+    # store the decision thresholds generated in each conversion
+    decision_path = np.zeros((len(code_decimal),n))
     for i in range(len(code_decimal)):
         code_i = code_decimal[i]
         delta = np.array([2**i for i in range(n-1)])
         D = code_binary[i]
-        decisionPath[i,-1] = code_i
-        decisionPath[i,0] = 2**(n-1)
-        for j in range(n-2,0,-1):
-            decisionPath[i,j] = decisionPath[i,j+1] + (-1)**(2-D[j])*delta[n-2-j]
-    return decisionPath
+        decision_path[i, -1] = code_i
+        decision_path[i, 0] = 2**(n-1)
+        for j in range(n-2, 0, -1):
+            decision_path[i, j] = decision_path[i, j+1] + (-1)**(2-D[j])*delta[n-2-j]
+    return decision_path
 
 
-def getEnergy(n,switch='conventional',structure='conventional'):
-    '''
+def get_energy(n,switch='conventional',structure='conventional'):
+    """
     get the energy consumption of every code, each code represents the possible decision level before the last
     decision(a odd decimal integer).
     :param n: resolution of DAC
@@ -206,10 +211,10 @@ def getEnergy(n,switch='conventional',structure='conventional'):
                                                         times of that in the conventional structure, if conventional
                                                         switching method is used.
     :return: a ndarray, each element represents the energy consumption of each code.
-    '''
+    """
     # possible decision level before the last comparision
     code_decimal = np.arange(1, 2 ** n, 2)
-    decisionPath = getDecisionPath(n)  # two-dimensional
+    decision_path = get_decision_path(n)  # two-dimensional
     # store the switching energy of each code
     sw_energy_sum = np.zeros(len(code_decimal))
     if switch == 'conventional':
@@ -221,26 +226,25 @@ def getEnergy(n,switch='conventional',structure='conventional'):
         for i in range(len(code_decimal)):
             # weight of each decision threshold layer
             weights_ideal = [0.5 ** (i + 1) for i in range(n)]
-            #print(code_decimal[i],'=>',decisionPath[i])
             sw_energy = np.zeros(n)
-            sw_energy[0] = 0.5 * decisionPath[i,0]
+            sw_energy[0] = 0.5 * decision_path[i,0]
 
             # calculate the energy for up-switching steps
-            sw_up_pos = np.where(decisionPath[i,1:]>decisionPath[i,0:-1])[0]+1 # 1 is the index offset
+            sw_up_pos = np.where(decision_path[i,1:]>decision_path[i,0:-1])[0]+1 # 1 is the index offset
             # print(code_decimal[i],' sw_up_pos: ',sw_up_pos)
             if not sw_up_pos.size == 0:
-                # sw_energy[sw_up_pos] = decisionPath[i,sw_up_pos]*(-1)*(weights_ideal[sw_up_pos])+ 2**(n-1-sw_up_pos)
+                # sw_energy[sw_up_pos] = decision_path[i,sw_up_pos]*(-1)*(weights_ideal[sw_up_pos])+ 2**(n-1-sw_up_pos)
                 # 2**(n-1-sw_up_pos) stands for E_sw = C_up*V_ref^2
                 for k in sw_up_pos:
                     # \delta V_x is positive,so *(-1)
-                    sw_energy[k] =  decisionPath[i,k]*(-1)*(weights_ideal[k])+2**(n-1-k)
+                    sw_energy[k] =  decision_path[i,k]*(-1)*(weights_ideal[k])+2**(n-1-k)
 
-            sw_dn_pos = np.where(decisionPath[i,1:]< decisionPath[i,0:-1])[0]+1
+            sw_dn_pos = np.where(decision_path[i,1:]< decision_path[i,0:-1])[0]+1
             # print(code_decimal[i],' sw_dn_pos: ',sw_dn_pos)
             if not sw_dn_pos.size == 0:
-                # sw_energy[sw_dn_pos] = decisionPath[i,sw_dn_pos]*(-1)*(weights_ideal[sw_dn_pos]) + 2**(n-1-sw_dn_pos)
+                # sw_energy[sw_dn_pos] = decision_path[i,sw_dn_pos]*(-1)*(weights_ideal[sw_dn_pos]) + 2**(n-1-sw_dn_pos)
                 for k in sw_dn_pos:
-                    sw_energy[k] =  decisionPath[i,k]*(weights_ideal[k]) + 2**(n-1-k)
+                    sw_energy[k] =  decision_path[i,k]*(weights_ideal[k]) + 2**(n-1-k)
             # print(code_decimal[i],': ',sw_energy)
             sw_energy_sum[i] = np.sum(sw_energy)
         return coefficient * sw_energy_sum
@@ -258,8 +262,8 @@ def getEnergy(n,switch='conventional',structure='conventional'):
             # define an array to store the switching types(up or down) of each step.
             sw_process = np.zeros(n)
             # find the up-switching and down-switching steps
-            sw_up_pos = np.where(decisionPath[i, 1:] > decisionPath[i, 0:-1])[0] + 1  # 1 is the index offset
-            sw_dn_pos = np.where(decisionPath[i, 1:] < decisionPath[i, 0:-1])[0] + 1
+            sw_up_pos = np.where(decision_path[i, 1:] > decision_path[i, 0:-1])[0] + 1  # 1 is the index offset
+            sw_dn_pos = np.where(decision_path[i, 1:] < decision_path[i, 0:-1])[0] + 1
             sw_process[sw_up_pos],sw_process[sw_dn_pos] = 1, 0
             for k in range(1,n):
                 # if up-switching occurs, a capacitor of the p-side will be connected to the ground while n-side remains
@@ -283,8 +287,8 @@ def getEnergy(n,switch='conventional',structure='conventional'):
             sw_energy = np.zeros(n)
 
             # find the up-switching and down-switching steps
-            sw_up_pos = np.where(decisionPath[i, 1:] > decisionPath[i, 0:-1])[0] + 1  # 1 is the index offset
-            sw_dn_pos = np.where(decisionPath[i, 1:] < decisionPath[i, 0:-1])[0] + 1
+            sw_up_pos = np.where(decision_path[i, 1:] > decision_path[i, 0:-1])[0] + 1  # 1 is the index offset
+            sw_dn_pos = np.where(decision_path[i, 1:] < decision_path[i, 0:-1])[0] + 1
             # connection of bottom plates of positive and negative capacitor arrays.
             # at the sampling phase, all the bottom plates are connected to Vcm = 0.5* Vref
             cap_connect_p = np.full((n, n), 0.5)
@@ -332,10 +336,10 @@ def getEnergy(n,switch='conventional',structure='conventional'):
         weights_ideal = cap_ideal/(2**n)
         for i in range(len(code_decimal)):
             sw_energy = np.zeros(n)
-            sw_energy[0] = 0.5 * decisionPath[i, 0]
+            sw_energy[0] = 0.5 * decision_path[i, 0]
             # find the up-switching and down-switching steps
-            sw_up_pos = np.where(decisionPath[i, 1:] > decisionPath[i, 0:-1])[0] + 1  # 1 is the index offset
-            sw_dn_pos = np.where(decisionPath[i, 1:] < decisionPath[i, 0:-1])[0] + 1
+            sw_up_pos = np.where(decision_path[i, 1:] > decision_path[i, 0:-1])[0] + 1  # 1 is the index offset
+            sw_dn_pos = np.where(decision_path[i, 1:] < decision_path[i, 0:-1])[0] + 1
             # define an array to store the switching types(up or down) of each step.
             sw_process = np.zeros(n)
             sw_process[sw_up_pos], sw_process[sw_dn_pos] = 1.0, 0
@@ -373,11 +377,11 @@ def plot_energy(n, ax, switch='conventional', structure='conventional', marker='
     :param switch: switching method, 'conventional' or 'monotonic'
     :param structure: structure of ADC
     :param marker: marker of the curve
-    :return: a plot of energy comsumption
+    :return: a plot of energy consumption
     """
     # possible decision level before the last comparision
     code_decimal = np.arange(1, 2 ** n, 2)
-    sw_energy_sum = getEnergy(n, switch=switch, structure=structure)
+    sw_energy_sum = get_energy(n, switch=switch, structure=structure)
     ax.plot(code_decimal, sw_energy_sum, marker=marker, label=switch, markevery=0.05)
     # axis.grid()
     ax.set_xlabel('Output Code')
