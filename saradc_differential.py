@@ -320,15 +320,14 @@ class SarAdcDifferential:
         ax.set_title(r'Voltage at point X with input: %.3f $V$' % v_input)
 
 
-
 if __name__ == '__main__':
     start = time.time()
     adc = SarAdcDifferential(vref=1.2, n=12, mismatch=0.1)
     # adc.plot_energy()
-    f1 = plt.figure(1)
-    adc.plot_dnl_inl(resolution=0.01, method='iterative')
-    f2 = plt.figure(2)
-    adc.plot_dnl_inl(method='fast')
+    # f1 = plt.figure(1)
+    # adc.plot_dnl_inl(resolution=0.01, method='iterative')
+    # f2 = plt.figure(2)
+    # adc.plot_dnl_inl(method='fast')
     # adc.plot_burst_mode(v_input=0.8, switch='conventional')
     print('elapsed time: %.5f seconds' % (time.time()-start))
     plt.show()

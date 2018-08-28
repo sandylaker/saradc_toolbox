@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="c35dd06f-8c6b-4ceb-819a-886c0415d814" name="Default" comment="1.improve the project struture&#10;2.implement the GUI&#10;3.improve the methods(dnl, plot_burst_mode, plot_fft, etc.)">
       <change beforePath="$PROJECT_DIR$/../saradc_toolbox/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../saradc_toolbox/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../saradc_toolbox/saradc_differential.py" beforeDir="false" afterPath="$PROJECT_DIR$/../saradc_toolbox/saradc_differential.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -89,11 +90,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/../saradc_toolbox/saradc_differential.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="516">
-              <caret line="109" column="42" selection-start-line="109" selection-start-column="42" selection-end-line="109" selection-end-column="42" />
+            <state relative-caret-position="332">
+              <caret line="329" column="10" selection-start-line="329" selection-start-column="10" selection-end-line="329" selection-end-column="10" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -101,11 +102,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../saradc_toolbox/main_gui.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2476">
-              <caret line="581" selection-start-line="581" selection-end-line="581" />
+            <state relative-caret-position="-1346">
+              <caret line="452" column="45" lean-forward="true" selection-start-line="452" selection-start-column="45" selection-end-line="452" selection-end-column="45" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
                 <marker date="1535487071194" expanded="true" signature="458:463" ph="..." />
@@ -237,6 +238,7 @@
         <option value="$PROJECT_DIR$/saradc_differential.py" />
         <option value="$PROJECT_DIR$/saradc.py" />
         <option value="$PROJECT_DIR$/main_gui.py" />
+        <option value="$PROJECT_DIR$/../saradc_toolbox/saradc_differential.py" />
       </list>
     </option>
   </component>
@@ -288,7 +290,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+    <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -577,7 +579,14 @@
       <option name="project" value="LOCAL" />
       <updated>1535487146238</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="1.improve the project struture&#10;2.implement the GUI&#10;3.improve the methods(dnl, plot_burst_mode, plot_fft, etc.)">
+      <created>1535487881560</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1535487881560</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TodoView">
@@ -591,9 +600,10 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="815" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.44260028" visible="true" weight="0.15808298" />
-      <window_info id="Structure" order="1" sideWeight="0.55739975" side_tool="true" visible="true" weight="0.15808298" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.44278607" visible="true" weight="0.15808298" />
+      <window_info id="Structure" order="1" sideWeight="0.5572139" side_tool="true" visible="true" weight="0.15808298" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49928468" weight="0.32891566" />
@@ -603,7 +613,7 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49810246" weight="0.3264177" />
       <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.39055794" side_tool="true" weight="0.16626506" />
+      <window_info active="true" anchor="bottom" id="Event Log" order="8" sideWeight="0.39055794" side_tool="true" visible="true" weight="0.16597511" />
       <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.43453512" weight="0.3756906" />
       <window_info anchor="bottom" id="Python Console" order="10" sideWeight="0.49905124" weight="0.32275862" />
       <window_info anchor="bottom" id="Docker" order="11" show_stripe_button="false" />
@@ -652,6 +662,9 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$" />
+    </ignored-roots>
     <MESSAGE value="a" />
     <MESSAGE value="test" />
     <MESSAGE value="docstring for def de2biRange" />
@@ -805,12 +818,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../saradc_toolbox/saradc_differential.py">
+    <entry file="file://$PROJECT_DIR$/../saradc_toolbox/main_gui.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="516">
-          <caret line="109" column="42" selection-start-line="109" selection-start-column="42" selection-end-line="109" selection-end-column="42" />
+        <state relative-caret-position="-1346">
+          <caret line="452" column="45" lean-forward="true" selection-start-line="452" selection-start-column="45" selection-end-line="452" selection-end-column="45" />
           <folding>
-            <element signature="e#0#18#0" expanded="true" />
+            <element signature="e#0#10#0" expanded="true" />
+            <marker date="1535487071194" expanded="true" signature="458:463" ph="..." />
+            <marker date="1535487071194" expanded="true" signature="12146:12152" ph="..." />
+            <marker date="1535487071194" expanded="true" signature="16938:16947" ph="..." />
+            <marker date="1535487071194" expanded="true" signature="17968:18054" ph="..." />
           </folding>
         </state>
       </provider>
@@ -825,16 +842,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../saradc_toolbox/main_gui.py">
+    <entry file="file://$PROJECT_DIR$/../saradc_toolbox/saradc_differential.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2476">
-          <caret line="581" selection-start-line="581" selection-end-line="581" />
+        <state relative-caret-position="332">
+          <caret line="329" column="10" selection-start-line="329" selection-start-column="10" selection-end-line="329" selection-end-column="10" />
           <folding>
-            <element signature="e#0#10#0" expanded="true" />
-            <marker date="1535487071194" expanded="true" signature="458:463" ph="..." />
-            <marker date="1535487071194" expanded="true" signature="12146:12152" ph="..." />
-            <marker date="1535487071194" expanded="true" signature="16938:16947" ph="..." />
-            <marker date="1535487071194" expanded="true" signature="17968:18054" ph="..." />
+            <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
