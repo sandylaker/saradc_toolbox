@@ -65,20 +65,24 @@ class Window(QWidget):
         self.toolbar = NavigationToolbar(self.canvas, self)
 
         # Just some button connected to burst mode plot
-        self.button_bm = QPushButton('Plot Burst Mode')
+        self.button_bm = QPushButton('Plot \n Burst Mode')
+        self.button_bm.setFont(QFont('Arial', weight=QFont.Bold))
         self.button_bm.clicked.connect(self.plot_bm)
         self.button_bm.setEnabled(False)
 
         # Just some button connected to fft plot
-        self.button_fft = QPushButton('Plot FFT')
+        self.button_fft = QPushButton('Plot \n FFT')
+        self.button_fft.setFont(QFont('Arial', weight=QFont.Bold))
         self.button_fft.clicked.connect(self.plot_fft)
 
         # Just some button connected to nonlinearity plot
-        self.button_nonlinearity = QPushButton('Plot Nonlinearity')
+        self.button_nonlinearity = QPushButton('Plot \n Nonlinearity')
+        self.button_nonlinearity.setFont(QFont('Arial', weight=QFont.Bold))
         self.button_nonlinearity.clicked.connect(self.plot_nonlinearity)
 
         # Just some button connected to energy consumption plot
-        self.button_energy = QPushButton('Plot Energy Consumption')
+        self.button_energy = QPushButton('Plot Energy \n Consumption')
+        self.button_energy.setFont(QFont('Arial', weight=QFont.Bold))
         self.button_energy.clicked.connect(self.plot_energy)
 
         # Radio button for blocking the Warnings
@@ -88,7 +92,8 @@ class Window(QWidget):
         self.button_wn_block.toggled.connect(self.block_warnings)
 
         # button for random prime number selection
-        self.button_randprime = QPushButton('Select Prime Number')
+        self.button_randprime = QPushButton('Select \n Prime Number')
+        self.button_randprime.setFont(QFont('Arial', weight=QFont.Bold))
         self.button_randprime.clicked.connect(self.select_prime_number)
 
         # widgets to initialize the parameters of adc
@@ -122,7 +127,7 @@ class Window(QWidget):
         self.structure_widget = QComboBox()
         self.structure_widget.addItem('conventional')
         self.structure_widget.addItem('differential')
-        self.structure_widget.addItem('split capacitor')
+        self.structure_widget.addItem('split cap array')
         self.structure_widget.currentIndexChanged.connect(self.update_structure)
 
         self.label4 = QLabel()
@@ -130,7 +135,7 @@ class Window(QWidget):
 
         # widgets to initialize the parameter of burst mode
         self.label5 = QLabel()
-        self.label5.setText('Burst Mode: ')
+        self.label5.setText('Burst Mode:')
         self.label5.setFont(QFont('Arial', weight=QFont.Bold))
 
         self.vin_widget = QLineEdit()
@@ -162,7 +167,7 @@ class Window(QWidget):
         self.resolution_widget.textChanged.connect(self.update_resolution)
 
         self.label9 = QLabel()
-        self.label9.setText('Resolution of Ramp Signal')
+        self.label9.setText('Resolution of \n Ramp Signal')
 
         self.method_widget = QComboBox()
         self.method_widget.addItem('fast')
@@ -210,7 +215,7 @@ class Window(QWidget):
         self.label14.setText('Sampling Frequency')
 
         self.label15 = QLabel()
-        self.label15.setText('ADC Parameters')
+        self.label15.setText('ADC Parameters:')
         self.label15.setFont(QFont('Arial', weight=QFont.Bold))
 
         # set layout
@@ -227,54 +232,51 @@ class Window(QWidget):
         grid_button = QGridLayout()
         grid_button.addWidget(self.button_bm, 1, 1)
         grid_button.addWidget(self.button_fft, 1, 2)
-        grid_button.addWidget(self.button_nonlinearity, 2, 1)
-        grid_button.addWidget(self.button_energy, 2, 2)
+        grid_button.addWidget(self.button_nonlinearity, 1, 3)
+        grid_button.addWidget(self.button_energy, 2, 1)
+        grid_button.addWidget(self.button_randprime, 2, 2)
+        grid_button.addWidget(self.button_wn_block, 2, 3, Qt.AlignHCenter)
         # insert layout of buttons into the layout of canvas
         canvas_layout.addLayout(grid_button)
 
         # layout for parameters
         param_layout = QGridLayout()
-        param_layout.addWidget(self.label1, 1, 1)
-        param_layout.addWidget(self.vref_widget, 2, 1)
+        param_layout.addWidget(self.label15, 1, 1, 1, 2, Qt.AlignHCenter)
+        param_layout.addWidget(self.label1, 2, 1)
+        param_layout.addWidget(self.vref_widget, 3, 1)
 
-        param_layout.addWidget(self.label2, 1, 2)
-        param_layout.addWidget(self.n_widget, 2, 2)
+        param_layout.addWidget(self.label2, 2, 2)
+        param_layout.addWidget(self.n_widget, 3, 2)
 
-        param_layout.addWidget(self.label3, 3, 1)
-        param_layout.addWidget(self.mismatch_widget, 4, 1)
+        param_layout.addWidget(self.label3, 4, 1)
+        param_layout.addWidget(self.mismatch_widget, 5, 1)
 
-        param_layout.addWidget(self.label4, 3, 2)
-        param_layout.addWidget(self.structure_widget, 4, 2)
+        param_layout.addWidget(self.label4, 4, 2)
+        param_layout.addWidget(self.structure_widget, 5, 2)
 
-        param_layout.addWidget(self.label5, 5, 1)
-        param_layout.addWidget(self.label6, 6, 1)
-        param_layout.addWidget(self.vin_widget, 7, 1)
+        param_layout.addWidget(self.label5, 6, 1, 1, 2, Qt.AlignHCenter)
+        param_layout.addWidget(self.label6, 7, 1)
+        param_layout.addWidget(self.vin_widget, 8, 1)
 
-        param_layout.addWidget(self.label7, 6, 2)
-        param_layout.addWidget(self.switch_widget, 7, 2)
+        param_layout.addWidget(self.label7, 7, 2)
+        param_layout.addWidget(self.switch_widget, 8, 2)
 
-        param_layout.addWidget(self.label8, 8, 1)
-        param_layout.addWidget(self.label9, 9, 1)
-        param_layout.addWidget(self.resolution_widget, 10, 1)
-        param_layout.addWidget(self.label10, 9, 2)
-        param_layout.addWidget(self.method_widget, 10, 2)
+        param_layout.addWidget(self.label8, 9, 1, 1, 2, Qt.AlignHCenter)
+        param_layout.addWidget(self.label9, 10, 1)
+        param_layout.addWidget(self.resolution_widget, 11, 1)
+        param_layout.addWidget(self.label10, 10, 2)
+        param_layout.addWidget(self.method_widget, 11, 2)
 
-        param_layout.addWidget(self.label11, 11, 1)
-        param_layout.addWidget(self.label12, 12, 1)
-        param_layout.addWidget(self.fftlength_widget, 13, 1)
+        param_layout.addWidget(self.label11, 12, 1, 1, 2, Qt.AlignHCenter)
+        param_layout.addWidget(self.label12, 13, 1)
+        param_layout.addWidget(self.fftlength_widget, 14, 1)
 
-        param_layout.addWidget(self.label13, 12, 2)
-        param_layout.addWidget(self.prime_number_widget, 13, 2)
+        param_layout.addWidget(self.label13, 13, 2)
+        param_layout.addWidget(self.prime_number_widget, 14, 2)
 
-        param_layout.addWidget(self.label14, 14, 1)
-        param_layout.addWidget(self.fs_widget, 15, 1)
-        param_layout.addWidget(self.fs_unit_widget, 15, 2)
-
-        # add warning block button
-        param_layout.addWidget(self.button_wn_block, 16, 1)
-
-        # add prime number selection button
-        param_layout.addWidget(self.button_randprime, 16, 2)
+        param_layout.addWidget(self.label14, 15, 1)
+        param_layout.addWidget(self.fs_widget, 16, 1)
+        param_layout.addWidget(self.fs_unit_widget, 16, 2)
 
         layout.addLayout(param_layout)
         self.setLayout(layout)
@@ -344,7 +346,7 @@ class Window(QWidget):
                     self.button_energy.setEnabled(True)
                     self.button_fft.setEnabled(True)
 
-            elif str(self.structure_widget.currentText()) == 'split capacitor':
+            elif str(self.structure_widget.currentText()) == 'split cap array':
                 structure = 'split'
                 if self.switch_widget.currentText() == 'monotonic' \
                         or self.switch_widget.currentText() == 'mcs':
@@ -475,14 +477,17 @@ class Window(QWidget):
     def plot_fft(self):
         # refresh the figure
         self.figure.clear()
-        if str(self.structure_widget.currentText()) == 'differential':
-            self.adc_diff.plot_fft(self.fs, self.fft_length, self.prime_number)
+        if self.prime_number > 0.5 * self.fft_length:
+            self.show_dialog_5()
         else:
-            self.adc.plot_fft(self.fs, self.fft_length, self.prime_number)
+            if str(self.structure_widget.currentText()) == 'differential':
+                self.adc_diff.plot_fft(self.fs, self.fft_length, self.prime_number)
+            else:
+                self.adc.plot_fft(self.fs, self.fft_length, self.prime_number)
 
-        self.toolbar.update()
-        # refresh canvas
-        self.canvas.draw()
+            self.toolbar.update()
+            # refresh canvas
+            self.canvas.draw()
 
     def plot_nonlinearity(self):
         # refresh the figure

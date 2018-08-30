@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c35dd06f-8c6b-4ceb-819a-886c0415d814" name="Default" comment="1.improve the project struture&#10;2.implement the GUI&#10;3.improve the methods(dnl, plot_burst_mode, plot_fft, etc.)">
+    <list default="true" id="c35dd06f-8c6b-4ceb-819a-886c0415d814" name="Default" comment="1.revise the interface of fft_plot&#10;2.add a button for prime number selection">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assistant_module/functions_4_continuous_mode.py" beforeDir="false" afterPath="$PROJECT_DIR$/assistant_module/functions_4_continuous_mode.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main_gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_gui.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/saradc.py" beforeDir="false" afterPath="$PROJECT_DIR$/saradc.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/saradc_differential.py" beforeDir="false" afterPath="$PROJECT_DIR$/saradc_differential.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -22,7 +20,7 @@
     <SUITE FILE_PATH="coverage/saradc_toolbox$saradc_differential__1_.coverage" NAME="saradc_differential (1) Coverage Results" MODIFIED="1535530187862" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/saradc$saradc.coverage" NAME="saradc Coverage Results" MODIFIED="1531994380345" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/saradc$test.coverage" NAME="test Coverage Results" MODIFIED="1531133681201" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/saradc_toolbox$main_gui.coverage" NAME="main_gui Coverage Results" MODIFIED="1535631366728" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/saradc_toolbox$main_gui.coverage" NAME="main_gui Coverage Results" MODIFIED="1535655437326" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/saradc$saradc_diff_cm.coverage" NAME="saradc_diff_cm Coverage Results" MODIFIED="1531469053598" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/saradc$saradc_differential.coverage" NAME="saradc_differential Coverage Results" MODIFIED="1534853712992" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/saradc_toolbox$saradc.coverage" NAME="saradc Coverage Results" MODIFIED="1535486390757" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -100,12 +98,14 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="2322" />
+          <entry key="py" value="2874" />
+          <entry key="txt" value="92" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="2322" />
+          <entry key="PLAIN_TEXT" value="92" />
+          <entry key="Python" value="2874" />
         </counts>
       </usages-collector>
     </session>
@@ -140,8 +140,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assistant_module/functions_4_continuous_mode.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1138">
-              <caret line="128" column="56" selection-start-line="128" selection-start-column="56" selection-end-line="128" selection-end-column="56" />
+            <state relative-caret-position="20">
+              <caret line="42" column="19" lean-forward="true" selection-start-line="42" selection-start-column="19" selection-end-line="42" selection-end-column="19" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -152,11 +152,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main_gui.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="190">
-              <caret line="91" selection-start-line="91" selection-end-line="91" />
+            <state relative-caret-position="3985">
+              <caret line="349" column="3" selection-start-line="349" selection-start-column="3" selection-end-line="349" selection-end-column="3" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
-                <marker date="1535631661507" expanded="true" signature="486:491" ph="..." />
+                <marker date="1535655437319" expanded="true" signature="486:491" ph="..." />
               </folding>
             </state>
           </provider>
@@ -173,7 +173,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>greater</find>
       <find>capExp</find>
       <find>capArray</find>
       <find>getbi2deDict</find>
@@ -196,13 +195,14 @@
       <find>map</find>
       <find>prime</find>
       <find>adc.</find>
-      <find>window</find>
       <find>fft_length</find>
       <find>prime_number</find>
       <find>fs</find>
       <find>se</find>
       <find>self.adc</find>
       <find>update_adc</find>
+      <find>window</find>
+      <find>split capacitor array</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -220,6 +220,7 @@
       <replace>plot_fft</replace>
       <replace>fft_length</replace>
       <replace>enable_buttons</replace>
+      <replace>split cap array</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -260,10 +261,10 @@
         <option value="$PROJECT_DIR$/test_gui.py" />
         <option value="$PROJECT_DIR$/assistant_module/get_energy.py" />
         <option value="$PROJECT_DIR$/assistant_module/cap_array_generetor.py" />
-        <option value="$PROJECT_DIR$/assistant_module/functions_4_continuous_mode.py" />
         <option value="$PROJECT_DIR$/saradc_differential.py" />
         <option value="$PROJECT_DIR$/saradc_differential.py" />
         <option value="$PROJECT_DIR$/saradc.py" />
+        <option value="$PROJECT_DIR$/assistant_module/functions_4_continuous_mode.py" />
         <option value="$PROJECT_DIR$/main_gui.py" />
         <option value="$PROJECT_DIR$/main_gui.py" />
       </list>
@@ -619,7 +620,14 @@
       <option name="project" value="LOCAL" />
       <updated>1535488407299</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="1.revise the interface of fft_plot&#10;2.add a button for prime number selection">
+      <created>1535631723104</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1535631723104</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TodoView">
@@ -712,7 +720,8 @@
     <MESSAGE value="add the 'mcs' switching method to the function 'getEnergy'." />
     <MESSAGE value="add 'split' (split-capacitor switching) method to the function 'get_energy'" />
     <MESSAGE value="1.improve the project struture&#10;2.implement the GUI&#10;3.improve the methods(dnl, plot_burst_mode, plot_fft, etc.)" />
-    <option name="LAST_COMMIT_MESSAGE" value="1.improve the project struture&#10;2.implement the GUI&#10;3.improve the methods(dnl, plot_burst_mode, plot_fft, etc.)" />
+    <MESSAGE value="1.revise the interface of fft_plot&#10;2.add a button for prime number selection" />
+    <option name="LAST_COMMIT_MESSAGE" value="1.revise the interface of fft_plot&#10;2.add a button for prime number selection" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file:///Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/numpy/lib/function_base.py">
@@ -844,16 +853,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assistant_module/functions_4_continuous_mode.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1138">
-          <caret line="128" column="56" selection-start-line="128" selection-start-column="56" selection-end-line="128" selection-end-column="56" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/saradc.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-2839">
@@ -865,13 +864,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/assistant_module/functions_4_continuous_mode.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="20">
+          <caret line="42" column="19" lean-forward="true" selection-start-line="42" selection-start-column="19" selection-end-line="42" selection-end-column="19" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/main_gui.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="91" selection-start-line="91" selection-end-line="91" />
+        <state relative-caret-position="3985">
+          <caret line="349" column="3" selection-start-line="349" selection-start-column="3" selection-end-line="349" selection-end-column="3" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
-            <marker date="1535631661507" expanded="true" signature="486:491" ph="..." />
+            <marker date="1535655437319" expanded="true" signature="486:491" ph="..." />
           </folding>
         </state>
       </provider>
