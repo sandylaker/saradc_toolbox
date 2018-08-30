@@ -9,6 +9,7 @@ from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as Navigatio
 import matplotlib.pyplot as plt
 from saradc import SarAdc as Adc
 from saradc_differential import SarAdcDifferential as AdcDiff
+from sympy import randprime
 
 
 # noinspection PyArgumentList
@@ -20,18 +21,17 @@ class Window(QWidget):
             'n': 12,
             'mismatch': 0.001,
             'structure': 'conventional',
-            'fft_length': 4096,
-            'prime_number': 1193,
-            'fs': 50e6}
+            }
         self.adc_diff_args = {
             'vref': 1.2,
             'n': 12,
             'mismatch': 0.001,
-            'structure': 'differential',
-            'fft_length': 4096,
-            'prime_number': 1193,
-            'fs': 50e6}
-
+            'structure': 'differential'
+            }
+        
+        self.fs = 50e6
+        self.fft_length = 4096
+        self.prime_number = 1193
         self.vin = 0.6
         self.switch = 'conventional'
         self.resolution = 0.1
@@ -40,7 +40,7 @@ class Window(QWidget):
                            'monotonic': 'monotonic',
                            'mcs': 'mcs',
                            'split capacitor': 'split'}
-        self.method_map = {'fast':'fast',
+        self.method_map = {'fast': 'fast',
                            'iterative': 'iterative',
                            'code density': 'code_density'}
         self.unit_map = {'MHz': 1e6,
@@ -86,6 +86,10 @@ class Window(QWidget):
         self.button_wn_block.setFont(QFont('Arial', weight=QFont.Bold))
         self.button_wn_block.setChecked(False)
         self.button_wn_block.toggled.connect(self.block_warnings)
+
+        # button for random prime number selection
+        self.button_randprime = QPushButton('Select Prime Number')
+        self.button_randprime.clicked.connect(self.select_prime_number)
 
         # widgets to initialize the parameters of adc
         self.vref_widget = QLineEdit()
@@ -140,7 +144,7 @@ class Window(QWidget):
         self.switch_widget.addItem('conventional')
         self.switch_widget.addItem('monotonic')
         self.switch_widget.addItem('mcs')
-        self.switch_widget.addItem('split')
+        self.switch_widget.addItem('split capacitor')
         self.switch_widget.currentIndexChanged.connect(self.update_switch)
 
         self.label7 = QLabel()
@@ -176,7 +180,7 @@ class Window(QWidget):
 
         self.fftlength_widget = QLineEdit()
         self.fftlength_widget.setValidator(QIntValidator(self.fftlength_widget))
-        self.fftlength_widget.setPlaceholderText(str(self.adc.fft_length))
+        self.fftlength_widget.setPlaceholderText(str(self.fft_length))
         self.fftlength_widget.textChanged.connect(self.update_fft_length)
 
         self.label12 = QLabel()
@@ -184,7 +188,7 @@ class Window(QWidget):
 
         self.prime_number_widget = QLineEdit()
         self.prime_number_widget.setValidator(QIntValidator(self.prime_number_widget))
-        self.prime_number_widget.setPlaceholderText(str(self.adc.prime_number))
+        self.prime_number_widget.setPlaceholderText(str(self.prime_number))
         self.prime_number_widget.textChanged.connect(self.update_prime_number)
 
         self.label13 = QLabel()
@@ -192,7 +196,7 @@ class Window(QWidget):
 
         self.fs_widget = QLineEdit()
         self.fs_widget.setValidator(QDoubleValidator(self.fs_widget))
-        self.fs_widget.setPlaceholderText(str(self.adc.fs/1e6))
+        self.fs_widget.setPlaceholderText(str(self.fs/1e6))
         self.fs_widget.textChanged.connect(self.update_fs)
 
         # the unit of the sampling frequency
@@ -210,6 +214,7 @@ class Window(QWidget):
         self.label15.setFont(QFont('Arial', weight=QFont.Bold))
 
         # set layout
+        # the outermost layout
         layout = QHBoxLayout()
 
         canvas_layout = QVBoxLayout()
@@ -224,6 +229,7 @@ class Window(QWidget):
         grid_button.addWidget(self.button_fft, 1, 2)
         grid_button.addWidget(self.button_nonlinearity, 2, 1)
         grid_button.addWidget(self.button_energy, 2, 2)
+        # insert layout of buttons into the layout of canvas
         canvas_layout.addLayout(grid_button)
 
         # layout for parameters
@@ -265,8 +271,10 @@ class Window(QWidget):
         param_layout.addWidget(self.fs_unit_widget, 15, 2)
 
         # add warning block button
-        param_layout.addWidget(self.button_wn_block,16,1)
+        param_layout.addWidget(self.button_wn_block, 16, 1)
 
+        # add prime number selection button
+        param_layout.addWidget(self.button_randprime, 16, 2)
 
         layout.addLayout(param_layout)
         self.setLayout(layout)
@@ -289,7 +297,7 @@ class Window(QWidget):
             vref = float(self.vref_widget.text())
             self.adc_args['vref'] = vref
             self.adc_diff_args['vref'] = vref
-            self.update_adcs()
+            self.update_adc()
             self.button_nonlinearity.setEnabled(True)
             self.button_energy.setEnabled(True)
             self.button_fft.setEnabled(True)
@@ -301,7 +309,7 @@ class Window(QWidget):
             n = int(self.n_widget.value())
             self.adc_args['n'] = n
             self.adc_diff_args['n'] = n
-            self.update_adcs()
+            self.update_adc()
             self.button_nonlinearity.setEnabled(True)
             self.button_energy.setEnabled(True)
             self.button_fft.setEnabled(True)
@@ -313,7 +321,7 @@ class Window(QWidget):
             mismatch = float(self.mismatch_widget.text())
             self.adc_args['mismatch'] = mismatch
             self.adc_diff_args['mismatch'] = mismatch
-            self.update_adcs()
+            self.update_adc()
             self.button_nonlinearity.setEnabled(True)
             self.button_energy.setEnabled(True)
             self.button_fft.setEnabled(True)
@@ -325,7 +333,7 @@ class Window(QWidget):
             if str(self.structure_widget.currentText()) == 'conventional':
                 structure = 'conventional'
                 self.adc_args['structure'] = structure
-                self.update_adcs()
+                self.update_adc()
                 if self.switch_widget.currentText() == 'monotonic' \
                         or self.switch_widget.currentText() == 'mcs':
                     if not self.warning_blocked:
@@ -345,7 +353,7 @@ class Window(QWidget):
                     self.button_bm.setEnabled(True)
                 else:
                     self.adc_args['structure'] = structure
-                    self.update_adcs()
+                    self.update_adc()
                     self.button_nonlinearity.setEnabled(True)
                     self.button_energy.setEnabled(True)
                     self.button_fft.setEnabled(True)
@@ -353,7 +361,7 @@ class Window(QWidget):
             elif str(self.structure_widget.currentText()) == 'differential':
                 structure = 'differential'
                 self.adc_diff_args['structure'] = structure
-                self.update_adcs()
+                self.update_adc()
                 self.button_nonlinearity.setEnabled(True)
                 self.button_energy.setEnabled(True)
                 self.button_fft.setEnabled(True)
@@ -417,11 +425,9 @@ class Window(QWidget):
             self.button_nonlinearity.setEnabled(False)
 
     def update_fft_length(self):
-        if str(self.method_widget.currentText()):
-            fft_length = int(self.fftlength_widget.text())
-            self.adc_args['fft_length'] = fft_length
-            self.adc_diff_args['fft_length'] = fft_length
-            self.update_adcs()
+        if str(self.fftlength_widget.text()):
+            fft_length = int(str(self.fftlength_widget.text()))
+            self.fft_length = fft_length
             self.button_fft.setEnabled(True)
         else:
             self.button_fft.setEnabled(False)
@@ -429,13 +435,12 @@ class Window(QWidget):
     def update_prime_number(self):
         if str(self.prime_number_widget.text()):
             prime_number = int(self.prime_number_widget.text())
-            if prime_number > 0.5 * int(self.fftlength_widget.text()) and not self.warning_blocked:
+            if prime_number > 0.5 * int(self.fft_length) and not self.warning_blocked:
                 self.show_dialog_5()
-                self.button_fft.setEnabled(False)
             else:
-                self.adc_args['prime_number'] = prime_number
-                self.adc_diff_args['prime_number'] = prime_number
-                self.update_adcs()
+                self.prime_number = prime_number
+                self.button_fft.setEnabled(True)
+                print(self.prime_number)
         else:
             self.button_fft.setEnabled(False)
 
@@ -444,10 +449,8 @@ class Window(QWidget):
             fs = int(self.fs_widget.text())
             fs_unit = self.unit_map[str(self.fs_unit_widget.currentText())]
             fs = fs * fs_unit
-            print('fs: ',fs)
-            self.adc_args['fs'] = fs
-            self.adc_diff_args['fs'] = fs
-            self.update_adcs()
+            print('fs: ', fs)
+            self.fs = fs
             self.button_fft.setEnabled(True)
         else:
             self.button_fft.setEnabled(False)
@@ -473,9 +476,9 @@ class Window(QWidget):
         # refresh the figure
         self.figure.clear()
         if str(self.structure_widget.currentText()) == 'differential':
-            self.adc_diff.plot_fft()
+            self.adc_diff.plot_fft(self.fs, self.fft_length, self.prime_number)
         else:
-            self.adc.plot_fft()
+            self.adc.plot_fft(self.fs, self.fft_length, self.prime_number)
 
         self.toolbar.update()
         # refresh canvas
@@ -506,7 +509,7 @@ class Window(QWidget):
         # refresh canvas
         self.canvas.draw()
 
-    def update_adcs(self):
+    def update_adc(self):
         self.adc.__init__(**self.adc_args)
         self.adc_diff.__init__(**self.adc_diff_args)
 
@@ -576,6 +579,11 @@ class Window(QWidget):
 
     def block_warnings(self):
         self.warning_blocked = self.button_wn_block.isChecked()
+
+    def select_prime_number(self):
+        prime_number = randprime(2, 0.5 * self.fft_length)
+        self.prime_number_widget.setText(str(prime_number))
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

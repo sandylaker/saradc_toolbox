@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c35dd06f-8c6b-4ceb-819a-886c0415d814" name="Default" comment="1.improve the project struture&#10;2.implement the GUI&#10;3.improve the methods(dnl, plot_burst_mode, plot_fft, etc.)">
-      <change beforePath="$PROJECT_DIR$/../saradc_toolbox/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../saradc_toolbox/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../saradc_toolbox/saradc_differential.py" beforeDir="false" afterPath="$PROJECT_DIR$/../saradc_toolbox/saradc_differential.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assistant_module/functions_4_continuous_mode.py" beforeDir="false" afterPath="$PROJECT_DIR$/assistant_module/functions_4_continuous_mode.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main_gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_gui.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/saradc.py" beforeDir="false" afterPath="$PROJECT_DIR$/saradc.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/saradc_differential.py" beforeDir="false" afterPath="$PROJECT_DIR$/saradc_differential.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -13,11 +16,13 @@
   </component>
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/saradc_toolbox$saradc_differential.coverage" NAME="saradc_differential Coverage Results" MODIFIED="1535486028227" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/saradc_toolbox$main_gui__1_.coverage" NAME="main_gui (1) Coverage Results" MODIFIED="1535530662294" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/saradc$caogao.coverage" NAME="caogao Coverage Results" MODIFIED="1532701140139" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/saradc$assistantModule.coverage" NAME="assistantModule Coverage Results" MODIFIED="1533038810001" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/saradc_toolbox$saradc_differential__1_.coverage" NAME="saradc_differential (1) Coverage Results" MODIFIED="1535530187862" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/saradc$saradc.coverage" NAME="saradc Coverage Results" MODIFIED="1531994380345" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/saradc$test.coverage" NAME="test Coverage Results" MODIFIED="1531133681201" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/saradc_toolbox$main_gui.coverage" NAME="main_gui Coverage Results" MODIFIED="1535486885244" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/saradc_toolbox$main_gui.coverage" NAME="main_gui Coverage Results" MODIFIED="1535631366728" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/saradc$saradc_diff_cm.coverage" NAME="saradc_diff_cm Coverage Results" MODIFIED="1531469053598" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/saradc$saradc_differential.coverage" NAME="saradc_differential Coverage Results" MODIFIED="1534853712992" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/saradc_toolbox$saradc.coverage" NAME="saradc Coverage Results" MODIFIED="1535486390757" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -40,7 +45,7 @@
     <session id="-324580034">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="20" />
+          <entry key="project.closed" value="21" />
           <entry key="project.open.time.1" value="3" />
           <entry key="project.open.time.5" value="1" />
           <entry key="project.open.time.6" value="3" />
@@ -63,14 +68,44 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="Python Console" value="149" />
-          <entry key="py" value="35227" />
+          <entry key="py" value="35242" />
           <entry key="txt" value="720" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="PLAIN_TEXT" value="720" />
-          <entry key="Python" value="35376" />
+          <entry key="Python" value="35391" />
+        </counts>
+      </usages-collector>
+    </session>
+    <session id="602246780">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="1" />
+          <entry key="project.open.time.6" value="1" />
+          <entry key="project.open.time.7" value="1" />
+          <entry key="project.opened" value="2" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="py" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="Python" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="py" value="2322" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="Python" value="2322" />
         </counts>
       </usages-collector>
     </session>
@@ -78,65 +113,50 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../saradc_toolbox/saradc.py">
+        <entry file="file://$PROJECT_DIR$/saradc.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="350">
-              <caret line="277" column="33" selection-start-line="277" selection-start-column="33" selection-end-line="277" selection-end-column="33" />
+            <state relative-caret-position="-2839">
+              <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
-                <marker date="1535486390747" expanded="true" signature="10414:10415" ph="..." />
+                <marker date="1535631366721" expanded="true" signature="10351:10352" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/saradc_differential.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="425">
+              <caret line="233" lean-forward="true" selection-start-line="233" selection-end-line="233" />
+              <folding>
+                <element signature="e#0#18#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/assistant_module/functions_4_continuous_mode.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1138">
+              <caret line="128" column="56" selection-start-line="128" selection-start-column="56" selection-end-line="128" selection-end-column="56" />
+              <folding>
+                <element signature="e#0#18#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/../saradc_toolbox/saradc_differential.py">
+        <entry file="file://$PROJECT_DIR$/main_gui.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="332">
-              <caret line="329" column="10" selection-start-line="329" selection-start-column="10" selection-end-line="329" selection-end-column="10" />
-              <folding>
-                <element signature="e#0#18#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../saradc_toolbox/main_gui.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1346">
-              <caret line="452" column="45" lean-forward="true" selection-start-line="452" selection-start-column="45" selection-end-line="452" selection-end-column="45" />
+            <state relative-caret-position="190">
+              <caret line="91" selection-start-line="91" selection-end-line="91" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
-                <marker date="1535487071194" expanded="true" signature="458:463" ph="..." />
-                <marker date="1535487071194" expanded="true" signature="12146:12152" ph="..." />
-                <marker date="1535487071194" expanded="true" signature="16938:16947" ph="..." />
-                <marker date="1535487071194" expanded="true" signature="17968:18054" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../saradc_toolbox/assistant_module/__init__.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="14" selection-start-line="14" selection-end-line="14" />
-              <folding>
-                <element signature="e#0#18#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../saradc_toolbox/__init__.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="23" selection-start-line="4" selection-start-column="23" selection-end-line="4" selection-end-column="23" />
-              <folding>
-                <element signature="e#0#18#0" expanded="true" />
+                <marker date="1535631661507" expanded="true" signature="486:491" ph="..." />
               </folding>
             </state>
           </provider>
@@ -153,9 +173,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>de2b</find>
-      <find>sar</find>
-      <find>single_ended</find>
       <find>greater</find>
       <find>capExp</find>
       <find>capArray</find>
@@ -175,8 +192,17 @@
       <find>plotfft</find>
       <find>fast</find>
       <find>set_button</find>
-      <find>self.adc</find>
       <find>print</find>
+      <find>map</find>
+      <find>prime</find>
+      <find>adc.</find>
+      <find>window</find>
+      <find>fft_length</find>
+      <find>prime_number</find>
+      <find>fs</find>
+      <find>se</find>
+      <find>self.adc</find>
+      <find>update_adc</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -204,7 +230,7 @@
     </option>
     <option name="PUSH_AUTO_UPDATE" value="true" />
     <option name="ROOT_SYNC" value="DONT_SYNC" />
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../saradc_toolbox" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="PUSH_TAGS">
       <GitPushTagMode />
     </option>
@@ -236,9 +262,10 @@
         <option value="$PROJECT_DIR$/assistant_module/cap_array_generetor.py" />
         <option value="$PROJECT_DIR$/assistant_module/functions_4_continuous_mode.py" />
         <option value="$PROJECT_DIR$/saradc_differential.py" />
+        <option value="$PROJECT_DIR$/saradc_differential.py" />
         <option value="$PROJECT_DIR$/saradc.py" />
         <option value="$PROJECT_DIR$/main_gui.py" />
-        <option value="$PROJECT_DIR$/../saradc_toolbox/saradc_differential.py" />
+        <option value="$PROJECT_DIR$/main_gui.py" />
       </list>
     </option>
   </component>
@@ -248,10 +275,9 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="y" value="23" />
+  <component name="ProjectFrameBounds" fullScreen="true">
     <option name="width" value="1440" />
-    <option name="height" value="817" />
+    <option name="height" value="900" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -305,7 +331,7 @@
     </option>
   </component>
   <component name="RunManager" selected="Python.main_gui">
-    <configuration name="assistantModule" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="main_gui (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="saradc_toolbox" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -318,29 +344,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/assistantModule.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="caogao" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="saradc_toolbox" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/caogao.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main_gui.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -393,6 +397,28 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="saradc_differential (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="saradc_toolbox" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/saradc_differential.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="saradc_differential" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="saradc_toolbox" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -416,19 +442,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.caogao" />
       <item itemvalue="Python.saradc_differential" />
       <item itemvalue="Python.saradc" />
-      <item itemvalue="Python.assistantModule" />
       <item itemvalue="Python.main_gui" />
+      <item itemvalue="Python.saradc_differential (1)" />
+      <item itemvalue="Python.main_gui (1)" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.main_gui" />
+        <item itemvalue="Python.main_gui (1)" />
+        <item itemvalue="Python.saradc_differential (1)" />
         <item itemvalue="Python.saradc" />
         <item itemvalue="Python.saradc_differential" />
-        <item itemvalue="Python.assistantModule" />
-        <item itemvalue="Python.caogao" />
       </list>
     </recent_temporary>
   </component>
@@ -586,7 +612,14 @@
       <option name="project" value="LOCAL" />
       <updated>1535487881560</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="1.improve the project struture&#10;2.implement the GUI&#10;3.improve the methods(dnl, plot_burst_mode, plot_fft, etc.)">
+      <created>1535488407298</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1535488407299</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TodoView">
@@ -599,21 +632,21 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="815" extended-state="6" />
+    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.44278607" visible="true" weight="0.15808298" />
-      <window_info id="Structure" order="1" sideWeight="0.5572139" side_tool="true" visible="true" weight="0.15808298" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4398217" visible="true" weight="0.16237482" />
+      <window_info id="Structure" order="1" sideWeight="0.5601783" side_tool="true" visible="true" weight="0.16237482" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49928468" weight="0.32891566" />
-      <window_info anchor="bottom" x="21" y="381" width="1398" height="138" id="Run" order="2" sideWeight="0.60944206" weight="0.19034483" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info active="true" anchor="bottom" x="21" y="381" width="1398" height="138" id="Run" order="2" sideWeight="0.60658085" visible="true" weight="0.18915662" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49928468" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49810246" weight="0.3264177" />
       <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info active="true" anchor="bottom" id="Event Log" order="8" sideWeight="0.39055794" side_tool="true" visible="true" weight="0.16597511" />
+      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.39341918" side_tool="true" visible="true" weight="0.18915662" />
       <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.43453512" weight="0.3756906" />
       <window_info anchor="bottom" id="Python Console" order="10" sideWeight="0.49905124" weight="0.32275862" />
       <window_info anchor="bottom" id="Docker" order="11" show_stripe_button="false" />
@@ -690,39 +723,39 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/.gitattributes" />
-    <entry file="file://$PROJECT_DIR$/../saradc_toolbox/README.md" />
+    <entry file="file://$PROJECT_DIR$/README.md" />
     <entry file="file://$PROJECT_DIR$/my first note book.md" />
     <entry file="file://$PROJECT_DIR$/continuousMode.py" />
     <entry file="file://$PROJECT_DIR$/test.py" />
-    <entry file="file://$PROJECT_DIR$/../saradc_toolbox/caogao.py">
+    <entry file="file://$PROJECT_DIR$/caogao.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="520">
           <caret line="74" selection-start-line="74" selection-end-line="74" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../saradc_toolbox/assistant_module/bin_array.py">
+    <entry file="file://$PROJECT_DIR$/assistant_module/bin_array.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
           <caret line="18" column="27" lean-forward="true" selection-start-line="18" selection-start-column="27" selection-end-line="18" selection-end-column="27" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../saradc_toolbox/assistant_module/getbi2deDict.py">
+    <entry file="file://$PROJECT_DIR$/assistant_module/getbi2deDict.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
           <caret line="9" column="27" selection-start-line="9" selection-start-column="27" selection-end-line="9" selection-end-column="27" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../saradc_toolbox/assistant_module/get_decision_path.py">
+    <entry file="file://$PROJECT_DIR$/assistant_module/get_decision_path.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
           <caret line="17" column="49" selection-start-line="17" selection-start-column="49" selection-end-line="17" selection-end-column="49" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../saradc_toolbox/assistantModule.py">
+    <entry file="file://$PROJECT_DIR$/assistantModule.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-6079">
           <caret line="4" selection-start-line="4" selection-end-line="4" />
@@ -733,7 +766,7 @@
     <entry file="file://$PROJECT_DIR$/functions4ContinuousMode.py" />
     <entry file="file://$PROJECT_DIR$/saradc_dm.py" />
     <entry file="file://$PROJECT_DIR$/saradc_diff_cm.py" />
-    <entry file="file://$PROJECT_DIR$/../saradc_toolbox/assistant_module/plot_energy.py">
+    <entry file="file://$PROJECT_DIR$/assistant_module/plot_energy.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="1" column="50" selection-start-line="1" selection-start-column="50" selection-end-line="1" selection-end-column="50" />
@@ -743,14 +776,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../saradc_toolbox/test_gui.py">
+    <entry file="file://$PROJECT_DIR$/test_gui.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1054">
           <caret line="62" column="25" selection-start-line="62" selection-start-column="25" selection-end-line="62" selection-end-column="25" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../saradc_toolbox/assistant_module/fast_conversion.py">
+    <entry file="file://$PROJECT_DIR$/assistant_module/fast_conversion.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
@@ -760,17 +793,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../saradc_toolbox/assistant_module/get_energy.py">
+    <entry file="file://$PROJECT_DIR$/assistant_module/get_energy.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1121">
           <caret line="220" lean-forward="true" selection-start-line="220" selection-end-line="220" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../saradc_toolbox/assistant_module/get_decision_lvls.py">
+    <entry file="file://$PROJECT_DIR$/assistant_module/get_decision_lvls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
           <caret line="12" column="2" selection-start-line="12" selection-start-column="2" selection-end-line="12" selection-end-column="2" />
@@ -780,59 +810,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../saradc_toolbox/assistant_module/functions_4_continuous_mode.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="92" column="21" selection-start-line="92" selection-start-column="21" selection-end-line="92" selection-end-column="21" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../saradc_toolbox/assistant_module/cap_array_generetor.py">
+    <entry file="file://$PROJECT_DIR$/assistant_module/cap_array_generetor.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="46">
           <caret line="13" column="18" selection-start-line="13" selection-start-column="18" selection-end-line="13" selection-end-column="18" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../saradc_toolbox/__init__.py">
+    <entry file="file://$PROJECT_DIR$/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="4" column="23" selection-start-line="4" selection-start-column="23" selection-end-line="4" selection-end-column="23" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../saradc_toolbox/saradc.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="350">
-          <caret line="277" column="33" selection-start-line="277" selection-start-column="33" selection-end-line="277" selection-end-column="33" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-            <marker date="1535486390747" expanded="true" signature="10414:10415" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../saradc_toolbox/main_gui.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1346">
-          <caret line="452" column="45" lean-forward="true" selection-start-line="452" selection-start-column="45" selection-end-line="452" selection-end-column="45" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-            <marker date="1535487071194" expanded="true" signature="458:463" ph="..." />
-            <marker date="1535487071194" expanded="true" signature="12146:12152" ph="..." />
-            <marker date="1535487071194" expanded="true" signature="16938:16947" ph="..." />
-            <marker date="1535487071194" expanded="true" signature="17968:18054" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../saradc_toolbox/assistant_module/__init__.py">
+    <entry file="file://$PROJECT_DIR$/assistant_module/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
           <caret line="14" selection-start-line="14" selection-end-line="14" />
@@ -842,12 +834,44 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../saradc_toolbox/saradc_differential.py">
+    <entry file="file://$PROJECT_DIR$/saradc_differential.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="332">
-          <caret line="329" column="10" selection-start-line="329" selection-start-column="10" selection-end-line="329" selection-end-column="10" />
+        <state relative-caret-position="425">
+          <caret line="233" lean-forward="true" selection-start-line="233" selection-end-line="233" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assistant_module/functions_4_continuous_mode.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1138">
+          <caret line="128" column="56" selection-start-line="128" selection-start-column="56" selection-end-line="128" selection-end-column="56" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/saradc.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2839">
+          <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+            <marker date="1535631366721" expanded="true" signature="10351:10352" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main_gui.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="91" selection-start-line="91" selection-end-line="91" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+            <marker date="1535631661507" expanded="true" signature="486:491" ph="..." />
           </folding>
         </state>
       </provider>

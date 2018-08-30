@@ -11,8 +11,8 @@ class SarAdcDifferential:
     the sar adc with differential structure
     """
 
-    def __init__(self, vref=1.2, n=12, radix=2, mismatch=0.001, structure='differential',
-                 fft_length=4096, fs=50e6, prime_number=1193, window=None):
+    def __init__(self, vref=1.2, n=12, radix=2, mismatch=0.001, structure='differential'
+                 , window=None):
         self.vref = vref
         self.vcm = vref/2
         self.n = n
@@ -27,16 +27,12 @@ class SarAdcDifferential:
         # print('weights positive', self.weights_p)
         # print('weights negative', self.weights_n)
 
-        self.fft_length = fft_length  # length of FFT
-        self.fs = fs  # sampling frequency
-        self.prime_number = prime_number  # the number to determine the input frequency by coherent sampling
-        self.fin = fs * prime_number / fft_length  # input frequency by coherent sampling
-        if not window:  # add no window
-            self.window_boolean = False
-            self.window = np.ones(self.fft_length)
-        else:
-            self.window_boolean = True
-            self.window = np.hanning(self.fft_length)
+        # if not window:  # add no window
+        #     self.window_boolean = False
+        #     self.window = np.ones(self.fft_length)
+        # else:
+        #     self.window_boolean = True
+        #     self.window = np.hanning(self.fft_length)
 
     def comparator(self, a, b):
         """
@@ -215,25 +211,26 @@ class SarAdcDifferential:
         ax2.set_ylabel('INL (LSB)')
         plt.tight_layout()
 
-    def sampling(self):
-        return cm.sampling(self)
+    def sampling(self, fs, fft_length, prime_number):
+        return cm.sampling(self, fs, fft_length, prime_number)
 
-    def get_digital_output(self):
-        return cm.get_digital_output(self)
+    def get_digital_output(self, fs, fft_length, prime_number):
+        return cm.get_digital_output(self, fs, fft_length, prime_number)
 
-    def get_analog_output(self):
-        return cm.get_analog_output(self)
+    def get_analog_output(self, fs, fft_length, prime_number):
+        return cm.get_analog_output(self, fs, fft_length, prime_number)
 
-    def get_fft_output(self):
-        return cm.get_fft_output(self)
+    def get_fft_output(self, fs, fft_length, prime_number, window_bool=False):
+        return cm.get_fft_output(self, fs, fft_length, prime_number, window_bool)
 
-    def plot_fft(self):
+    def plot_fft(self, fs=50e6, fft_length=4096, prime_number=1193, window_bool=False):
         ax = plt.subplot(111)
-        cm.plot_fft(self, ax)
+        cm.plot_fft(self, ax, fs, fft_length, prime_number, window_bool)
         ax.grid(linestyle='-')
 
-    def snr(self):
-        return cm.snr(self, self.get_fft_output())
+    def snr(self, fs, fft_length, prime_number, window_bool=False):
+        fft_output = self.get_fft_output(fs, fft_length, prime_number, window_bool)
+        return cm.snr(self, fft_output, prime_number, window_bool)
 
     def plot_energy(self):
         """
@@ -305,10 +302,10 @@ class SarAdcDifferential:
         # concatenate vip_list(or vin_list) and its last element,
         # in order to show the voltage at point X after last comparision
         ax = plt.subplot(111)
-        ax.step(np.arange(self.n+1), np.concatenate((vxp_list, [vxp_list[-1]])),
-                 label=r'$V_{xp}$', color='b', linewidth=1.5, where='post')
-        ax.step(np.arange(self.n+1), np.concatenate((vxn_list, [vxn_list[-1]])),
-                 label=r'$V_{xn}$', color='r', linewidth=1.5, where='post')
+        ax.step(np.arange(self.n+1), np.concatenate((vxp_list, [vxp_list[-1]]))
+                , label=r'$V_{xp}$', color='b', linewidth=1.5, where='post')
+        ax.step(np.arange(self.n+1), np.concatenate((vxn_list, [vxn_list[-1]]))
+                , label=r'$V_{xn}$', color='r', linewidth=1.5, where='post')
         if switch == 'conventional' or switch == 'split':
             ax.axhline(y=self.vcm, color='g', ls=':', linewidth=1, label=r'$V_{cm}$')
         ax.grid(linestyle=':')

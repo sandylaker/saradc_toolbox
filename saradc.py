@@ -9,7 +9,7 @@ import time
 class SarAdc:
 
     def __init__(self, vref=1.2, n=12, radix=2, mismatch=0.001, structure='conventional',
-                 fft_length=4096, fs=50e6, prime_number=1193, window=None,):
+                 ):
         self.vref = vref    # reference voltage
         self.n = n      # resolution of ADC
         self.vcm = vref/2       # common mode voltage
@@ -26,16 +26,6 @@ class SarAdc:
         # print('cap_array', self.cap_array)
         # print('weights', self.weights)
 
-        self.fft_length = fft_length  # length of FFT
-        self.fs = fs  # sampling frequency
-        self.prime_number = prime_number  # the number to determine the input frequency by coherent sampling
-        self.fin = fs * prime_number / fft_length  # input frequency by coherent sampling
-        if not window:  # add no window
-            self.window_boolean = False
-            self.window = np.ones(self.fft_length)
-        else:
-            self.window_boolean = True
-            self.window = np.hanning(self.fft_length)
 
     def comparator(self, a, b):
         """
@@ -211,25 +201,26 @@ class SarAdc:
         decimal_output = fast_conversion(analog_samples, self.weights, self.n, self.vref)
         return decimal_output
 
-    def sampling(self):
-        return cm.sampling(self)
+    def sampling(self, fs, fft_length, prime_number):
+        return cm.sampling(self, fs, fft_length, prime_number)
 
-    def get_digital_output(self):
-        return cm.get_digital_output(self)
+    def get_digital_output(self, fs, fft_length, prime_number):
+        return cm.get_digital_output(self, fs, fft_length, prime_number)
 
-    def get_analog_output(self):
-        return cm.get_analog_output(self)
+    def get_analog_output(self, fs, fft_length, prime_number):
+        return cm.get_analog_output(self, fs, fft_length, prime_number)
 
-    def get_fft_output(self):
-        return cm.get_fft_output(self)
+    def get_fft_output(self, fs, fft_length, prime_number, window_bool=False):
+        return cm.get_fft_output(self, fs, fft_length, prime_number, window_bool)
 
-    def plot_fft(self):
+    def plot_fft(self, fs=50e6, fft_length=4096, prime_number=1193, window_bool=False):
         ax = plt.subplot(111)
-        cm.plot_fft(self, ax)
+        cm.plot_fft(self, ax, fs, fft_length, prime_number, window_bool)
         ax.grid(linestyle='-')
 
-    def snr(self):
-        return cm.snr(self, self.get_fft_output())
+    def snr(self, fs, fft_length, prime_number, window_bool=False):
+        fft_output = self.get_fft_output(fs, fft_length, prime_number, window_bool)
+        return cm.snr(self, fft_output, prime_number, window_bool)
 
     def plot_energy(self):
         """
