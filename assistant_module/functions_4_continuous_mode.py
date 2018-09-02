@@ -108,7 +108,7 @@ def plot_fft(adc, ax, fs, fft_length, prime_number, window_bool=False):
     s_dbfs = 20 * ma.log10(magnitude/ref)
     s_dbfs = s_dbfs.filled(-500)
 
-    freq = np.arange((fft_length/2)+1) / (float(fft_length)/fs)
+    freq = np.arange((fft_length//2)+1) / (float(fft_length)/fs)
     freq_unit = 'Hz'
     if freq[-1] > 1e6:
         freq = freq/1e6     # in MHz

@@ -301,13 +301,16 @@ class Window(QWidget):
 
     def update_n(self):
         if str(self.n_widget.value()):
-            n = int(self.n_widget.value())
-            self.adc_args['n'] = n
-            self.adc_diff_args['n'] = n
-            self.update_adc()
-            self.button_nonlinearity.setEnabled(True)
-            self.button_energy.setEnabled(True)
-            self.button_fft.setEnabled(True)
+            if int(self.n_widget.value()) % 2 == 1 and self.structure_widget.currentText() == 'split capacitor array':
+                self.show_dialog_7()
+            else:
+                n = int(self.n_widget.value())
+                self.adc_args['n'] = n
+                self.adc_diff_args['n'] = n
+                self.update_adc()
+                self.button_nonlinearity.setEnabled(True)
+                self.button_energy.setEnabled(True)
+                self.button_fft.setEnabled(True)
         else:
             self.enable_buttons(False)
 
@@ -343,6 +346,9 @@ class Window(QWidget):
                         or self.switch_widget.currentText() == 'mcs':
                     self.show_dialog_1()
                     self.structure_widget.setCurrentText('conventional')
+                    self.button_bm.setEnabled(True)
+                if int(self.n_widget.value()) % 2 == 1:
+                    self.show_dialog_7()
                     self.button_bm.setEnabled(True)
                 else:
                     self.adc_args['structure'] = 'split'
@@ -568,6 +574,16 @@ class Window(QWidget):
         self.resolution_widget.setPlaceholderText(str(0.1))
         ret = msg.exec_()
 
+    def show_dialog_7(self):
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Warning)
+        msg.setText('Choose Even Number for Split Capacitor Array Structure')
+        msg.setInformativeText('In the split capacitor array structure, the capacitor array is split in to '
+                               'two sub-arrays,with the same number of bits. Thus, a even number of bits is '
+                               'required.')
+        msg.setStandardButtons(QMessageBox.Ok)
+        self.n_widget.setValue(12)
+        ret = msg.exec_()
 
     def select_prime_number(self):
         prime_number = randprime(2, 0.5 * self.fft_length)

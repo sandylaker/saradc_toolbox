@@ -43,10 +43,6 @@ def cap_array_generator(n=12, radix=2, mismatch=0.01, structure='conventional'):
         weights = (np.flip(cap_array,-1)[:, :-1]) / cap_sum  # get an (2,n) array
         return cap_array,weights     # cap_array shape(2,n+1); weights shape (2,n)
     elif structure == 'split':
-        if n % 2 == 1:
-            n = n+1
-            print('Warning: split capacitor structure only support even number of bits,'
-                  ,'n is automatically set to n+1')
         cap_exp = np.concatenate(([0],np.arange(n/2)),axis=0)
         cap_array = np.array([[],[]])
         for i in cap_exp:
