@@ -21,14 +21,14 @@ class Window(QWidget):
             'n': 12,
             'mismatch': 0.001,
             'structure': 'conventional',
-            }
+        }
         self.adc_diff_args = {
             'vref': 1.2,
             'n': 12,
             'mismatch': 0.001,
             'structure': 'differential'
-            }
-        
+        }
+
         self.fs = 50e6
         self.fft_length = 4096
         self.prime_number = 1193
@@ -46,7 +46,6 @@ class Window(QWidget):
         self.unit_map = {'MHz': 1e6,
                          'kHz': 1e3,
                          'Hz': 1}
-        self.warning_blocked = False
 
         # a single-ended adc instance and
         # a adc instance with differential structure
@@ -85,11 +84,7 @@ class Window(QWidget):
         self.button_energy.setFont(QFont('Arial', weight=QFont.Bold))
         self.button_energy.clicked.connect(self.plot_energy)
 
-        # Radio button for blocking the Warnings
-        self.button_wn_block = QRadioButton("Block Warnings")
-        self.button_wn_block.setFont(QFont('Arial', weight=QFont.Bold))
-        self.button_wn_block.setChecked(False)
-        self.button_wn_block.toggled.connect(self.block_warnings)
+
 
         # button for random prime number selection
         self.button_randprime = QPushButton('Select \n Prime Number')
@@ -127,7 +122,7 @@ class Window(QWidget):
         self.structure_widget = QComboBox()
         self.structure_widget.addItem('conventional')
         self.structure_widget.addItem('differential')
-        self.structure_widget.addItem('split cap array')
+        self.structure_widget.addItem('split capacitor array')
         self.structure_widget.currentIndexChanged.connect(self.update_structure)
 
         self.label4 = QLabel()
@@ -167,7 +162,7 @@ class Window(QWidget):
         self.resolution_widget.textChanged.connect(self.update_resolution)
 
         self.label9 = QLabel()
-        self.label9.setText('Resolution of \n Ramp Signal')
+        self.label9.setText('Resolution of \n Input Signal')
 
         self.method_widget = QComboBox()
         self.method_widget.addItem('fast')
@@ -201,7 +196,7 @@ class Window(QWidget):
 
         self.fs_widget = QLineEdit()
         self.fs_widget.setValidator(QDoubleValidator(self.fs_widget))
-        self.fs_widget.setPlaceholderText(str(self.fs/1e6))
+        self.fs_widget.setPlaceholderText(str(self.fs / 1e6))
         self.fs_widget.textChanged.connect(self.update_fs)
 
         # the unit of the sampling frequency
@@ -235,7 +230,6 @@ class Window(QWidget):
         grid_button.addWidget(self.button_nonlinearity, 1, 3)
         grid_button.addWidget(self.button_energy, 2, 1)
         grid_button.addWidget(self.button_randprime, 2, 2)
-        grid_button.addWidget(self.button_wn_block, 2, 3, Qt.AlignHCenter)
         # insert layout of buttons into the layout of canvas
         canvas_layout.addLayout(grid_button)
 
@@ -280,7 +274,6 @@ class Window(QWidget):
 
         layout.addLayout(param_layout)
         self.setLayout(layout)
-
 
     def enable_buttons(self, bool_value):
         if bool_value:
@@ -338,23 +331,21 @@ class Window(QWidget):
                 self.update_adc()
                 if self.switch_widget.currentText() == 'monotonic' \
                         or self.switch_widget.currentText() == 'mcs':
-                    if not self.warning_blocked:
-                        self.show_dialog_1()
+                    self.show_dialog_1()
                     self.button_bm.setEnabled(True)
                 else:
                     self.button_nonlinearity.setEnabled(True)
                     self.button_energy.setEnabled(True)
                     self.button_fft.setEnabled(True)
 
-            elif str(self.structure_widget.currentText()) == 'split cap array':
-                structure = 'split'
+            elif str(self.structure_widget.currentText()) == 'split capacitor array':
                 if self.switch_widget.currentText() == 'monotonic' \
                         or self.switch_widget.currentText() == 'mcs':
-                    if not self.warning_blocked:
-                        self.show_dialog_1()
+                    self.show_dialog_1()
+                    self.structure_widget.setCurrentText('conventional')
                     self.button_bm.setEnabled(True)
                 else:
-                    self.adc_args['structure'] = structure
+                    self.adc_args['structure'] = 'split'
                     self.update_adc()
                     self.button_nonlinearity.setEnabled(True)
                     self.button_energy.setEnabled(True)
@@ -375,21 +366,18 @@ class Window(QWidget):
         if str(self.vin_widget.text()):
             vin = float(self.vin_widget.text())
             if vin > self.adc_args['vref'] or vin < 0:
-                if not self.warning_blocked:
-                    self.show_dialog_2()
+                self.show_dialog_2()
             else:
                 self.vin = vin
                 self.enable_buttons(True)
-
 
     def update_switch(self):
         if str(self.switch_widget.currentText()):
             switch = str(self.switch_widget.currentText())
             if (switch == 'mcs' or switch == 'monotonic') \
-                and (str(self.structure_widget.currentText()) == 'conventional' or
-                     str(self.structure_widget.currentText()) == 'split capacitor'):
-                if not self.warning_blocked:
-                    self.show_dialog_1()
+                    and (str(self.structure_widget.currentText()) == 'conventional' or
+                         str(self.structure_widget.currentText()) == 'split capacitor array'):
+                self.show_dialog_1()
             else:
                 self.switch = switch
                 self.button_bm.setEnabled(True)
@@ -400,11 +388,9 @@ class Window(QWidget):
         if str(self.resolution_widget.text()):
             self.resolution = float(self.resolution_widget.text())
             if str(self.method_widget.currentText()) == 'code density' and self.resolution < 0.1:
-                if not self.warning_blocked:
-                    self.show_dialog_6()
+                self.show_dialog_6()
             elif str(self.method_widget.currentText()) == 'iterative' and self.resolution < 0.01:
-                if not self.warning_blocked:
-                    self.show_dialog_6()
+                self.show_dialog_6()
             self.button_nonlinearity.setEnabled(True)
         else:
             if not str(self.method_widget.currentText()) == 'fast':
@@ -414,11 +400,11 @@ class Window(QWidget):
         if str(self.method_widget.currentText()):
             self.method = str(self.method_widget.currentText())
             print(self.method)
-            if self.method == 'code density' and not self.warning_blocked:
+            if self.method == 'code density':
                 self.show_dialog_3()
                 if self.resolution_widget.text() and float(self.resolution_widget.text()) < 0.1:
                     self.show_dialog_6()
-            elif self.method == 'iterative' and not self.warning_blocked:
+            elif self.method == 'iterative':
                 self.show_dialog_4()
                 if self.resolution_widget.text() and float(self.resolution_widget.text()) < 0.01:
                     self.show_dialog_6()
@@ -437,7 +423,7 @@ class Window(QWidget):
     def update_prime_number(self):
         if str(self.prime_number_widget.text()):
             prime_number = int(self.prime_number_widget.text())
-            if prime_number > 0.5 * int(self.fft_length) and not self.warning_blocked:
+            if prime_number > 0.5 * int(self.fft_length):
                 self.show_dialog_5()
             else:
                 self.prime_number = prime_number
@@ -582,8 +568,6 @@ class Window(QWidget):
         self.resolution_widget.setPlaceholderText(str(0.1))
         ret = msg.exec_()
 
-    def block_warnings(self):
-        self.warning_blocked = self.button_wn_block.isChecked()
 
     def select_prime_number(self):
         prime_number = randprime(2, 0.5 * self.fft_length)

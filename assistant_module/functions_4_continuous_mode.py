@@ -121,9 +121,14 @@ def plot_fft(adc, ax, fs, fft_length, prime_number, window_bool=False):
     ax.set_xlabel(freq_unit)
     ax.set_ylabel('dBFS')
     ax.set_title('FFT Plot with mismatch %.4f' % adc.mismatch)
+    fin_displayed, f_unit_displayed = fin, "Hz"
+    if fin > 1e6:
+        fin_displayed, f_unit_displayed = fin/1e6, "MHz"
+    elif fin > 1e3 and fin < 1e6:
+        fin_displayed, f_unit_displayed = fin/1e3, "kHz"
     ax.text(0.05,  0.89, 'SNR:%5.3f' % SNR, fontsize='small', transform=ax.transAxes)
     ax.text(0.05, 0.84, 'ENOB:%5.3f' % enob, fontsize='small', transform=ax.transAxes)
-    ax.text(0.05, 0.79, 'fin:%2.3EHz' % fin, fontsize='small', transform=ax.transAxes)
+    ax.text(0.05, 0.79, 'fin:%5.3f %s' % (fin_displayed,f_unit_displayed), fontsize='small', transform=ax.transAxes)
 
 
 def snr(adc, fft_output, prime_number, window_bool=False):

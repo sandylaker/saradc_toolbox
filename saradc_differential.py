@@ -326,6 +326,7 @@ if __name__ == '__main__':
     # f2 = plt.figure(2)
     # adc.plot_dnl_inl(method='fast')
     # adc.plot_burst_mode(v_input=0.8, switch='conventional')
+    adc.plot_fft()
     print('elapsed time: %.5f seconds' % (time.time()-start))
     plt.show()
 
