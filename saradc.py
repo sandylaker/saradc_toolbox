@@ -256,6 +256,11 @@ class SarAdc:
         ax.legend(fontsize='small')
         ax.set_title(r'Voltage at point X with input: %.3f $V$' % v_input)
 
+    def plot_continuous_mode(self, fft_length, fs, prime_number):
+        ax = plt.subplot(111)
+        plot_dac_output(ax, self, fft_length=fft_length, prime_number=prime_number, fs=fs)
+        ax.grid(linestyle='-')
+
 
 
 if __name__ == '__main__':

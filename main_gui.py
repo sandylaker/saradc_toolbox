@@ -6,6 +6,7 @@ from PyQt5.QtGui import *
 
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
+import numpy as np
 import matplotlib.pyplot as plt
 from saradc import SarAdc as Adc
 from saradc_differential import SarAdcDifferential as AdcDiff
@@ -46,6 +47,7 @@ class Window(QWidget):
         self.unit_map = {'MHz': 1e6,
                          'kHz': 1e3,
                          'Hz': 1}
+        self.n_monte_carlo = 1000
 
         # a single-ended adc instance and
         # a adc instance with differential structure
@@ -83,13 +85,21 @@ class Window(QWidget):
         self.button_energy = QPushButton('Plot Energy \n Consumption')
         self.button_energy.setFont(QFont('Arial', weight=QFont.Bold))
         self.button_energy.clicked.connect(self.plot_energy)
+        
+        # Just some button connected to continuous plot
+        self.button_plot_cm = QPushButton('Plot Continuous \n Mode')
+        self.button_plot_cm.setFont(QFont('Arial', weight=QFont.Bold))
+        self.button_plot_cm.clicked.connect(self.plot_cm)
 
+        # Just button connected to input frequency selection
+        self.button_fin = QPushButton('Select \n Input Frequency')
+        self.button_fin.setFont(QFont('Arial', weight=QFont.Bold))
+        self.button_fin.clicked.connect(self.update_fin)
 
-
-        # button for random prime number selection
-        self.button_randprime = QPushButton('Select \n Prime Number')
-        self.button_randprime.setFont(QFont('Arial', weight=QFont.Bold))
-        self.button_randprime.clicked.connect(self.select_prime_number)
+        # Just some button connected to monte carlo of dnl and inl
+        self.button_mc_nl = QPushButton('Monte Carlo \n of DNL and INL')
+        self.button_mc_nl.setFont(QFont('Arial', weight=QFont.Bold))
+        self.button_mc_nl.clicked.connect(self.plot_monte_carlo_nl)
 
         # widgets to initialize the parameters of adc
         self.vref_widget = QLineEdit()
@@ -98,8 +108,8 @@ class Window(QWidget):
         self.vref_widget.setPlaceholderText(str(self.adc.vref))
         self.vref_widget.textChanged.connect(self.update_vref)
 
-        self.label1 = QLabel()
-        self.label1.setText('Reference Voltage')
+        self.label_vref = QLabel()
+        self.label_vref.setText('Reference Voltage')
 
         self.n_widget = QSpinBox()
         self.n_widget.setMinimum(3)
@@ -107,8 +117,8 @@ class Window(QWidget):
         self.n_widget.setValue(self.adc.n)
         self.n_widget.valueChanged.connect(self.update_n)
 
-        self.label2 = QLabel()
-        self.label2.setText('Number of Bits')
+        self.label_n = QLabel()
+        self.label_n.setText('Number of Bits')
 
         self.mismatch_widget = QLineEdit()
         self.mismatch_widget.setValidator(
@@ -116,8 +126,8 @@ class Window(QWidget):
         self.mismatch_widget.setPlaceholderText(str(self.adc.mismatch))
         self.mismatch_widget.textChanged.connect(self.update_mismatch)
 
-        self.label3 = QLabel()
-        self.label3.setText('Mismatch')
+        self.label_mismatch = QLabel()
+        self.label_mismatch.setText('Mismatch')
 
         self.structure_widget = QComboBox()
         self.structure_widget.addItem('conventional')
@@ -125,20 +135,20 @@ class Window(QWidget):
         self.structure_widget.addItem('split capacitor array')
         self.structure_widget.currentIndexChanged.connect(self.update_structure)
 
-        self.label4 = QLabel()
-        self.label4.setText('Structure')
+        self.label_structure = QLabel()
+        self.label_structure.setText('Structure')
 
         # widgets to initialize the parameter of burst mode
-        self.label5 = QLabel()
-        self.label5.setText('Burst Mode:')
-        self.label5.setFont(QFont('Arial', weight=QFont.Bold))
+        self.label_bm = QLabel()
+        self.label_bm.setText('Burst Mode:')
+        self.label_bm.setFont(QFont('Arial', weight=QFont.Bold))
 
         self.vin_widget = QLineEdit()
         self.vin_widget.setValidator(QDoubleValidator(self.vin_widget))
         self.vin_widget.setPlaceholderText(str(0.6))
         self.vin_widget.textChanged.connect(self.update_vin)
-        self.label6 = QLabel()
-        self.label6.setText('Input Voltage')
+        self.label_vin = QLabel()
+        self.label_vin.setText('Input Voltage')
 
         self.switch_widget = QComboBox()
         self.switch_widget.addItem('conventional')
@@ -147,13 +157,13 @@ class Window(QWidget):
         self.switch_widget.addItem('split capacitor')
         self.switch_widget.currentIndexChanged.connect(self.update_switch)
 
-        self.label7 = QLabel()
-        self.label7.setText('Switch')
+        self.label_switch = QLabel()
+        self.label_switch.setText('Switch')
 
         # widgets to initialize the parameter of nonlinearity plot
-        self.label8 = QLabel()
-        self.label8.setText('Nonlinearity Plot: ')
-        self.label8.setFont(QFont('Arial', weight=QFont.Bold))
+        self.label_plot_nl = QLabel()
+        self.label_plot_nl.setText('Nonlinearity Plot: ')
+        self.label_plot_nl.setFont(QFont('Arial', weight=QFont.Bold))
 
         self.resolution_widget = QLineEdit()
         self.resolution_widget.setValidator(
@@ -161,8 +171,8 @@ class Window(QWidget):
         self.resolution_widget.setPlaceholderText(str(0.1))
         self.resolution_widget.textChanged.connect(self.update_resolution)
 
-        self.label9 = QLabel()
-        self.label9.setText('Resolution of \n Input Signal')
+        self.label_resolution = QLabel()
+        self.label_resolution.setText('Resolution of \n Test Signal (in LSB)')
 
         self.method_widget = QComboBox()
         self.method_widget.addItem('fast')
@@ -170,29 +180,28 @@ class Window(QWidget):
         self.method_widget.addItem('code density')
         self.method_widget.currentIndexChanged.connect(self.update_method)
 
-        self.label10 = QLabel()
-        self.label10.setText('Method')
+        self.label_method = QLabel()
+        self.label_method.setText('Method')
 
         # widgets to initialize the parameter of FFT Plot
-        self.label11 = QLabel()
-        self.label11.setText('FFT Plot: ')
-        self.label11.setFont(QFont('Arial', weight=QFont.Bold))
+        self.label_plot_fft = QLabel()
+        self.label_plot_fft.setText('FFT Plot: ')
+        self.label_plot_fft.setFont(QFont('Arial', weight=QFont.Bold))
 
         self.fftlength_widget = QLineEdit()
         self.fftlength_widget.setValidator(QIntValidator(self.fftlength_widget))
         self.fftlength_widget.setPlaceholderText(str(self.fft_length))
         self.fftlength_widget.textChanged.connect(self.update_fft_length)
 
-        self.label12 = QLabel()
-        self.label12.setText('FFT Length')
+        self.label_fft_length = QLabel()
+        self.label_fft_length.setText('FFT Length')
 
-        self.prime_number_widget = QLineEdit()
-        self.prime_number_widget.setValidator(QIntValidator(self.prime_number_widget))
-        self.prime_number_widget.setPlaceholderText(str(self.prime_number))
-        self.prime_number_widget.textChanged.connect(self.update_prime_number)
+        self.fin_widget = QLineEdit()
+        self.fin_widget.setPlaceholderText(str(self.prime_number/self.fft_length * self.fs))
+        self.fin_widget.setReadOnly(True)
 
-        self.label13 = QLabel()
-        self.label13.setText('Prime Number')
+        self.label_fin = QLabel()
+        self.label_fin.setText('Input Frequency')
 
         self.fs_widget = QLineEdit()
         self.fs_widget.setValidator(QDoubleValidator(self.fs_widget))
@@ -206,12 +215,12 @@ class Window(QWidget):
         self.fs_unit_widget.addItem('Hz')
         self.fs_unit_widget.currentIndexChanged.connect(self.update_fs_unit)
 
-        self.label14 = QLabel()
-        self.label14.setText('Sampling Frequency')
+        self.label_fs = QLabel()
+        self.label_fs.setText('Sampling Frequency')
 
-        self.label15 = QLabel()
-        self.label15.setText('ADC Parameters:')
-        self.label15.setFont(QFont('Arial', weight=QFont.Bold))
+        self.label_adc_param = QLabel()
+        self.label_adc_param.setText('ADC Parameters:')
+        self.label_adc_param.setFont(QFont('Arial', weight=QFont.Bold))
 
         # set layout
         # the outermost layout
@@ -228,47 +237,49 @@ class Window(QWidget):
         grid_button.addWidget(self.button_bm, 1, 1)
         grid_button.addWidget(self.button_fft, 1, 2)
         grid_button.addWidget(self.button_nonlinearity, 1, 3)
-        grid_button.addWidget(self.button_energy, 2, 1)
-        grid_button.addWidget(self.button_randprime, 2, 2)
+        grid_button.addWidget(self.button_energy, 1, 4)
+        grid_button.addWidget(self.button_fin, 2, 1)
+        grid_button.addWidget(self.button_plot_cm, 2, 2)
+        grid_button.addWidget(self.button_mc_nl, 2, 3)
         # insert layout of buttons into the layout of canvas
         canvas_layout.addLayout(grid_button)
 
         # layout for parameters
         param_layout = QGridLayout()
-        param_layout.addWidget(self.label15, 1, 1, 1, 2, Qt.AlignHCenter)
-        param_layout.addWidget(self.label1, 2, 1)
+        param_layout.addWidget(self.label_adc_param, 1, 1, 1, 2, Qt.AlignHCenter)
+        param_layout.addWidget(self.label_vref, 2, 1)
         param_layout.addWidget(self.vref_widget, 3, 1)
 
-        param_layout.addWidget(self.label2, 2, 2)
+        param_layout.addWidget(self.label_n, 2, 2)
         param_layout.addWidget(self.n_widget, 3, 2)
 
-        param_layout.addWidget(self.label3, 4, 1)
+        param_layout.addWidget(self.label_mismatch, 4, 1)
         param_layout.addWidget(self.mismatch_widget, 5, 1)
 
-        param_layout.addWidget(self.label4, 4, 2)
+        param_layout.addWidget(self.label_structure, 4, 2)
         param_layout.addWidget(self.structure_widget, 5, 2)
 
-        param_layout.addWidget(self.label5, 6, 1, 1, 2, Qt.AlignHCenter)
-        param_layout.addWidget(self.label6, 7, 1)
+        param_layout.addWidget(self.label_bm, 6, 1, 1, 2, Qt.AlignHCenter)
+        param_layout.addWidget(self.label_vin, 7, 1)
         param_layout.addWidget(self.vin_widget, 8, 1)
 
-        param_layout.addWidget(self.label7, 7, 2)
+        param_layout.addWidget(self.label_switch, 7, 2)
         param_layout.addWidget(self.switch_widget, 8, 2)
 
-        param_layout.addWidget(self.label8, 9, 1, 1, 2, Qt.AlignHCenter)
-        param_layout.addWidget(self.label9, 10, 1)
+        param_layout.addWidget(self.label_plot_nl, 9, 1, 1, 2, Qt.AlignHCenter)
+        param_layout.addWidget(self.label_resolution, 10, 1)
         param_layout.addWidget(self.resolution_widget, 11, 1)
-        param_layout.addWidget(self.label10, 10, 2)
+        param_layout.addWidget(self.label_method, 10, 2)
         param_layout.addWidget(self.method_widget, 11, 2)
 
-        param_layout.addWidget(self.label11, 12, 1, 1, 2, Qt.AlignHCenter)
-        param_layout.addWidget(self.label12, 13, 1)
+        param_layout.addWidget(self.label_plot_fft, 12, 1, 1, 2, Qt.AlignHCenter)
+        param_layout.addWidget(self.label_fft_length, 13, 1)
         param_layout.addWidget(self.fftlength_widget, 14, 1)
 
-        param_layout.addWidget(self.label13, 13, 2)
-        param_layout.addWidget(self.prime_number_widget, 14, 2)
+        param_layout.addWidget(self.label_fin, 13, 2)
+        param_layout.addWidget(self.fin_widget, 14, 2)
 
-        param_layout.addWidget(self.label14, 15, 1)
+        param_layout.addWidget(self.label_fs, 15, 1)
         param_layout.addWidget(self.fs_widget, 16, 1)
         param_layout.addWidget(self.fs_unit_widget, 16, 2)
 
@@ -426,17 +437,22 @@ class Window(QWidget):
         else:
             self.button_fft.setEnabled(False)
 
-    def update_prime_number(self):
-        if str(self.prime_number_widget.text()):
-            prime_number = int(self.prime_number_widget.text())
-            if prime_number > 0.5 * int(self.fft_length):
-                self.show_dialog_5()
-            else:
-                self.prime_number = prime_number
-                self.button_fft.setEnabled(True)
-                print(self.prime_number)
+    def update_fin(self):
+        # update self.prime_number and display fin
+        self.prime_number = randprime(1, int(0.5*self.fft_length))
+        fin = self.prime_number / self.fft_length * self.fs
+        freq_unit = 'Hz'
+        fin_displayed = fin
+        if fin > 1e6:
+            fin_displayed = fin_displayed / 1e6  # in MHz
+            freq_unit = 'MHz'
+        elif 1e3 < fin <= 1e6:
+            fin_displayed = fin_displayed / 1e3  # in kHz
+            freq_unit = 'kHz'
         else:
-            self.button_fft.setEnabled(False)
+            freq_unit = 'Hz'
+        self.fin_widget.setText('%5.3f %s' % (fin_displayed, freq_unit))
+        self.button_fft.setEnabled(True)
 
     def update_fs(self):
         if str(self.fs_widget.text()):
@@ -501,6 +517,93 @@ class Window(QWidget):
             self.adc_diff.plot_energy()
         else:
             self.adc.plot_energy()
+
+        self.toolbar.update()
+        # refresh canvas
+        self.canvas.draw()
+    
+    def plot_cm(self):
+        # refresh the figure
+        self.figure.clear()
+        if str(self.structure_widget.currentText()) == 'differential':
+            self.adc_diff.plot_continuous_mode(self.fft_length, self.fs, self.prime_number)
+        else:
+            self.adc.plot_continuous_mode(self.fft_length, self.fs, self.prime_number)
+
+        self.toolbar.update()
+        # refresh canvas
+        self.canvas.draw()
+
+    def plot_monte_carlo_nl(self):
+        # refresh the figure
+        self.figure.clear()
+
+        dnl_array = np.array([])
+        inl_array = np.array([])
+        if str(self.structure_widget.currentText()) == 'differential':
+            self.update_adc()
+            dnl_array = self.adc_diff.dnl(method='fast')
+            inl_array = self.adc_diff.inl(dnl_array)[np.newaxis, :]
+            dnl_array = dnl_array[np.newaxis, :]
+            for i in range(1, self.n_monte_carlo):
+                self.update_adc()
+                dnl = self.adc_diff.dnl(method='fast')
+                inl = self.adc_diff.inl(dnl)[np.newaxis, :]
+                dnl = dnl[np.newaxis, :]
+                dnl_array = np.concatenate((dnl_array, dnl))
+                inl_array = np.concatenate((inl_array, inl))
+        else:
+            self.update_adc()
+            dnl_array = self.adc.dnl(method='fast')
+            inl_array = self.adc.inl(dnl_array)[np.newaxis, :]
+            dnl_array = dnl_array[np.newaxis, :]
+            for i in range(1,self.n_monte_carlo):
+                self.update_adc()
+                dnl = self.adc.dnl(method='fast')
+                inl = self.adc.inl(dnl)[np.newaxis, :]
+                dnl = dnl[np.newaxis, :]
+                dnl_array = np.concatenate((dnl_array, dnl))
+                inl_array = np.concatenate((inl_array, inl))
+        print('len(dnl_array)', len(dnl_array))
+        print('len(inl_array', len(inl_array))
+        # plot monte carlo of dnl
+        ax1 = plt.subplot(221)
+        for i in range(len(dnl_array)):
+            ax1.plot(np.arange(len(dnl_array[i])), dnl_array[i], linewidth=0.5)
+        # ax1.set_xlabel('Output Code')
+        ax1.set_ylabel('DNL (LSB)')
+        ax1.set_title('DNL')
+        plt.grid(True)
+
+        sigma_dnl = np.std(dnl_array, axis=0, ddof=1)
+
+        # plot stardard deviation of DNL
+        ax2 = plt.subplot(222)
+        ax2.plot(np.arange(len(sigma_dnl)), sigma_dnl, linewidth=0.5)
+        # ax2.set_xlabel('Output Code')
+        ax2.set_ylabel(r'$\sigma_{DNL}$ (LSB)')
+        ax2.set_title(r'$\sigma$ of DNL')
+        plt.grid(True)
+
+        # plot monte carlo of inl
+        ax3 = plt.subplot(223)
+        for i in range(len(inl_array)):
+            ax3.plot(np.arange(len(inl_array[i])), inl_array[i], linewidth=0.5)
+        ax3.set_xlabel('Output Code')
+        ax3.set_ylabel('INL (LSB)')
+        ax3.set_title('INL')
+        plt.grid(True)
+
+        sigma_inl = np.std(inl_array, axis=0, ddof=1)
+        # plot stardart deviation of INLf
+        ax4 = plt.subplot(224)
+        ax4.plot(np.arange(len(sigma_inl)), sigma_inl, linewidth=0.5)
+        ax4.set_xlabel('Output Code')
+        ax4.set_ylabel(r'$\sigma_{INL}$ (LSB)')
+        ax4.set_title(r'$\sigma$ of INL')
+        plt.grid(True)
+
+        plt.tight_layout()
 
         self.toolbar.update()
         # refresh canvas
@@ -585,9 +688,6 @@ class Window(QWidget):
         self.n_widget.setValue(12)
         ret = msg.exec_()
 
-    def select_prime_number(self):
-        prime_number = randprime(2, 0.5 * self.fft_length)
-        self.prime_number_widget.setText(str(prime_number))
 
 
 if __name__ == '__main__':
