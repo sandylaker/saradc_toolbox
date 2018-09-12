@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 from saradc import SarAdc as Adc
 from saradc_differential import SarAdcDifferential as AdcDiff
 from sympy import randprime
-
+from numba import jit
 
 # noinspection PyArgumentList
 class Window(QWidget):
@@ -91,15 +91,20 @@ class Window(QWidget):
         self.button_plot_cm.setFont(QFont('Arial', weight=QFont.Bold))
         self.button_plot_cm.clicked.connect(self.plot_cm)
 
-        # Just button connected to input frequency selection
+        # Just a button connected to input frequency selection
         self.button_fin = QPushButton('Select \n Input Frequency')
         self.button_fin.setFont(QFont('Arial', weight=QFont.Bold))
         self.button_fin.clicked.connect(self.update_fin)
 
-        # Just some button connected to monte carlo of dnl and inl
+        # Just a button connected to monte carlo of dnl and inl
         self.button_mc_nl = QPushButton('Monte Carlo \n of DNL and INL')
         self.button_mc_nl.setFont(QFont('Arial', weight=QFont.Bold))
         self.button_mc_nl.clicked.connect(self.plot_monte_carlo_nl)
+
+        # Just a button connected to monte carlo of ENOB
+        self.button_mc_enob = QPushButton('Monte Carlo \n of ENOB')
+        self.button_mc_enob.setFont(QFont('Arial', weight=QFont.Bold))
+        self.button_mc_enob.clicked.connect(self.show_dialog_8)
 
         # widgets to initialize the parameters of adc
         self.vref_widget = QLineEdit()
@@ -241,6 +246,7 @@ class Window(QWidget):
         grid_button.addWidget(self.button_fin, 2, 1)
         grid_button.addWidget(self.button_plot_cm, 2, 2)
         grid_button.addWidget(self.button_mc_nl, 2, 3)
+        grid_button.addWidget(self.button_mc_enob, 2, 4)
         # insert layout of buttons into the layout of canvas
         canvas_layout.addLayout(grid_button)
 
@@ -419,11 +425,11 @@ class Window(QWidget):
             print(self.method)
             if self.method == 'code density':
                 self.show_dialog_3()
-                if self.resolution_widget.text() and float(self.resolution_widget.text()) < 0.1:
+                if self.resolution_widget.text() and float(self.resolution_widget.text()) < 0.001:
                     self.show_dialog_6()
             elif self.method == 'iterative':
                 self.show_dialog_4()
-                if self.resolution_widget.text() and float(self.resolution_widget.text()) < 0.01:
+                if self.resolution_widget.text() and float(self.resolution_widget.text()) < 0.005:
                     self.show_dialog_6()
             self.button_nonlinearity.setEnabled(True)
         else:
@@ -564,8 +570,6 @@ class Window(QWidget):
                 dnl = dnl[np.newaxis, :]
                 dnl_array = np.concatenate((dnl_array, dnl))
                 inl_array = np.concatenate((inl_array, inl))
-        print('len(dnl_array)', len(dnl_array))
-        print('len(inl_array', len(inl_array))
         # plot monte carlo of dnl
         ax1 = plt.subplot(221)
         for i in range(len(dnl_array)):
@@ -604,6 +608,41 @@ class Window(QWidget):
         plt.grid(True)
 
         plt.tight_layout()
+
+        self.toolbar.update()
+        # refresh canvas
+        self.canvas.draw()
+
+    @jit
+    def plot_monte_carlo_enob(self):
+        # refresh the figure
+        self.figure.clear()
+
+        start = time.time()
+        enob_array = np.array([])
+        if str(self.structure_widget.currentText()) == 'differential':
+            for i in range(self.n_monte_carlo):
+                self.update_adc()
+                snr = self.adc_diff.snr(self.fs, self.fft_length, self.prime_number)
+                enob = (snr - 1.76) / 6.02
+                enob_array = np.concatenate((enob_array, [enob]))
+        else:
+            for i in range(self.n_monte_carlo):
+                self.update_adc()
+                snr = self.adc.snr(self.fs, self.fft_length, self.prime_number)
+                enob = (snr - 1.76) / 6.02
+                enob_array = np.concatenate((enob_array, [enob]))
+        # plot monte-carlo of enob
+        ax = plt.subplot(111)
+        ax.hist(enob_array, 51, edgecolor='black')
+        ax.set_title('ENOB Distribution')
+        ax.set_xlabel('ENOB (LSB)')
+        ax.set_ylabel('Frequency')
+        ax.set_xlim(np.amin(enob_array), np.amax(enob_array))
+        ax.set_xticks(np.linspace(np.amin(enob_array), np.amax(enob_array), 5))
+        ax.ticklabel_format(style='plain')
+        plt.grid(True)
+        print('elapsed time: %.5f seconds' % (time.time() - start))
 
         self.toolbar.update()
         # refresh canvas
@@ -688,6 +727,18 @@ class Window(QWidget):
         self.n_widget.setValue(12)
         ret = msg.exec_()
 
+    def show_dialog_8(self):
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Warning)
+        msg.setText('Runtime Warning')
+        msg.setInformativeText('1000 runs of monte-carlo for ENOB will take about 20 minutes.'
+                               'Are you sure to continue?')
+        msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+        ret = msg.exec_()
+        if ret == QMessageBox.Ok:
+            self.plot_monte_carlo_enob()
+        else:
+            pass
 
 
 if __name__ == '__main__':

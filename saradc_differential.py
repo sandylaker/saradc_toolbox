@@ -5,7 +5,6 @@ from assistant_module import *
 from assistant_module import functions_4_continuous_mode as cm
 import time
 
-
 class SarAdcDifferential:
     """
     the sar adc with differential structure

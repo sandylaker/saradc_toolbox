@@ -41,7 +41,7 @@ def cap_array_generator(n=12, radix=2, mismatch=0.01, structure='conventional'):
             cap_array = np.hstack((cap_array,cap_i))    # get an (2,n+1) array
         cap_sum = np.sum(cap_array,axis=-1)[:, np.newaxis]  # in order to use broadcasting, get an (2,1) array
         weights = (np.flip(cap_array,-1)[:, :-1]) / cap_sum  # get an (2,n) array
-        return cap_array,weights     # cap_array shape(2,n+1); weights shape (2,n)
+        return cap_array, weights     # cap_array shape(2,n+1); weights shape (2,n)
     elif structure == 'split':
         cap_exp = np.concatenate(([0],np.arange(n/2)),axis=0)
         cap_array = np.array([[],[]])

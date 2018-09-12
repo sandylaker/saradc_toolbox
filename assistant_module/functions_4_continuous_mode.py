@@ -108,13 +108,14 @@ def plot_fft(adc, ax, fs, fft_length, prime_number, window_bool=False):
     s_dbfs = s_dbfs.filled(-500)
 
     # computing HD3
-    #hd_3 = s_dbfs[prime_number] - s_dbfs[fft_length - 3*prime_number]
+    hd_3 = 0
+    if 0 <= fft_length - 3*prime_number <= fft_length/2:
+        hd_3 = s_dbfs[prime_number] - s_dbfs[fft_length - 3*prime_number]
 
     # computing SFDR
     s_dbfs_sorted = np.sort(s_dbfs)
     # index -1 refers to dc part, index -2 refers to signal
     sfdr = s_dbfs_sorted[-2] - s_dbfs_sorted[-3]
-    print('fft', np.sort(s_dbfs)[: -20: -1])
 
     # frequency displayed in x-axis
     freq = np.arange((fft_length//2)+1) / (float(fft_length)/fs)
@@ -145,7 +146,8 @@ def plot_fft(adc, ax, fs, fft_length, prime_number, window_bool=False):
     ax.text(0.05, 0.84, 'ENOB:%5.3f' % enob, fontsize='small', transform=ax.transAxes)
     ax.text(0.05, 0.79, 'fin:%5.3f %s' % (fin_displayed, f_unit_displayed), fontsize='small', transform=ax.transAxes)
     ax.text(0.05, 0.74, 'SFDR: %5.3f dB' % sfdr, fontsize='small', transform=ax.transAxes)
-    #ax.text(0.05, 0.74, 'HD3: %5.3f dB' % hd_3, fontsize='small', transform=ax.transAxes)
+    if 0 <= fft_length - 3*prime_number <= fft_length/2:
+        ax.text(0.05, 0.69, 'HD3: %5.3f dB' % hd_3, fontsize='small', transform=ax.transAxes)
 
 
 def snr(adc, fft_output, prime_number, window_bool=False):
@@ -206,4 +208,4 @@ def plot_dac_output(ax, adc, fs, fft_length, prime_number):
     ax.set_ylim(bottom=0, top=adc.vref)
     ax.set_xlabel('time/ %s' % time_unit)
     ax.set_ylabel(r'Voltage / $V$')
-    ax.set_title('Waveform of Analog Output')
+    ax.set_title('Waveform of DAC Output')
